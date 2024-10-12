@@ -4,7 +4,7 @@ description: Configure zone redundancy for your Azure SQL Managed Instance by us
 author: Stralle
 ms.author: strrodic
 ms.reviewer: urmilano, mathoma, randolphwest
-ms.date: 06/15/2024
+ms.date: 09/22/2024
 ms.service: azure-sql-managed-instance
 ms.subservice: high-availability
 ms.topic: conceptual
@@ -139,27 +139,7 @@ Zone redundancy is enabled if `zoneRedundant` is set to `true`.
 
 ## Supported regions
 
-Zone redundancy for SQL Managed Instance varies for instances in the Business Critical and General Purpose service tier: 
-
-### [Business Critical service tier](#tab/bc)
-
-Zone redundancy for Business Critical SQL Managed Instance is supported in the following regions:
-
-| Americas | Europe | Middle East and Africa | Asia Pacific |
-| --- | --- | --- | --- | --- |
-| Brazil South | France Central | Israel Central | Australia East |
-| Canada Central | Germany West Central | Qatar Central | Central India |
-| Central US | Italy North | South Africa North | East Asia |
-| East US | North Europe | UAE North | Japan West |
-| East US 2 | Norway East | | Korea Central |
-| Mexico Central | Poland Central | | New Zealand North |
-| West Central US | Spain Central | | Southeast Asia |
-| West US 2 | Sweden Central | | |
-| West US 3 | Switzerland North | | |
-| | UK South | | |
-| | West Europe | | |
-
-### [General Purpose service tier](#tab/gp)
+Zone redundancy for SQL Managed Instance is supported in the following regions:
 
 > [!NOTE]  
 > Zone-redundant configuration is in public preview for the General Purpose service tier.
@@ -168,15 +148,17 @@ Zone redundancy for Business Critical SQL Managed Instance is supported in the f
 | --- | --- | --- | --- | --- |
 | Brazil South | France Central | Israel Central | Australia East |
 | Canada Central | Germany West Central | Qatar Central | Central India |
-| East US | Italy North | South Africa North | East Asia |
-| East US 2 | North Europe | UAE North | Japan West |
-| Mexico Central | Norway East | | Korea Central |
-| West Central US | Poland Central | | New Zealand North |
-| West US 2 | Spain Central | | Southeast Asia |
-| West US 3 | Sweden Central | | |
-| | Switzerland North | | |
+| Central US <sup>1</sup> | Italy North | South Africa North | East Asia |
+| East US | North Europe | UAE North | Japan East |
+| East US 2 | Norway East | | Japan West |
+| Mexico Central | Poland Central | | Korea Central |
+| West Central US | Spain Central | | New Zealand North |
+| West US 2 | Sweden Central | | Southeast Asia |
+| West US 3 | Switzerland North | | |
 | | UK South | | |
 | | West Europe | | |
+
+<sup>1</sup> This region currently supports Zone redundancy only for the Business Critical service tier. Support for Zone redundancy in the General Purpose service tier in this region is coming soon.
 
 ---
 

@@ -1406,7 +1406,7 @@ items:
       items:
       - name: Troubleshooting Activation Stored Procedures
         href: database-engine/service-broker/troubleshooting-activation-stored-procedures.md
-      - name: Troubleshooting Routing and Message Delivery
+      - name: Troubleshooting Routing and Message Delivery
         href: database-engine/service-broker/troubleshooting-routing-and-message-delivery.md
       - name: Troubleshooting Conversation Priorities
         href: database-engine/service-broker/troubleshooting-conversation-priorities.md
@@ -4425,8 +4425,6 @@ items:
       href: database-engine/install-windows/supported-version-and-edition-upgrades-2017.md
     - name: Supported Version & Edition Upgrades SQL Server 2016
       href: database-engine/install-windows/supported-version-and-edition-upgrades.md?view=sql-server-2016&preserve-view=true
-    - name: Prepare for upgrade by running Data Migration Assistant
-      href: database-engine/install-windows/prepare-for-upgrade-by-running-data-migration-assistant.md
     - name: Analysis Services
       href: database-engine/install-windows/upgrade-analysis-services.md
     - name: Data Quality Services
@@ -4764,8 +4762,6 @@ items:
         href: database-engine/configure-windows/logging-in-to-sql-server.md
       - name: Open the ODBC Data Source Administrator
         href: database-engine/configure-windows/open-the-odbc-data-source-administrator.md
-      - name: Check the ODBC SQL Server Driver Version (Windows)
-        href: database-engine/configure-windows/check-the-odbc-sql-server-driver-version-windows.md
   - name: Uninstall SQL Server
     items:
     - name: Overview
@@ -10458,6 +10454,8 @@ items:
           href: sql-server/azure-arc/troubleshoot-telemetry-endpoint.md
         - name: Troubleshoot best practices assessment
           href: sql-server/azure-arc/troubleshoot-assessment.md
+        - name: Known issues
+          href: sql-server/azure-arc/known-issues.md
     - name: Azure Arc-enabled data services >
       href: /azure/azure-arc/data/overview
 
@@ -11783,10 +11781,10 @@ items:
           href: relational-databases/errors-events/mssqlserver-41396-database-engine-error.md
         - name: 41399
           href: relational-databases/errors-events/mssqlserver-41399-database-engine-error.md
-      - name: Errors 41,400 to 42,999
+      - name: Errors 41,400 to 49,999
         items:
         - name: Overview
-          href: relational-databases/errors-events/database-engine-events-and-errors-41400-to-42999.md
+          href: relational-databases/errors-events/database-engine-events-and-errors-41400-to-49999.md
         - name: 42108
           href: relational-databases/errors-events/mssqlserver-42108-database-engine-error.md
         - name: 42109
@@ -12325,7 +12323,7 @@ items:
       items:
       - name: Database Mirroring Witness - sys.database_mirroring_witnesses
         href: relational-databases/system-catalog-views/database-mirroring-witness-catalog-views-sys-database-mirroring-witnesses.md
-    - name: Databases & Files
+    - name: Databases & files
       href: relational-databases/system-catalog-views/databases-and-files-catalog-views-transact-sql.md
       items:
       - name: sys.backup_devices
@@ -12340,6 +12338,8 @@ items:
         href: relational-databases/system-catalog-views/sys-database-recovery-status-transact-sql.md
       - name: sys.database_scoped_configurations
         href: relational-databases/system-catalog-views/sys-database-scoped-configurations-transact-sql.md
+      - name: sys.database_automatic_tuning_configuration
+        href: relational-databases/system-catalog-views/sys-database-automatic-tuning-configuration-transact-sql.md
       - name: sys.database_automatic_tuning_options
         href: relational-databases/system-catalog-views/sys-database-automatic-tuning-options-transact-sql.md
       - name: sys.database_automatic_tuning_mode
@@ -14098,6 +14098,8 @@ items:
         href: relational-databases/system-stored-procedures/sp-clean-db-file-free-space-transact-sql.md
       - name: sp_configure
         href: relational-databases/system-stored-procedures/sp-configure-transact-sql.md
+      - name: sp_configure_automatic_tuning
+        href: relational-databases/system-stored-procedures/sp-configure-automatic-tuning-transact-sql.md
       - name: sp_control_plan_guide
         href: relational-databases/system-stored-procedures/sp-control-plan-guide-transact-sql.md
       - name: sp_create_plan_guide
@@ -15911,8 +15913,9 @@ items:
     href: t-sql/language-reference.md
     items:
     - name: Date & time
-      href: t-sql/data-types/date-and-time-types.md
       items:
+      - name: Overview
+        href: t-sql/data-types/date-and-time-types.md
       - name: date
         href: t-sql/data-types/date-transact-sql.md
       - name: datetime
@@ -17488,6 +17491,8 @@ items:
           href: t-sql/queries/updatetext-transact-sql.md
         - name: WITH common_table_expression
           href: t-sql/queries/with-common-table-expression-transact-sql.md
+        - name: Nested common table expressions in Fabric Warehouse
+          href: t-sql/queries/nested-common-table-expression.md
         - name: WRITETEXT
           href: t-sql/queries/writetext-transact-sql.md
       - name: SELECT

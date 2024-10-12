@@ -2,8 +2,8 @@
 title: Migrate with the link
 titleSuffix: Azure SQL Managed Instance
 description: Learn how to use the Managed Instance link to migrate your SQL Server data to Azure SQL Managed Instance.
-author: djordje-jeremic
-ms.author: djjeremi
+author: danimir
+ms.author: danil
 ms.reviewer: mathoma
 ms.date: 08/22/2024
 ms.service: azure-sql-managed-instance
@@ -78,6 +78,7 @@ After your link is established, and you're ready to migrate, follow these steps 
 1. Stop the workload on the primary SQL Server database so the secondary database on SQL Managed Instance catches up. 
 1. Validate all data has made it over to the secondary database on SQL Managed Instance. 
 1. [Fail over the link](managed-instance-link-failover-how-to.md) to the secondary SQL managed instance by choosing **Planned failover**. 
+1. (For SQL Server 2022 migrations) Check the box to **Remove link after successful failover** to ensure that failover is one way, and the link is removed. 
 1. Cut over the application to connect to the SQL managed instance endpoint. 
 
 ## Validate migration
@@ -94,8 +95,18 @@ To reverse a migration, follow the same steps to configure the link, but start t
 
 ## Related content
 
-For more information, see the following resources:
+To use the link: 
+- [Prepare environment for the Managed Instance link](./managed-instance-link-preparation.md)
+- [Configure link between SQL Server and SQL Managed instance with SSMS](managed-instance-link-configure-how-to-ssms.md)
+- [Configure link between SQL Server and SQL Managed instance with scripts](managed-instance-link-configure-how-to-scripts.md)
+- [Fail over the link](managed-instance-link-failover-how-to.md)
+- [Best practices for maintaining the link](managed-instance-link-best-practices.md)
 
-- [Migration overview](../migration-guides/managed-instance/sql-server-to-managed-instance-overview.md)
-- [Compare migration options](../migration-guides/managed-instance//sql-server-to-managed-instance-overview.md#compare-migration-options)
+To learn more about the link: 
 - [Managed Instance link overview](managed-instance-link-feature-overview.md)
+- [Disaster recovery with Managed Instance link](managed-instance-link-disaster-recovery.md)
+
+For other replication and migration scenarios, consider:
+
+- [Transactional replication with SQL Managed Instance](replication-transactional-overview.md)
+- [Log Replay Service (LRS)](log-replay-service-overview.md)
