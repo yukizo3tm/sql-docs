@@ -290,6 +290,8 @@ distrib [-?]
 >   Starting with SQL 2017 CU22 and later versions (including SQL 2019 RTM), **UseOledbStreaming** writes to the **c:\Users\\<DistributionAgentAccount\>\AppData\Temp** folder. 
 > 
 >   Prior to SQL 2017 CU22, **UseOledbStreaming** writes to the **C:\Program Files\Microsoft SQL Server\\<version\>\COM** folder. 
+> 
+>   Starting with SQL Server 2019 CU29, you can disable OLEDB streaming by updating **-UseOledbStreaming** to **0** to avoid the error mentioned in [Error message when you run the Distribution Agent in SQL Server]( /troubleshoot/sql/database-engine/replication/error-run-distribution-agent).
 
   
 ## Remarks  
