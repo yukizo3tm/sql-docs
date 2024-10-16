@@ -6,7 +6,7 @@ author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: mathoma, randolphwest
 ms.service: azure-sql-database
-ms.date: 10/7/2024
+ms.date: 10/16/2024
 ms.subservice: service-overview
 ms.topic: whats-new
 ms.custom:
@@ -48,6 +48,8 @@ The following table lists the features of Azure SQL Database that are currently 
 | [Free Azure SQL Database](free-offer.md) | Try Azure SQL Database for free, for the life of your subscription. This free offer provides a General Purpose database with 100,000 vCore seconds of compute every month. |
 | [Fixed server roles](security-server-roles.md) |  To simplify permission management, Azure SQL Database provides a set of fixed server-level roles to help you manage the permissions on a logical server. | 
 | [Hyperscale support for database and file shrink](file-space-manage.md)  | Database and file shrink commands are supported in preview for Azure SQL Database Hyperscale. For more information, see [Shrink for Azure SQL Database Hyperscale](https://aka.ms/hs-shrink-preview). |
+| [Hyperscale enhanced log generation rate (preview)](https://aka.ms/AAslnql) | The transaction log generation rate in Azure SQL Database Hyperscale single databases is set to increase from 100 MiB/s to 150 MiB/s. The increased log generation rate is available as an opt-in preview feature. For more information and to opt-in to 150 MBps, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
+| [Hyperscale continuous priming (preview)](service-tier-hyperscale.md#buffer-pool-resilient-buffer-pool-extension-and-continuous-priming) | Continuous Priming is an innovative new feature is designed to optimize Hyperscale performance during failovers by priming secondary compute replicas. Continuous priming is currently in a gated preview. For more information and to opt-in to continuous priming, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
 | [Import and export using Private Link](database-import-export-private-link.md) | Leave *Allow Access to Azure Services* off when you import or export a database using a service-managed endpoint. |
 | [JSON native data type](/sql/t-sql/data-types/json-data-type?view=azuresqldb-current&preserve-view=true) | The new native **json** data type and new JSON aggregate functions are currently in preview. For more information, see [JSON Type and aggregates preview](https://aka.ms/json-type-aggregates-public-preview). |
 | [JSON aggregate functions](/sql/relational-databases/json/json-data-sql-server?view=azuresqldb-current&preserve-view=true#json-data-from-aggregates) | Two new **json** aggregate functions `JSON_OBJECTAGG` and `JSON_ARRAYAGG` enable construction of JSON objects or arrays based on an aggregate from SQL data. For more information, see [JSON Type and aggregates preview](https://aka.ms/json-type-aggregates-public-preview). |
@@ -86,6 +88,14 @@ The following table lists features of Azure SQL Database that have been made gen
 ## Documentation changes
 
 Learn about significant changes to the Azure SQL Database documentation. For previous years, see the [What's new archive](doc-changes-updates-release-notes-whats-new-archive.md).
+
+### November 2024
+
+| Changes | Details |
+| --- | --- |
+| **Hyperscale single database increased maximum size** | The maximum single database size in Azure SQL Database Hyperscale has been increased from 100 TB to 128 TB. For more information, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
+| **Hyperscale enhanced log generation rate (preview)**| The transaction log generation rate in Azure SQL Database Hyperscale single databases is set to increase from 100 MiB/s to 150 MiB/s. The increased log generation rate is available as an opt-in preview feature. For more information and to opt-in to 150 MBps, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
+| **Hyperscale continuous priming (preview)**| Continuous Priming is an innovative new feature is designed to optimize Hyperscale performance during failovers by priming secondary compute replicas. Continuous priming is currently in a gated preview. For more information and to opt-in to continuous priming, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
 
 ### October 2024
 
