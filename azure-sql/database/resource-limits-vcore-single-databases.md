@@ -207,7 +207,7 @@ The following table covers these SLOs: `HS_S_Gen5_2`, `HS_S_Gen5_4`, `HS_S_Gen5_
 <sup>1</sup> Hyperscale is a multi-tiered architecture with separate compute and storage components. Review [Hyperscale service tier](service-tier-hyperscale.md#distributed-functions-architecture) for more information.   
 <sup>2</sup> Besides local SSD IO, workloads use remote [page server](hyperscale-architecture.md#page-server) IO. Actual IOPS are workload-dependent. For details, see [Data IO Governance](resource-limits-logical-server.md#resource-governance), and [Data IO in resource utilization statistics](hyperscale-performance-diagnostics.md#data-io-in-resource-utilization-statistics).   
 <sup>3</sup> Latency is 1-2 ms for data on local compute replica SSD, which caches most used data pages. Higher latency for data retrieved from page servers. 
-<sup>4</sup> Log generation rate of 150 MBps is available as an opt-in preview feature. For more information and to opt-in to 150 MBps, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
+<sup>4</sup> Log generation rate of 150 MBps is available as an opt-in preview feature. For more information and to opt-in to 150 MiB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 
 ### Hyperscale - serverless compute - standard-series (Gen5) (part 2 of 2)
 
