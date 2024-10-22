@@ -244,7 +244,7 @@ If you want to offload maintenance, reduce costs, and eliminate the need to upgr
 - **Limited migration options**: You can only migrate a single database at a time, rather than an entire instance.
 - **Feature limitation**: Although the most commonly used Azure SQL Database features are available, the feature set for a single database isn't as complete as for Azure SQL Managed Instance, or [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)].
 - **Transact-SQL differences**: There are some [!INCLUDE [tsql](../../includes/tsql-md.md)] (T-SQL) differences between a single database and an on-premises [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)].
-- **Size limitations**: A single database has a maximum database size of 100 TB, compared to 524 PB for [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)].
+- **Size limitations**: A single database has a maximum database size of 128 TB, compared to 524 PB for [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)].
 - **Maintenance time**: You have no guarantee for the exact maintenance time, though it's nearly transparent.
 
 ### Resources

@@ -36,7 +36,7 @@ The Hyperscale service tier in Azure SQL Database provides the following additio
 - Rapid scale out - you can provision one or more [read-only replicas](service-tier-hyperscale-replicas.md) for offloading your read workload and for use as hot-standbys.
 - Automatic scale-up, scale-down, and billing for compute based on usage with [serverless compute](serverless-tier-overview.md).
 - Optimized price/performance for a group of Hyperscale databases with varying resource demands with [elastic pools](hyperscale-elastic-pool-overview.md).
-- Autoscaling storage with support for up to 100 TB of database or elastic pool size.
+- Autoscaling storage with support for up to 128 TB of database or 100 TB elastic pool size.
 - Higher overall performance due to higher transaction log throughput and faster transaction commit times regardless of data volumes.
 - Fast database backups (based on file snapshots) regardless of size with no I/O impact on compute resources.
 - Fast database restores or copies (based on file snapshots) in minutes rather than hours or days.
@@ -68,13 +68,13 @@ Hyperscale service tier is only available in [vCore model](service-tiers-vcore.m
 
 - **Storage**:
 
-  You don't need to specify the max data size when configuring a Hyperscale database. In the Hyperscale tier, you're charged for storage for your database based on actual allocation. Storage is automatically allocated between 10 GB and 100 TB and grows in 10 GB increments as needed.
+  You don't need to specify the max data size when configuring a Hyperscale database. In the Hyperscale tier, you're charged for storage for your database based on actual allocation. Storage is automatically allocated between 10 GB and 128 TB and grows in 10 GB increments as needed.
 
 For more information about Hyperscale pricing, see [Azure SQL Database Pricing](https://azure.microsoft.com/pricing/details/sql-database/single/).
 
 ## Distributed functions architecture
 
-Hyperscale separates the query processing engine from the components that provide long-term storage and durability for the data. This architecture allows you to smoothly scale storage capacity as far as needed (initial target is 100 TB), and the ability to scale compute resources rapidly.
+Hyperscale separates the query processing engine from the components that provide long-term storage and durability for the data. This architecture allows you to smoothly scale storage capacity as far as needed (up to 128 TB), and the ability to scale compute resources rapidly.
 
 The following diagram illustrates the functional Hyperscale architecture:
 
