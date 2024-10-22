@@ -226,7 +226,7 @@ The following table covers these SLOs: `HS_S_Gen5_16`, `HS_S_Gen5_18`, `HS_S_Gen
 | Tempdb max data size (GB) | 512 | 576 | 640 | 768 | 1024 | 1280 | 2560 |
 | Storage type | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> | Multi-tiered <sup>1</sup> |
 | Max local SSD IOPS <sup>2</sup> | 64000 | 72000 | 80000 | 96000 | 128000 | 160000 | 204800 |
-| Max log rate (MBps) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
+| Max log rate (MiB/s) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
 | IO latency (approximate) | Variable <sup>3</sup> | Variable <sup>3</sup> | Variable <sup>3</sup> | Variable <sup>3</sup> | Variable <sup>3</sup> | Variable <sup>3</sup> | Variable <sup>3</sup> |
 | Max concurrent workers | 1200 | 1350 | 1500 | 1800 | 2400 | 3000 | 6000 |
 | Max concurrent logins | 1200 | 1350 | 1500 | 1800 | 2400 | 3000 | 6000 |
@@ -261,7 +261,7 @@ The following table covers these SLOs: `HS_Gen5_2`, `HS_Gen5_4`, `HS_Gen5_6`, `H
 | Max log size (TB) | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited |
 | `Tempdb` max data size (GB) | 64 | 128 | 192 | 256 | 320 | 384 | 448 |
 | Max local SSD IOPS <sup>1</sup> | 8000 | 16,000 | 24,000 | 32,000 | 40,000 | 48,000 | 56,000 |
-| Max log rate (MBps) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
+| Max log rate (MiB/s) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
 | Local read IO latency<sup>2</sup> | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms |
 | Remote read IO latency<sup>2</sup> | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms |
 | Write IO latency<sup>2</sup> | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms |
@@ -303,7 +303,7 @@ The following table covers these SLOs: `HS_Gen5_16`, `HS_Gen5_18`, `HS_Gen5_20`,
 | Max log size (TB) | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited | Unlimited |
 | Tempdb max data size (GB) | 512 | 576 | 640 | 768 | 1024 | 1280 | 2560 |
 | Max local SSD IOPS <sup>1</sup> | 64,000 | 72,000 | 80,000 | 96,000 | 128,000 | 160,000 | 204,800 |
-| Max log rate (MBps) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
+| Max log rate (MiB/s) <sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> | 100<sup>5</sup> |
 | Local read IO latency<sup>2</sup> | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms | 1-2 ms |
 | Remote read IO latency<sup>2</sup> | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms |
 | Write IO latency<sup>2</sup> | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms | 1-4 ms |
