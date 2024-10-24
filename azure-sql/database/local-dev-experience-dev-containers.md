@@ -31,7 +31,8 @@ The following video provides an exclusive overview of the latest Dev Container t
 
 <br />
 
-> [!VIDEO https://learn.microsoft.com/en-us/shows/open-at-microsoft/boost-your-local-development-with-dev-container-templates-for-azure-sql]
+> [!VIDEO https://learn-video.azurefd.net/vod/player?show=open-at-microsoft&ep=boost-your-local-development-with-dev-container-templates-for-azure-sql
+]
 
 ## How dev containers work
 

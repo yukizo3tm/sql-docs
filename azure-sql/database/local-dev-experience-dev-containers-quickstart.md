@@ -18,7 +18,7 @@ The following video walks you through the steps to quickly set up a development 
 
 <br />
 
-> [!VIDEO https://learn.microsoft.com/en-us/shows/data-exposed/enhancing-developer-experience-with-dev-container-templates-for-azure-sql-database-data-exposed]
+> [!VIDEO https://learn-video.azurefd.net/vod/player?show=data-exposed&ep=enhancing-developer-experience-with-dev-container-templates-for-azure-sql-database-data-exposed]
 
 ## Prerequisites
 
