@@ -159,7 +159,7 @@ sections:
     questions:
       - question: |
           What is the maximum database size supported with Hyperscale?
-        answer: 128 TB.
+        answer: The maximum size of a single Hyperscale database is currently 128 TB. The maximum size of a database in a Hyperscale elastic pool is currently 100 TB.
 
       - question: |
           What is the size of the transaction log with Hyperscale?
