@@ -278,6 +278,7 @@ Specifies the type of backup device used when initializing a Subscriber from a b
 | `logical` (default) | The backup device is a logical device |
 | `disk` | The backup device is disk drive |
 | `tape` | The backup device is a tape drive |
+| `url` | The backup device is a URL |
 
 *@backupdevicetype* is only used when *@sync_method* is set to initialize_with_backup.
 
