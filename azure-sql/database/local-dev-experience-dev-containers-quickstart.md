@@ -14,6 +14,12 @@ ms.topic: quickstart
 
 Dev containers provide a comprehensive solution for enhancing local development for Azure SQL Database. Dev Container Templates offer developers a seamless and efficient development environment, enabling them to build applications for Azure SQL Database with ease and confidence. Dev containers can be utilized in any development environment whether is local or in the cloud, you can promote consistency across teams and workflows.
 
+The following video walks you through the steps to quickly set up a development environment using Dev Container Templates for Azure SQL Database, ensuring a streamlined and consistent development experience:
+
+<br />
+
+> [!VIDEO https://learn-video.azurefd.net/vod/player?show=data-exposed&ep=enhancing-developer-experience-with-dev-container-templates-for-azure-sql-database-data-exposed]
+
 ## Prerequisites
 
 Before you begin, ensure you have the following installed on your local machine:
@@ -55,9 +61,9 @@ Before you begin, ensure you have the following installed on your local machine:
 
    :::image type="content" source="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-2.png" alt-text="Screenshot of Visual Studio Code prompt to reopen project in container." lightbox="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-2.png":::
 
-   This screenshot shows the Dev Containers command palette option to Re-open in Container, in Visual Studio Code.
+   This screenshot shows the Dev Containers command palette option to Reopen in Container, in Visual Studio Code.
 
-   :::image type="content" source="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-3.png" alt-text="Screenshot of the Dev Containers command palette option to Re-open in Container in Visual Studio Code." lightbox="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-3.png":::
+   :::image type="content" source="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-3.png" alt-text="Screenshot of the Dev Containers command palette option to Reopen in Container in Visual Studio Code." lightbox="media/local-dev-experience-dev-containers-quickstart/visual-studio-code-azure-sql-dev-containers-create-3.png":::
 
 1. This action initiates the setup process, where Visual Studio Code generates the necessary configuration files and builds the development container based on the selected template. The process ensures that your development environment is precisely configured for Azure SQL Database development.
 
