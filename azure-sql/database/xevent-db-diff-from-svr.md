@@ -153,6 +153,9 @@ ORDER BY o.object_type,
 
 ## Permissions
 
+> [!TIP]
+> In 2022, Microsoft introduced a number of new more granular permissions for Extended Events, for more information see [Blog: New granular permissions for SQL Server 2022 and Azure SQL to improve adherence with PoLP](https://techcommunity.microsoft.com/t5/sql-server-blog/new-granular-permissions-for-sql-server-2022-and-azure-sql-to/ba-p/3607507).
+
 In Azure SQL Database and Azure SQL Managed Instance, Extended Events support a granular permission model. The following permissions can be granted:
 
 # [SQL Database](#tab/sqldb)

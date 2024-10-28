@@ -4,7 +4,7 @@ description: This quickstart helps you use Extended Events, a lightweight perfor
 author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: maghan, randolphwest
-ms.date: 05/09/2024
+ms.date: 10/28/2024
 ms.service: sql
 ms.subservice: xevents
 ms.topic: quickstart
@@ -30,16 +30,16 @@ Extended Events is also known as *XEvents*, and sometimes just *XE*.
 
 After reading this article, you can:
 
-- See how to create an event session in [!INCLUDE [ssmanstudiofull-md](../../includes/ssmanstudiofull-md.md)] (SSMS), with example screenshots
-- Correlate screenshots to equivalent Transact-SQL statements
-- Understand in detail the terms and concepts behind the SSMS user interface and XEvents T-SQL statements
-- Learn how to test your event session
+- See how to create an event session in [!INCLUDE [ssmanstudiofull-md](../../includes/ssmanstudiofull-md.md)] (SSMS), with example screenshots.
+- Correlate screenshots to equivalent Transact-SQL statements.
+- Understand in detail the terms and concepts behind the SSMS user interface and XEvents T-SQL statements.
+- Learn how to test your event session.
 - Understand session results, including:
   - Available options for result storage
   - Processed versus raw results
   - Tools for viewing the results in different ways and on different time scales
-- See how you can search for and discover all the available events
-- Understand the relationships among Extended Events system views
+- See how you can search for and discover all the available events.
+- Understand the relationships among Extended Events system views.
 
 > [!TIP]  
 > For more information about Extended Events in Azure SQL Database, including code samples, see [Extended Events in Azure SQL Database and Azure SQL Managed Instance](/azure/azure-sql/database/xevent-db-diff-from-svr).
@@ -48,8 +48,9 @@ After reading this article, you can:
 
 To get started, you need to:
 
-1. [Download SQL Server Management Studio (SSMS)](../../ssms/download-sql-server-management-studio-ssms.md). We recommend using a recent version of SSMS with the latest improvements and fixes.
-1. Ensure that your account has the `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md).
+- [Download SQL Server Management Studio (SSMS)](../../ssms/download-sql-server-management-studio-ssms.md). We recommend using a recent version of SSMS with the latest improvements and fixes.
+- Ensure that your account has `CREATE ANY EVENT SESSION` (introduced in SQL Server 2022), or `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md).
+- Additionally, when using SSMS and for viewing sessions that are created, the login requires the permission `VIEW SERVER PERFORMANCE STATE`.
 
 Details about security and permissions related to Extended Events are available at the end of this article in the [Appendix](#appendix1).
 
@@ -63,8 +64,8 @@ In the next section you can see the UI steps to create an Extended Events sessio
 
 When you create an Extended Events session, you tell the system:
 
-- Which events you're interested in
-- How you want the system to report the data to you
+- Which events you're interested in.
+- How you want the system to report the data to you.
 
 The demonstration opens the **New Session** dialog, shows how to use its four pages, named:
 
@@ -77,57 +78,54 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. Connect to a database engine instance. Extended Events are supported starting with [!INCLUDE [sssql14-md](../../includes/sssql14-md.md)], in Azure SQL Database, and Azure SQL Managed Instance.
 
-1. In Object Explorer, select **Management > Extended Events**. In Azure SQL Database, event sessions are database-scoped, so the **Extended Events** option is found under each database, not under **Management**. Right-click on the **Sessions** folder and select **New Session**. The **New Session** dialog is preferable to **New Session Wizard**, although the two are similar.
+1. In Object Explorer, select **Management > Extended Events**. In Azure SQL Database, event sessions are database-scoped, so the **Extended Events** option is found under each database, not under **Management**. 
+1. Right-click on the **Sessions** folder and select **New Session...**. The **New Session...** dialog is preferable to **New Session Wizard**, although the two are similar.
+
+   > [!TIP]
+   > In these tutorial steps, don't hit **OK** until you've advanced through all four pages: **General**, **Events**, **Data Storage**, and **Advanced**.
 
 1. Select the **General** page. Then type `YourSession`, or any name you like, into the **Session name** text box. Don't select **OK** yet, because you still need to enter some details on other pages.
 
-   :::image type="content" source="media/xevents-session-newsessions-10-general-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > General > Session name." lightbox="media/xevents-session-newsessions-10-general-ssms-yoursessionnode.png":::
-
 1. Select the **Events** page.
-
-   :::image type="content" source="media/xevents-session-newsessions-14-events-ssms-rightclick-not-wizard.png" alt-text="Screenshot of New Session > Events > Select > Event library, Selected events." lightbox="media/xevents-session-newsessions-14-events-ssms-rightclick-not-wizard.png":::
 
 1. In the **Event library** area, in the dropdown list, choose **Event names only**.
 
-   - Type `sql_statement_` into the text box. This filters the list to show only events with `sql_statement_` in the name.
+   - Type `sql_statement` into the text box. This filters the list to show only events with `sql_statement` in the name.
    - Scroll and select the event named `sql_statement_completed`.
    - Select the right arrow button `>` to move the event to the **Selected events** box.
 
 1. Staying on the **Events** page, select the **Configure** button. This opens the **Event configuration options** box for the selected events.
 
-   :::image type="content" source="media/xevents-session-newsessions-20b-events-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Events > Configure > Filter (Predicate) > Field." lightbox="media/xevents-session-newsessions-20b-events-ssms-yoursessionnode.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-selected-events.png" alt-text="Screenshot of New Session > Events > Select from the events library. sql_statement_completed is selected. The configure button is the next action." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-selected-events.png":::
 
-1. Select the **Filter (Predicate)** tab. Next, select **Select here to add a clause**. We configure this filter (also known as predicate) to capture all `SELECT` statements that have a `HAVING` clause.
+1. Select the **Filter (Predicate)** tab. Next, select the new filter line that says **Click here to add a clause**. In this tutorial, will configure this filter (also known as a predicate) to capture all `SELECT` statements with a `HAVING` clause.
 
 1. In the **Field** dropdown list, choose `sqlserver.sql_text`.
    - For **Operator**, choose `like_i_sql_unicode_string`. Here, `i` in the name of operator means case-**i**nsensitive.
-   - For **Value**, type `%SELECT%HAVING%`. Here, percent signs are wildcards standing for any character string.
+   - For **Value**, type `%SELECT%HAVING%`. Here, percent signs (`%`) are wildcards standing for any character string.
 
    > [!NOTE]  
    > In the two-part name of the field, *sqlserver* is the package name and *sql_text* is the field name. The event we chose earlier, *sql_statement_completed*, must be in the same package as the field we choose.
 
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-filter-predicate.png" alt-text="Screenshot of New Session > Events > Configure > Filter (Predicate) > Field." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-filter-predicate.png":::
+
 1. Select the **Data Storage** page.
 
-1. In the **Targets** area, select **Select here to add a target**.
+1. In the **Targets** area, select the new Target Type line that says **Click here to add a target**. In this tutorial, we'll write our captured extended events data to an event file. This means the event data is stored in a file that we can open and view later. Starting with [!INCLUDE [sssql19-md](../../includes/sssql19-md.md)], event data can also be written to be stored in Azure Storage, the default in Azure SQL.
 
-   - In the **Type** dropdown list, choose `event_file`. This means the event data is stored in a file that we can open and view later. In Azure SQL Database and Azure SQL Managed Instance, event data is stored in Azure Storage blobs.
+   - In the **Type** dropdown list, choose `event_file`.
 
-   > [!NOTE]  
-   > Starting with [!INCLUDE [sssql19-md](../../includes/sssql19-md.md)], you can use Azure Blob Storage in an `event_file` target in [!INCLUDE [ssnoversion-md](../../includes/ssnoversion-md.md)].
+1. In the **Properties** area, type in the full path and file name into the **File name on server** text box. You can also use the **Browse** button. The file name extension must be `xel`. In our example, we used `C:\temp\YourSession_Target.xel`.
 
-   :::image type="content" source="media/xevents-session-newsessions-30-datastorage-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Data Storage > Targets > Type > event_file." lightbox="media/xevents-session-newsessions-30-datastorage-ssms-yoursessionnode.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-data-storage.png" alt-text="Screenshot of New Session > Data Storage > Targets > Type > event_file." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-data-storage.png":::
 
-1. In the **Properties** area, type in the full path and file name into the **File name on server** text box. You can also use the **Browse** button. The file name extension must be `xel`. In our example, we used `C:\Temp\YourSession_Target.xel`
+1. Select the **Advanced** page. By default configuration, this .xel target of the extended event session should have minimal or no impact on server performance, but these settings on the **Advanced** page can be used to increase or decrease the resources and latency.
 
-   :::image type="content" source="media/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Advanced > Maximum dispatch latency > OK." lightbox="media/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png":::
-
-1. Select the **Advanced** page. Reduce **Maximum dispatch latency** to 3 seconds.
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-sessions-advanced.png" alt-text="Screenshot of New Session > Advanced." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-sessions-advanced.png":::
 
 1. Select the **OK** button at the bottom to create this event session.
 
-1. Back in Object Explorer, open or refresh the **Sessions** folder, and see the new node for `YourSession`. The session isn't started yet. You start it later.
-
-   :::image type="content" source="media/xevents-session-newsessions-50-objectexplorer-ssms-yoursessionnode.png" alt-text="Screenshot of Node for your new *event session* named YourSession, in the Object Explorer, under Management > Extended Events > Sessions.":::
+1. Back in the SSMS **Object Explorer**, open or refresh the **Sessions** folder, and see the new node for the `YourSession` extended events session. The session isn't started yet. In this tutorial, we'll start it later.
 
 ### Edit an event session in SSMS
 
@@ -135,7 +133,7 @@ In the SSMS Object Explorer, you can edit your event session by right-clicking i
 
 ## Create an event session using T-SQL
 
-In the SSMS Extended Events UI, you can generate a T-SQL script to create your event session as follows:
+In SSMS, you can generate a T-SQL script to create your event session as follows:
 
 - Right-click on the event session node, then select **Script Session as > CREATE to > Clipboard**.
 - Paste into any text editor.
@@ -153,23 +151,13 @@ CREATE EVENT SESSION [YourSession]
         ( [sqlserver].[like_i_sql_unicode_string]([sqlserver].[sql_text], N'%SELECT%HAVING%')
         )
     )
-    ADD TARGET package0.event_file
-    (SET
-        filename = N'C:\Temp\YourSession_Target.xel',
-        max_file_size = (2),
-        max_rollover_files = (2)
-    )
-    WITH (
-        MAX_MEMORY = 2048 KB,
-        EVENT_RETENTION_MODE = ALLOW_MULTIPLE_EVENT_LOSS,
-        MAX_DISPATCH_LATENCY = 3 SECONDS,
-        MAX_EVENT_SIZE = 0 KB,
-        MEMORY_PARTITION_MODE = NONE,
-        TRACK_CAUSALITY = OFF,
-        STARTUP_STATE = OFF
-    );
+    ADD TARGET package0.event_file 
+    (SET filename=N'C:\temp\YourSession_Target.xel');
 GO
 ```
+
+> [!NOTE]
+> In Azure SQL Database, use `ON DATABASE` instead of `ON SERVER`.
 
 ### Conditional DROP of the event session
 
@@ -237,7 +225,9 @@ trace_event_id         3
 */
 ```
 
-### <a id="select-the-full-results-xml-37"></a> View event session data as XML
+<a id="select-the-full-results-xml-37"></a>
+
+### View event session data as XML
 
 In a query window in SSMS, run the following `SELECT` statement to see the event data captured by your session. Each row represents one event occurrence. The `CAST(... AS xml)` changes the data type of the column from **nvarchar** to **xml**. This lets you select the column value, to open it in a new window for easier reading.
 
@@ -311,17 +301,13 @@ You start with context menu options labeled **View Target Data** and **Watch Liv
 
 ### View target data
 
-In the SSMS Object Explorer, you can right-click the target node that is under your event session node. In the context menu, select **View Target Data**. SSMS displays the data.
+In the SSMS Object Explorer, you can right-click the target node that is under your event session node, for example, **package0.event_counter**. In the context menu, select **View Target Data**. SSMS displays the data.
 
 The display isn't updated as new events occur in a session. But you can select **View Target Data** again.
-
-:::image type="content" source="media/xevents-viewtargetdata-ssms-targetnode-61.png" alt-text="Screenshot of View Target Data, in SSMS, Management > Extended Events > Sessions > YourSession > package0.event_file, right-click." lightbox="media/xevents-viewtargetdata-ssms-targetnode-61.png":::
 
 ### Watch live data
 
 In the SSMS Object Explorer, you can right-click your event session node. In the context menu, select **Watch Live Data**. SSMS displays incoming data as it continues to arrive in real time.
-
-:::image type="content" source="media/xevents-watchlivedata-ssms-yoursessionnode-63.png" alt-text="Screenshot of Watch Live Data, in SSMS, Management > Extended Events > Sessions > YourSession, right-click." lightbox="media/xevents-watchlivedata-ssms-yoursessionnode-63.png":::
 
 ## Terms and concepts in Extended Events
 
@@ -329,12 +315,12 @@ The following table lists the terms used for Extended Events, and describes thei
 
 | Term | Description |
 | :--- | :--- |
-| `event session` | A construct centered around one or more events, plus supporting items like actions are targets. The `CREATE EVENT SESSION` statement creates each event session. You can `ALTER` an event session to start and stop it at will.<br /><br />An event session is sometimes referred to as just a *session*, when the context clarifies it means *event session*.<br /><br />Further details about event sessions are described in: [Extended Events sessions](sql-server-extended-events-sessions.md). |
+| `event session` | A construct centered around one or more events, plus supporting items like actions are targets. The `CREATE EVENT SESSION` statement creates each event session. You can `ALTER` an event session to start and stop it at will.<br /><br />An event session is sometimes referred to as just a *session*, when the context clarifies it means *event session*.<br />Further details about event sessions are described in: [Extended Events sessions](sql-server-extended-events-sessions.md). |
 | `event` | A specific occurrence in the system that is watched for by an active event session.<br /><br />For example, the `sql_statement_completed` event represents the moment that any given T-SQL statement completes. The event can report its duration and other data. |
-| `target` | An item that receives the output data from a captured event. The target displays the data to you.<br /><br />Examples include the `event_file` target used earlier in this quick start, and the `ring_buffer` target that keeps the most recent events in memory.<br /><br />Any kind of target can be used for any event session. For details, see [Targets for Extended Events](targets-for-extended-events-in-sql-server.md). |
+| `target` | An item that receives the output data from a captured event. The target displays the data to you.<br /><br />Examples include the `event_file` target used earlier in this quick start, and the `ring_buffer` target that keeps the most recent events in memory.<br />Any kind of target can be used for any event session. For details, see [Targets for Extended Events](targets-for-extended-events-in-sql-server.md). |
 | `action` | A field known to the event. Data from the field is sent to the target. The action field is closely related to the *predicate filter*. |
 | `predicate`, or filter | A test of data in an event field, used so that only an interesting subset of event occurrences are sent to the target.<br /><br />For example, a filter could include only those `sql_statement_completed` event occurrences where the T-SQL statement contained the string `HAVING`. |
-| `package` | A name qualifier attached to each item in a set of items that centers around a core of events.<br /><br />For example, a package can have events about T-SQL text. One event could be about all the T-SQL in a batch. Meanwhile another narrower event is about individual T-SQL statements. Further, for any one T-SQL statement, there are `started` and `completed` events.<br /><br />Fields appropriate for the events are also in the package with the events. Most targets are in `package0` and are used with events from many other packages. |
+| `package` | A name qualifier attached to each item in a set of items that centers around a core of events.<br /><br />For example, a package can have events about T-SQL text. One event could be about all the T-SQL in a batch. Meanwhile another narrower event is about individual T-SQL statements. Further, for any one T-SQL statement, there are `started` and `completed` events.<br />Fields appropriate for the events are also in the package with the events. Most targets are in `package0` and are used with events from many other packages. |
 
 ## Extended Event scenarios and usage details
 
@@ -422,7 +408,9 @@ The system views for Extended Events include:
   - `CREATE EVENT SESSION` clauses
   - The SSMS UI
 
-## <a id="appendix1"></a> Appendix: Queries to find Extended Event permission holders
+<a id="appendix1"></a>
+
+## Appendix: Queries to find Extended Event permission holders
 
 The permissions mentioned in this article are:
 
@@ -434,7 +422,7 @@ The following `SELECT...UNION ALL` statement returns rows that show who has the 
 
 ```sql
 -- Ascertain who has the permissions listed in the ON clause.
--- 'CONTROL SERVER' permission includes the permissions
+-- 'CONTROL SERVER' permission includes all lower permissions like
 -- 'ALTER ANY EVENT SESSION' and 'VIEW SERVER STATE'.
 SELECT 'Owner-is-Principal' AS [Type-That-Owns-Permission],
     NULL AS [Role-Name],
@@ -444,7 +432,9 @@ FROM sys.server_permissions AS PERM
 INNER JOIN sys.server_principals AS prin
     ON prin.principal_id = PERM.grantee_principal_id
 WHERE PERM.permission_name IN (
+    'CREATE ANY EVENT SESSION',
     'ALTER ANY EVENT SESSION',
+    'VIEW SERVER PERFORMANCE STATE',
     'VIEW SERVER STATE',
     'CONTROL SERVER'
 )
@@ -467,7 +457,7 @@ WHERE prin.name = 'sysadmin';
 
 The following `SELECT` statement reports your permissions. It relies on the built-in function [HAS_PERMS_BY_NAME](../../t-sql/functions/has-perms-by-name-transact-sql.md).
 
-Further, if you have the authority to temporarily *impersonate* other logins, you can uncomment the [EXECUTE AS LOGIN](../../t-sql/statements/execute-as-transact-sql.md) and `REVERT` statements, to see if other logins hold the `ALTER ANY EVENT SESSION` permission.
+Further, if you have the authority to temporarily *impersonate* other logins, you can uncomment the [EXECUTE AS](../../t-sql/statements/execute-as-transact-sql.md) and `REVERT` statements, to see if other logins hold the `ALTER ANY EVENT SESSION` permission.
 
 ```sql
 --EXECUTE AS LOGIN = 'LoginNameHere';
@@ -480,3 +470,4 @@ SELECT HAS_PERMS_BY_NAME(NULL, NULL, 'ALTER ANY EVENT SESSION');
 - [Extended Events overview](extended-events.md)
 - [Extended Events sessions](sql-server-extended-events-sessions.md)
 - [Targets for Extended Events](targets-for-extended-events-in-sql-server.md)
+- [CREATE EVENT SESSION (Transact-SQL)](../../t-sql/statements/create-event-session-transact-sql.md)
