@@ -248,8 +248,12 @@ The order of precedence for the logical operators is `NOT` (highest), followed b
 
 ## Permissions
 
-On SQL Server and SQL Managed Instance, requires the `ALTER ANY EVENT SESSION` permission.
+On SQL Server and SQL Managed Instance, requires the `CREATE ANY EVENT SESSION` (introduced in SQL Server 2022) or `ALTER ANY EVENT SESSION` permission. 
+
 On SQL Database, requires the `ALTER ANY DATABASE EVENT SESSION` permission in the database.
+
+> [!TIP]
+> SQL Server 2022 introduced a number of new more granular permissions for Extended Events, for more information see [Blog: New granular permissions for SQL Server 2022 and Azure SQL to improve adherence with PoLP](https://techcommunity.microsoft.com/t5/sql-server-blog/new-granular-permissions-for-sql-server-2022-and-azure-sql-to/ba-p/3607507).
 
 ## Examples
 
