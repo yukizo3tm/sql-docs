@@ -30,16 +30,16 @@ Extended Events is also known as *XEvents*, and sometimes just *XE*.
 
 After reading this article, you can:
 
-- See how to create an event session in [!INCLUDE [ssmanstudiofull-md](../../includes/ssmanstudiofull-md.md)] (SSMS), with example screenshots
-- Correlate screenshots to equivalent Transact-SQL statements
-- Understand in detail the terms and concepts behind the SSMS user interface and XEvents T-SQL statements
-- Learn how to test your event session
+- See how to create an event session in [!INCLUDE [ssmanstudiofull-md](../../includes/ssmanstudiofull-md.md)] (SSMS), with example screenshots.
+- Correlate screenshots to equivalent Transact-SQL statements.
+- Understand in detail the terms and concepts behind the SSMS user interface and XEvents T-SQL statements.
+- Learn how to test your event session.
 - Understand session results, including:
   - Available options for result storage
   - Processed versus raw results
   - Tools for viewing the results in different ways and on different time scales
-- See how you can search for and discover all the available events
-- Understand the relationships among Extended Events system views
+- See how you can search for and discover all the available events.
+- Understand the relationships among Extended Events system views.
 
 > [!TIP]  
 > For more information about Extended Events in Azure SQL Database, including code samples, see [Extended Events in Azure SQL Database and Azure SQL Managed Instance](/azure/azure-sql/database/xevent-db-diff-from-svr).
@@ -48,9 +48,9 @@ After reading this article, you can:
 
 To get started, you need to:
 
-1. [Download SQL Server Management Studio (SSMS)](../../ssms/download-sql-server-management-studio-ssms.md). We recommend using a recent version of SSMS with the latest improvements and fixes.
-1. Ensure that your account has `CREATE ANY EVENT SESSION` (introduced in SQL Server 2022), or `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md).
-1. Additionally, when using SSMS and for viewing sessions that are created, the login requires the permission `VIEW SERVER PERFORMANCE STATE`.
+- [Download SQL Server Management Studio (SSMS)](../../ssms/download-sql-server-management-studio-ssms.md). We recommend using a recent version of SSMS with the latest improvements and fixes.
+- Ensure that your account has `CREATE ANY EVENT SESSION` (introduced in SQL Server 2022), or `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md).
+- Additionally, when using SSMS and for viewing sessions that are created, the login requires the permission `VIEW SERVER PERFORMANCE STATE`.
 
 Details about security and permissions related to Extended Events are available at the end of this article in the [Appendix](#appendix1).
 
@@ -64,8 +64,8 @@ In the next section you can see the UI steps to create an Extended Events sessio
 
 When you create an Extended Events session, you tell the system:
 
-- Which events you're interested in
-- How you want the system to report the data to you
+- Which events you're interested in.
+- How you want the system to report the data to you.
 
 The demonstration opens the **New Session** dialog, shows how to use its four pages, named:
 
@@ -111,7 +111,7 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. Select the **Data Storage** page.
 
-1. In the **Targets** area, select the new Target Type line that says **Click here to add a target**. In this tutorial, we'll write our captured extended events data to an event file. This means the event data is stored in a file that we can open and view later. Starting with [!INCLUDE [sssql19-md](../../includes/sssql19-md.md)], event data can also be written to stored in Azure Storage, the default in Azure SQL.
+1. In the **Targets** area, select the new Target Type line that says **Click here to add a target**. In this tutorial, we'll write our captured extended events data to an event file. This means the event data is stored in a file that we can open and view later. Starting with [!INCLUDE [sssql19-md](../../includes/sssql19-md.md)], event data can also be written to be stored in Azure Storage, the default in Azure SQL.
 
    - In the **Type** dropdown list, choose `event_file`.
 
