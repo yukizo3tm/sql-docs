@@ -49,7 +49,8 @@ After reading this article, you can:
 To get started, you need to:
 
 1. [Download SQL Server Management Studio (SSMS)](../../ssms/download-sql-server-management-studio-ssms.md). We recommend using a recent version of SSMS with the latest improvements and fixes.
-1. Ensure that your account has the `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md).
+2. Ensure that your account has at least the following permisions: `CREATE ANY EVENT SESSION` or `ALTER ANY EVENT SESSION` [server permission](../../t-sql/statements/grant-server-permissions-transact-sql.md) on versions before SQL Sever 2022
+3. in addition to that, for using the UI and for viewing sessions that are created, the accounts requires the permission 'VIEW SERVER PERFORMANCE STATE'.
 
 Details about security and permissions related to Extended Events are available at the end of this article in the [Appendix](#appendix1).
 
@@ -121,7 +122,7 @@ The text and supporting screenshots can be slightly different in your version of
 
    :::image type="content" source="media/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Advanced > Maximum dispatch latency > OK." lightbox="media/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png":::
 
-1. Select the **Advanced** page. Reduce **Maximum dispatch latency** to 3 seconds.
+1. Select the **Advanced** page. Reduce **Maximum dispatch latency** to 3 seconds for this demonstration. In production this value should only be lowered with care.
 
 1. Select the **OK** button at the bottom to create this event session.
 
@@ -434,7 +435,7 @@ The following `SELECT...UNION ALL` statement returns rows that show who has the 
 
 ```sql
 -- Ascertain who has the permissions listed in the ON clause.
--- 'CONTROL SERVER' permission includes the permissions
+-- 'CONTROL SERVER' permission includes all lower permissions like
 -- 'ALTER ANY EVENT SESSION' and 'VIEW SERVER STATE'.
 SELECT 'Owner-is-Principal' AS [Type-That-Owns-Permission],
     NULL AS [Role-Name],
@@ -444,7 +445,9 @@ FROM sys.server_permissions AS PERM
 INNER JOIN sys.server_principals AS prin
     ON prin.principal_id = PERM.grantee_principal_id
 WHERE PERM.permission_name IN (
+    'CREATE ANY EVENT SESSION',
     'ALTER ANY EVENT SESSION',
+    'VIEW SERVER PERFORMANCE STATE',
     'VIEW SERVER STATE',
     'CONTROL SERVER'
 )
