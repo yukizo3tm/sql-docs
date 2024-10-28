@@ -46,7 +46,7 @@ To allow the service to manage the certificate, add an access policy for the ser
 For instructions, see [Create and assign a certificate](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-setup-tutorial.md#create-and-assign-a-certificate).
 
 > [!NOTE]
-> There are no specific permissions required for an application to roll its own keys. See [Application: addKey](https://learn.microsoft.com/en-us/graph/api/application-addkey?view=graph-rest-1.0&tabs=http).
+> There are no specific permissions required for an application to roll its own keys. See [Application: addKey](/graph/api/application-addkey).
 
 Once a new certificate is discovered, it is uploaded to app registration automatically.
 
