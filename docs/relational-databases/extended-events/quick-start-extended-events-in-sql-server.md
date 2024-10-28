@@ -88,8 +88,6 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. Select the **Events** page.
 
-   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session.png" alt-text="Screenshot of New Session > Events > Select > Event library, Selected events." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session.png":::
-
 1. In the **Event library** area, in the dropdown list, choose **Event names only**.
 
    - Type `sql_statement` into the text box. This filters the list to show only events with `sql_statement` in the name.
@@ -98,12 +96,13 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. Staying on the **Events** page, select the **Configure** button. This opens the **Event configuration options** box for the selected events.
 
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-selected-events.png" alt-text="Screenshot of New Session > Events > Select from the events library. sql_statement_completed is selected. The configure button is the next action." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-selected-events.png":::
 
 1. Select the **Filter (Predicate)** tab. Next, select the new filter line that says **Click here to add a clause**. In this tutorial, will configure this filter (also known as a predicate) to capture all `SELECT` statements with a `HAVING` clause.
 
 1. In the **Field** dropdown list, choose `sqlserver.sql_text`.
    - For **Operator**, choose `like_i_sql_unicode_string`. Here, `i` in the name of operator means case-**i**nsensitive.
-   - For **Value**, type `%SELECT%HAVING%`. Here, percent signs are wildcards standing for any character string.
+   - For **Value**, type `%SELECT%HAVING%`. Here, percent signs (`%`) are wildcards standing for any character string.
 
    > [!NOTE]  
    > In the two-part name of the field, *sqlserver* is the package name and *sql_text* is the field name. The event we chose earlier, *sql_statement_completed*, must be in the same package as the field we choose.
