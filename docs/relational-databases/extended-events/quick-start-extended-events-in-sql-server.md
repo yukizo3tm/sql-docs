@@ -88,7 +88,7 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. Select the **Events** page.
 
-   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-14-events-ssms-rightclick-not-wizard.png" alt-text="Screenshot of New Session > Events > Select > Event library, Selected events." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-14-events-ssms-rightclick-not-wizard.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session.png" alt-text="Screenshot of New Session > Events > Select > Event library, Selected events." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session.png":::
 
 1. In the **Event library** area, in the dropdown list, choose **Event names only**.
 
@@ -108,7 +108,7 @@ The text and supporting screenshots can be slightly different in your version of
    > [!NOTE]  
    > In the two-part name of the field, *sqlserver* is the package name and *sql_text* is the field name. The event we chose earlier, *sql_statement_completed*, must be in the same package as the field we choose.
 
-   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-20b-events-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Events > Configure > Filter (Predicate) > Field." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-20b-events-ssms-yoursessionnode.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-filter-predicate.png" alt-text="Screenshot of New Session > Events > Configure > Filter (Predicate) > Field." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-filter-predicate.png":::
 
 1. Select the **Data Storage** page.
 
@@ -118,11 +118,11 @@ The text and supporting screenshots can be slightly different in your version of
 
 1. In the **Properties** area, type in the full path and file name into the **File name on server** text box. You can also use the **Browse** button. The file name extension must be `xel`. In our example, we used `C:\temp\YourSession_Target.xel`.
 
-   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-30-datastorage-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Data Storage > Targets > Type > event_file." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-30-datastorage-ssms-yoursessionnode.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-data-storage.png" alt-text="Screenshot of New Session > Data Storage > Targets > Type > event_file." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-session-data-storage.png":::
 
 1. Select the **Advanced** page. By default configuration, this .xel target of the extended event session should have minimal or no impact on server performance, but these settings on the **Advanced** page can be used to increase or decrease the resources and latency.
 
-   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png" alt-text="Screenshot of New Session > Advanced." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-newsessions-40-advanced-ssms-yoursessionnode.png":::
+   :::image type="content" source="media/quick-start-extended-events-in-sql-server/xevents-session-new-sessions-advanced.png" alt-text="Screenshot of New Session > Advanced." lightbox="media/quick-start-extended-events-in-sql-server/xevents-session-new-sessions-advanced.png":::
 
 1. Select the **OK** button at the bottom to create this event session.
 
