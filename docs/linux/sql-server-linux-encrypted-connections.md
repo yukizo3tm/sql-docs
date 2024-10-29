@@ -1,10 +1,10 @@
 ---
 title: Encrypt connections to SQL Server on Linux
-description: SQL Server on Linux uses TLS to encrypt data that's transmitted across a network between a client application and an instance of SQL Server.
+description: SQL Server on Linux uses TLS to encrypt data transmitted across a network between a client application and an instance of SQL Server.
 author: amitkh-msft
 ms.author: amitkh
 ms.reviewer: vanto, randolphwest
-ms.date: 10/29/2023
+ms.date: 10/29/2024
 ms.service: sql
 ms.subservice: linux
 ms.topic: conceptual
@@ -21,14 +21,17 @@ helpviewer_keywords:
 
 ## Requirements for certificates
 
-Before getting started, you need to make sure your certificates follow these requirements:
+Make sure your certificates follow these requirements:
 
 - The current system time must be after the `Valid from` property of the certificate and before the `Valid to` property of the certificate.
+
 - The certificate must be meant for server authentication. This requires the `Enhanced Key Usage` property of the certificate to specify `Server Authentication (1.3.6.1.5.5.7.3.1)`.
+
 - The certificate must be created by using the `KeySpec` option of `AT_KEYEXCHANGE`. Usually, the certificate's key usage property (`KEY_USAGE`) also includes key encipherment (`CERT_KEY_ENCIPHERMENT_KEY_USAGE`).
+
 - The `Subject` property of the certificate must indicate that the common name (CN) is the same as the host name or fully qualified domain name (FQDN) of the server computer.
 
-  > [!NOTE]
+  > [!NOTE]  
   > Wild card certificates are supported.
 
 ## Configure the OpenSSL libraries for use (optional)
@@ -36,6 +39,9 @@ Before getting started, you need to make sure your certificates follow these req
 You can create symbolic links in the `/opt/mssql/lib/` directory that reference which `libcrypto.so` and `libssl.so` libraries should be used for encryption. This is useful if you want to force [!INCLUDE [ssnoversion-md](../includes/ssnoversion-md.md)] to use a specific version of OpenSSL other than the default provided by the system. If these symbolic links aren't present, [!INCLUDE [ssnoversion-md](../includes/ssnoversion-md.md)] loads the default configured OpenSSL libraries on the system.
 
 These symbolic links should be named `libcrypto.so` and `libssl.so` and placed in the `/opt/mssql/lib/` directory.
+
+> [!NOTE]  
+> For an example of using Let's Encrypt to generate a certificate, see the blog post [Unlock the power of data in Azure with SQL Server on Linux Azure VMs and Azure AI search](https://techcommunity.microsoft.com/t5/sql-server-blog/unlock-power-of-data-in-azure-with-sql-server-on-linux-azure-vms/ba-p/4144582).
 
 ## Overview
 
@@ -79,12 +85,19 @@ systemctl restart mssql-server
 ### Register the certificate on your client machine (Windows, Linux, or macOS)
 
 - If you're using CA signed certificate, you have to copy the Certificate Authority (CA) certificate instead of the user certificate to the client machine.
+
 - If you're using the self-signed certificate, copy the `.pem` file to the following folders respective to distribution and execute the commands to enable them:
-- **Ubuntu**: Copy the certificate to `/usr/share/ca-certificates/`,  rename its extension to `.crt`, and use `dpkg-reconfigure ca-certificates` to enable it as system CA certificate.
+
+- **Ubuntu**: Copy the certificate to `/usr/share/ca-certificates/`, rename its extension to `.crt`, and use `dpkg-reconfigure ca-certificates` to enable it as system CA certificate.
+
 - **RHEL**: Copy the certificate to `/etc/pki/ca-trust/source/anchors/` and use `update-ca-trust` to enable it as system CA certificate.
+
 - **SUSE**: Copy the certificate to `/usr/share/pki/trust/anchors/` and use `update-ca-certificates` to enable it as system CA certificate.
-- **Windows**:  Import the `.pem` file as a certificate under **Current User > Trusted Root Certification Authorities > Certificates**.
+
+- **Windows**: Import the `.pem` file as a certificate under **Current User > Trusted Root Certification Authorities > Certificates**.
+
 - **macOS**:
+
   - Copy the certificate to `/usr/local/etc/openssl/certs`
   - Run the following command to get the hash value:
 
@@ -96,13 +109,16 @@ systemctl restart mssql-server
 
 ### Example connection strings
 
+> [!CAUTION]  
+> Always use a strong password. For more information, see [Password Policy](../relational-databases/security/password-policy.md).
+
 - **[!INCLUDE [ssmanstudiofull-md](../includes/ssmanstudiofull-md.md)]**
 
   :::image type="content" source="media/sql-server-linux-encrypted-connections/ssms-encrypt-connection.png" alt-text="Screenshot of SQL Server Management Studio connection dialog.":::
 
-- **SQLCMD**
+- **sqlcmd**
 
-  `sqlcmd  -S <sqlhostname> -N -U sa -P '<YourPassword>'`
+  `sqlcmd -S <sqlhostname> -N -U sa -P '<password>'`
 
 - **ADO.NET**
 
@@ -149,9 +165,12 @@ systemctl restart mssql-server
 
 ### Example connection strings
 
-- **SQLCMD**
+> [!CAUTION]  
+> Always use a strong password. For more information, see [Password Policy](../relational-databases/security/password-policy.md).
 
-  `sqlcmd  -S <sqlhostname> -U sa -P '<YourPassword>'`
+- **sqlcmd**
+
+  `sqlcmd -S <sqlhostname> -U sa -P '<password>'`
 
 - **ADO.NET**
 
