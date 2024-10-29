@@ -240,12 +240,21 @@ This section describes the steps you can take to solve common problems. If the s
 If you create a new watcher and do not see monitoring data on dashboards and in the data store, or if you only see older data, review this section.
 
 - On the watcher **Overview** page, check the **Status** field to see if the watcher is running. If not, use the **Start** button on the same page to start data collection. A new watcher is not [started](database-watcher-manage.md#start-and-stop-a-watcher) automatically.
+
 - Check that the watcher has [access to the data store](database-watcher-manage.md#grant-access-to-data-store).
+
 - If you use an Azure Data Explorer database as the data store, check that the Azure Data Explorer cluster is started. For more information, see [Stopped Azure Data Explorer clusters](database-watcher-manage.md#stopped-azure-data-explorer-clusters).
+
 - Check that the watcher has the specific, limited [access to SQL targets](database-watcher-manage.md#grant-access-to-sql-targets). Additionally, if using SQL authentication for any targets, check watcher [access to key vault](database-watcher-manage.md#additional-configuration-to-use-sql-authentication), or use the recommended Microsoft Entra authentication instead.
+
 - If you want the watcher to use Microsoft Entra authentication to connect to SQL targets, make sure that [Microsoft Entra authentication is enabled](database/authentication-aad-configure.md) on the logical servers hosting the database and elastic pool targets, and on the managed instance targets.
+
 - If you created any private endpoints for the watcher, make sure that they are approved by the resource owner.
+
 - If you are using public connectivity, make sure that the [requirements](database-watcher-overview.md#public-connectivity) to allow the watcher to connect to targets, data store, and key vault are met.
+
+- The Azure Data Explorer cluster or database, or the Real-Time Analytics database might have been deleted after it was selected as the data store for your watcher. Navigate to the cluster and the database, and confirm that they exist.
+
 - If you are using the free Azure Data Explorer cluster, make sure that you haven't reached the [storage capacity](/azure/data-explorer/start-for-free#specifications) of the cluster. For more information, see [Free Azure Data Explorer cluster](database-watcher-manage.md#free-azure-data-explorer-cluster).
 
 If you make changes to watcher access or connectivity as part of troubleshooting, you might need to stop and restart the watcher for the changes to take effect.
@@ -258,9 +267,6 @@ If you select the **Dashboards** page of a watcher, but do not see a summary of 
 - You might not have network connectivity to the data store. For example, this happens if connections from your browser to the Azure Data Explorer cluster use public connectivity, but you [disable public access](/azure/data-explorer/security-network-restrict-public-access) to the cluster. In that case, you also cannot connect to the cluster from [Kusto Explorer](/azure/data-explorer/kusto/tools/kusto-explorer) or the Azure Data Explorer [web UI](/azure/data-explorer/web-ui-query-overview).
 
   To resolve this, establish private connectivity from your machine to the Azure Data Explorer cluster as described in [Private connectivity to the data store](database-watcher-manage.md#private-connectivity-to-the-data-store).
-
-- The Azure Data Explorer cluster might be stopped. For more information, see [Stopped Azure Data Explorer clusters](database-watcher-manage.md#stopped-azure-data-explorer-clusters).
-- The Azure Data Explorer cluster or database, or the Real-Time Analytics database might have been deleted after it was selected as the data store for your watcher. Navigate to the cluster and the database, and confirm that they exist.
 
 To validate that you have access and can connect to the data store, and that the data store database exists, follow these steps:
 
