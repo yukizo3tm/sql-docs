@@ -136,9 +136,7 @@ SQL Server Assertion: File:     mediaRead.cpp:429 Expression:     !m_ActiveConsu
 Review the SQL Server error log and use the methodology outlined in this article [MSSQLSERVER_3624](mssqlserver-3624-database-engine-error.md) to troubleshoot the assert failures:
 
 - Run DBCC CHECKDB on your databases and ensure all components on the I/O path are functioning properly.
-- Lookup part or all of the assert expression online for any known issues. For example in this case if you look up "m_ActiveConsumptionList.IsEmpty" you may find this article:
-
-  [KB4469554 - FIX: Assertion error occurs during restore of compressed backups in SQL Server 2014, 2016 and 2017](https://prod.support.services.microsoft.com/topic/kb4469554-fix-assertion-error-occurs-during-restore-of-compressed-backups-in-sql-server-2014-2016-and-2017-37cb5d08-d697-c3e4-a598-cb797425615c)
+- Look up part or all of the assert expression online for any known issues. For example, if you search for `m_ActiveConsumptionList.IsEmpty`, you might find [KB4469554 - FIX: Assertion error occurs during restore of compressed backups in SQL Server 2014, 2016 and 2017](https://support.microsoft.com/help/4469554).
 
 - Update your SQL Server to a later build (Cumulative update)
 - Ensure no external component is interfering and causing the failure

@@ -3,7 +3,6 @@ title: ODBC DSN and connection string keywords
 description: How to connect using the ODBC driver. Find keywords for connection strings and DSNs, and connection attributes for SQLSetConnectAttr and SQLGetConnectAttr.
 author: David-Engel
 ms.author: davidengel
-ms.reviewer: v-chojas
 ms.date: 08/23/2024
 ms.service: sql
 ms.subservice: connectivity

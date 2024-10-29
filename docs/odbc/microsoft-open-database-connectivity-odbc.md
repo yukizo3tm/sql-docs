@@ -17,7 +17,9 @@ The ODBC interface allows maximum interoperability-an application can access dat
   
 ## Documentation
 
-| | Description |
+The following table provides links to various ODBC documentation resources:
+
+| ODBC | Description |
 | --- | --- |
 | **[ODBC Programmer's Reference](../odbc/reference/odbc-programmer-s-reference.md)** | Documentation of ODBC interfaces and methods |
 | **[ODBC Data Source Administrator](../odbc/admin/odbc-data-source-administrator.md)** | The Microsoft ODBC Data Source Administrator manages database drivers and data sources |
@@ -28,4 +30,4 @@ The ODBC interface allows maximum interoperability-an application can access dat
   
 ## Support
 
-Information about support options can be found on the [Microsoft Help and Support](https://go.microsoft.com/fwlink?linkid=5521) Web site.
+Information about support options can be found on the [Microsoft Help and Support](https://support.microsoft.com/) site.
