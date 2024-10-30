@@ -4,7 +4,7 @@ description: Learn how to migrate databases from a SQL Server to Azure SQL Manag
 author: danimir
 ms.author: danil
 ms.reviewer: mathoma
-ms.date: 11/16/2022
+ms.date: 10/29/2024
 ms.service: azure-sql-managed-instance
 ms.subservice: migration
 ms.topic: how-to
@@ -33,6 +33,11 @@ The following sources are supported:
 
 Before you begin, consider the following requirements for both your SQL Server instance and Azure. 
 
+> [!IMPORTANT]
+> - You can't use databases that are being restored through LRS until the migration process finishes. 
+> - LRS doesn't support read-only access to databases during the migration.
+> - After the migration finishes, the migration process is final and can't be resumed with additional differential backups.
+
 ### SQL Server 
 
 Make sure that you meet the following requirements for SQL Server: 
@@ -45,9 +50,7 @@ Make sure that you meet the following requirements for SQL Server:
 - For SQL Server versions 2008 to 2016, take a backup locally and [manually upload](#copy-existing-backups-to-your-blob-storage-account) it to your Azure Blob Storage account. 
 - For SQL Server 2016 and later, you can [take your backup directly](#take-backups-directly-to-your-blob-storage-account) to your Azure Blob Storage account. 
 
-
-
-Although having `CHECKSUM` enabled for backups isn't required, we highly recommend it for faster restore operations. 
+Although having `CHECKSUM` enabled for backups isn't required, it's highly recommended to prevent unintentionally migrating a corrupt database, and for faster restore operations. 
 
 ### Azure 
 
@@ -56,8 +59,10 @@ Make sure that you meet the following requirements for Azure:
 - PowerShell Az.SQL module version 4.0.0 or later ([installed](https://www.powershellgallery.com/packages/Az.Sql/) or accessed through [Azure Cloud Shell](/azure/cloud-shell/)).
 - Azure CLI version 2.42.0 or later ([installed](/cli/azure/install-azure-cli)).
 - A provisioned Azure Blob Storage container.
-- A shared access signature (SAS) security token with Read and List permissions generated for the Blob Storage container, or a managed identity that can access the container. 
+- A shared access signature (SAS) security token with `Read` and `List` permissions generated for the Blob Storage container, or a managed identity that can access the container. Granting more permissions than `Read` and `List` will cause LRS to fail. 
 - Place backup files for an individual database inside a separate folder in a storage account by using a flat-file structure (mandatory). Nesting folders inside database folders isn't supported.
+
+
 
 ## Azure RBAC permissions
 
@@ -65,7 +70,6 @@ Running LRS through the provided clients requires one of the following Azure rol
 
 - [SQL Managed Instance Contributor](/azure/role-based-access-control/built-in-roles#sql-managed-instance-contributor) role
 - A role with the following permission: `Microsoft.Sql/managedInstances/databases/*`
-
 
 ## Best practices
 
@@ -75,21 +79,25 @@ When you're using LRS, consider the following best practices:
 - Split full and differential backups into multiple files, instead of using a single file.
 - Enable backup compression to help the network transfer speeds.
 - Use Cloud Shell to run PowerShell or CLI scripts, because it will always be updated to use the latest released cmdlets.
-- Configure a [maintenance window](maintenance-window.md) to allow scheduling of system updates at a specific day and time. This configuration helps achieve a more predictable time for database migrations, because system upgrades can interrupt in-progress migrations.
+- Configure a [maintenance window](#configure-a-maintenance-window) so system updates are scheduled at a specific day and time outside of the migration window to prevent delaying or interrupting the migration.
 - Plan to complete a single LRS migration job within a maximum of 30 days. On expiration of this time frame, the LRS job is automatically canceled.
-- For a faster database restore, enable `CHECKSUM` when you're taking your backups. SQL Managed Instance performs an integrity check on backups without `CHECKSUM`, which increases restore time. 
+- To prevent unintentionally migrating a corrupt database, and for a faster database restore, enable `CHECKSUM` when you're taking your backups. Although SQL Managed Instance performs a basic integrity check on backups without `CHECKSUM`, catching all forms of corruption isn't guaranteed. Taking backups with `CHECKSUM` is the only way to ensure the backup restored to SQL Managed Instance isn't corrupt. The basic integrity check on backups without `CHECKSUM` increases the restore time of a database. 
+- When migrating to the Business Critical service tier, account for a [prolonged delay](#longer-cutover-in-the-business-critical-service-tier) in database availability after cutover, while databases are seeded to secondary replicas. For especially large databases with minimum downtime requirements, consider migrating to the General Purpose service tier first and then upgrading to the Business Critical service tier, or using [Managed Instance link](managed-instance-link-migrate.md) to migrate your data. 
 
-System updates for SQL Managed Instance take precedence over database migrations in progress. During a system update on an instance, all pending LRS migrations are suspended and resumed only after the update is applied. This system behavior might prolong migration time, especially for large databases. 
+### Configure a maintenance window
 
-To achieve a predictable time for database migrations, consider configuring a [maintenance window](maintenance-window.md) to schedule system updates for a specific day and time, and run and complete migration jobs outside the designated maintenance window timeframe.
+System updates for SQL Managed Instance take precedence over database migrations in progress. 
 
-> [!IMPORTANT]
-> - You can't use databases that are being restored through LRS until the migration process finishes. 
-> - LRS doesn't support read-only access to databases during the migration.
-> - After the migration finishes, the migration process is final and can't be resumed with additional differential backups.
+Migration is impacted differently based on the service tier: 
+- In the General Purpose service tier, all pending LRS migrations are suspended and resumed only after the update is applied. This system behavior might prolong migration time, especially for large databases. 
+- In the Business Critical service tier, all pending LRS migrations are canceled and automatically restarted after the update is applied. This system behavior might prolong migration time, especially for large databases.
+
+To achieve a predictable time for database migrations, consider configuring a [maintenance window](maintenance-window.md) to schedule system updates for a specific day and time, and run and complete migration jobs outside the designated maintenance window time frame. For example, for a migration that starts on Monday, configure your custom maintenance window on Sunday to allow for the most time to complete the migration. 
+
+Configuring a maintenance window is not required but is highly recommended for large databases. 
 
 > [!NOTE]
-> After the cutover, SQL Managed Instance with Business Critical service tier can take significantly longer than General Purpose to be available as three secondary replicas have to be seeded for the availability group. The operation duration depends on the size of data. For more information, see [Management operations duration](/azure/azure-sql/managed-instance/management-operations-overview#duration).
+> While a maintenance window controls the predictability of _planned_ updates, it doesn't guarantee that unplanned failovers, or security patch updates won't occur. An unplanned failover or a security patch (which takes precedence over all other updates) can still interrupt your migration.
 
 ## Migrate multiple databases
 
@@ -120,9 +128,9 @@ You use an Azure Blob Storage account as intermediary storage for backup files b
 
 ### Configure Azure storage behind a firewall
 
-Using Azure Blob storage that's protected behind a firewall is supported, but requires additional configuration. To enable read / write access to Azure Storage with Azure Firewall turned on, you have to add the subnet of the SQL managed instance to the firewall rules of the vNet for the storage account by using MI subnet delegation and the Storage service endpoint. The storage account and the managed instance must be in the same region, or two paired regions. 
+Using Azure Blob storage that's protected behind a firewall is supported, but requires additional configuration. To enable read / write access to Azure Storage with Azure Firewall turned on, you have to add the subnet of the SQL managed instance to the firewall rules of the virtual network for the storage account by using MI subnet delegation and the Storage service endpoint. The storage account and the managed instance must be in the same region, or two paired regions. 
 
-If your Azure storage is behind a firewall, you may see the following message in the SQL managed instance error log: 
+If your Azure storage is behind a firewall, you might see the following message in the SQL managed instance error log: 
 
 ```
 Audit: Storage access denied user fault. Creating an email notification:
@@ -300,7 +308,7 @@ SET RECOVERY FULL
 GO
 ```
 
-To manually make full, differential, and log backups of your database to local storage, use the following sample T-SQL scripts. `CHECKSUM` isn't required, but we do recommend it. 
+To manually make full, differential, and log backups of your database to local storage, use the following sample T-SQL scripts. `CHECKSUM` isn't required, but it's recommended to prevent migrating a corrupt database, and for faster restore times.
 
 
 The following example takes a full database backup to the local disk: 
@@ -395,7 +403,6 @@ BACKUP LOG [SampleDB]
 TO URL = 'https://<mystorageaccountname>.blob.core.windows.net/<containername>/<databasefolder>/SampleDB_log.trn'  
 WITH COMPRESSION, CHECKSUM
 ```
-
 
 ## Sign in to Azure and select a subscription
 
@@ -558,7 +565,7 @@ To monitor ongoing migration progress through the Azure CLI, use the following c
 az sql midb log-replay show -g mygroup --mi myinstance -n mymanageddb
 ```
 
-To track additional details on a failed request, use the PowerShell command [Get-AzSqlInstanceOperation](/powershell/module/az.sql/get-azsqlinstanceoperation) or use Azure CLI command [az sql mi op show](/cli/azure/sql/mi/op?view=azure-cli-latest#az-sql-mi-op-show).
+To track additional details on a failed request, use the PowerShell command [Get-AzSqlInstanceOperation](/powershell/module/az.sql/get-azsqlinstanceoperation) or use Azure CLI command [az sql mi op show](/cli/azure/sql/mi/op#az-sql-mi-op-show).
 
 ## Stop the migration (optional)
 
@@ -599,6 +606,16 @@ To complete the migration process in LRS continuous mode through the Azure CLI, 
 az sql midb log-replay complete -g mygroup --mi myinstance -n mymanageddb --last-backup-name "backup.bak"
 ```
 
+### Longer cutover in the Business Critical service tier 
+
+If you're migrating to a SQL Managed Instance in the Business Critical service tier, account for the delay in bringing the databases online on the primary replica while they're seeded to the secondary replicas. This is especially true for larger databases. 
+
+Migrating to a SQL Managed Instance in the Business Critical service tier takes longer to complete than in the General Purpose service tier. After cutover to Azure completes, databases are unavailable until they've been seeded from the primary replica to the three secondary replicas, which can take a prolonged amount of time depending on your database size. The larger the database, the longer seeding to the secondary replicas takes - up to several hours, potentially.
+
+If it's important that databases are available as soon as cutover completes, then consider migrating to a General Purpose instance first. Once migration is finalized, you can upgrade your instance to the Business Critical service tier. Upgrading your service tier is an online operation that keeps your databases online until a short failover as the final step of the upgrade operation. 
+
+Alternatively, consider using the [Managed Instance link](managed-instance-link-migrate.md) to migrate online to a Business Critical instance without having to wait for databases to be available after the cutover. 
+
 
 ## Troubleshoot LRS issues
 
@@ -610,12 +627,12 @@ After you start LRS, use either of the following monitoring cmdlets to see the s
 To review details about a failed operation:
 
 * For PowerShell: [Get-AzSqlInstanceOperation](/powershell/module/az.sql/get-azsqlinstanceoperation)
-* For Azure CLI: [az sql mi op show](/cli/azure/sql/mi/op?view=azure-cli-latest#az-sql-mi-op-show)
+* For Azure CLI: [az sql mi op show](/cli/azure/sql/mi/op#az-sql-mi-op-show)
 
 If LRS fails to start after some time and you get an error, check for the most common issues:
 
 - Does an existing database on your managed instance have the same name as the one you're trying to migrate from your SQL Server instance? Resolve this conflict by renaming one of the databases.
-- Are the permissions granted for the SAS token Read and List _only_?
+- Are the permissions granted for the SAS token Read and List _only_? Granting more permissions than `Read` and `List` will cause LRS to fail.
 - Did you copy the SAS token for LRS after the question mark (`?`), with content that looks like `sv=2020-02-10...`? 
 - Is the SAS token validity time appropriate for the time window of starting and completing the migration? There might be mismatches because of the different time zones used for your SQL Managed Instance deployment and the SAS token. Try regenerating the SAS token and extending the token validity of the time window before and after the current date.
 - When starting multiple Log Replay restores in parallel targeting the same storage container, ensure that the same valid SAS token is provided for every restore operation. 
