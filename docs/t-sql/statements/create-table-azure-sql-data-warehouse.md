@@ -4,7 +4,7 @@ description: "CREATE TABLE creates a new table in Azure Synapse Analytics, Analy
 author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: vanto, xiaoyul, mariyaali, maghan
-ms.date: 10/29/2024
+ms.date: 10/30/2024
 ms.service: sql
 ms.topic: reference
 dev_langs:
@@ -733,7 +733,7 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
 
 ### Data type
 
-[!INCLUDE [fabric](../../includes/fabric.md)] supports the most commonly used data types. For more information, see [Data tpes in Microsoft Fabric](/fabric/data-warehouse/data-types).
+[!INCLUDE [fabric](../../includes/fabric.md)] supports the most commonly used data types. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
 
 > [!NOTE]
 > Similar to SQL Server, there is an 8060 byte per row limit. This might become a blocking issue for tables that have many columns, or columns with large data types, such as `varchar(8000)` or `varbinary(8000)`. Inserts or updates that violate the 8060 byte limit will result in error codes 511 or 611. For more information, see [Pages and Extents Architecture Guide](../../relational-databases/pages-and-extents-architecture-guide.md?view=azure-sqldw-latest&preserve-view=true#row-overflow-considerations).
@@ -816,7 +816,7 @@ Stores date and time of day with 19 to 26 characters according to the Gregorian 
  Variable-length, Unicode character data with a length of *n* bytes. *n* must be a value from `1` to `8000`. The storage size is the actual length of data entered + 2 bytes. The default for *n* is `1`. The `varchar(MAX)` column can store up to 1 MB of text in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)].
 
 > [!NOTE]
-> `varchar(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data tpes in Microsoft Fabric](/fabric/data-warehouse/data-types).
+> `varchar(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
 
  `char` [ ( *n* ) ]  
  Fixed-length, Unicode character data with a length of *n* bytes. *n* must be a value from `1` to `8000`. The storage size is *n* bytes. The default for *n* is `1`.  
@@ -826,7 +826,7 @@ Stores date and time of day with 19 to 26 characters according to the Gregorian 
  The `varbinary(MAX)` column can store up to 1 MB of data in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)].
 
 > [!NOTE]
-> `varbinary(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data tpes in Microsoft Fabric](/fabric/data-warehouse/data-types).
+> `varbinary(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
   
  `uniqueidentifier`  
  Is a 16-byte GUID.
