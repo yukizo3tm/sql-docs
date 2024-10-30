@@ -4,7 +4,7 @@ description: Learn about transparent data encryption, which encrypts SQL Server,
 author: rwestMSFT
 ms.author: randolphwest
 ms.reviewer: vanto
-ms.date: 01/19/2024
+ms.date: 10/28/2024
 ms.service: sql
 ms.subservice: security
 ms.topic: conceptual
@@ -18,7 +18,6 @@ helpviewer_keywords:
   - "encryption [SQL Server], Transparent data encryption"
 monikerRange: ">=aps-pdw-2016 || =azuresqldb-current || =azure-sqldw-latest || >=sql-server-2016 || >=sql-server-linux-2017 || =azuresqldb-mi-current"
 ---
-
 # Transparent data encryption (TDE)
 
 [!INCLUDE [SQL Server](../../../includes/applies-to-version/sql-asdb-asdbmi-asa-pdw.md)]
@@ -95,18 +94,24 @@ The following example shows encryption and decryption of the [!INCLUDE [sssample
 ```sql
 USE master;
 GO
+
 CREATE MASTER KEY ENCRYPTION BY PASSWORD = '<UseStrongPasswordHere>';
 GO
-CREATE CERTIFICATE MyServerCert WITH SUBJECT = 'My DEK Certificate';
+
+CREATE CERTIFICATE MyServerCert
+    WITH SUBJECT = 'My DEK Certificate';
 GO
+
 USE AdventureWorks2022;
 GO
+
 CREATE DATABASE ENCRYPTION KEY
-WITH ALGORITHM = AES_256
-ENCRYPTION BY SERVER CERTIFICATE MyServerCert;
+    WITH ALGORITHM = AES_256
+    ENCRYPTION BY SERVER CERTIFICATE MyServerCert;
 GO
+
 ALTER DATABASE AdventureWorks2022
-SET ENCRYPTION ON;
+    SET ENCRYPTION ON;
 GO
 ```
 
@@ -131,7 +136,7 @@ The following table provides links and explanations of TDE commands and function
 | [CREATE DATABASE ENCRYPTION KEY](../../../t-sql/statements/create-database-encryption-key-transact-sql.md) | Creates a key that encrypts a database |
 | [ALTER DATABASE ENCRYPTION KEY](../../../t-sql/statements/alter-database-encryption-key-transact-sql.md) | Changes the key that encrypts a database |
 | [DROP DATABASE ENCRYPTION KEY](../../../t-sql/statements/drop-database-encryption-key-transact-sql.md) | Removes the key that encrypts a database |
-| [ALTER DATABASE SET Options](../../../t-sql/statements/alter-database-transact-sql-set-options.md) | Explains the `ALTER DATABASE` option that is used to enable TDE |
+| [ALTER DATABASE SET options](../../../t-sql/statements/alter-database-transact-sql-set-options.md) | Explains the `ALTER DATABASE` option that is used to enable TDE |
 
 ## Catalog views and dynamic management views
 
@@ -236,6 +241,7 @@ The transaction logs can be monitored using the [sys.dm_db_log_info](../../syste
 ```sql
 USE AdventureWorks2022;
 GO
+
 /* The value 3 represents an encrypted state
    on the database and transaction logs. */
 SELECT *
@@ -274,7 +280,9 @@ If a certificate is used to protect the DEK, [back up the certificate](../../../
 
 FILESTREAM data isn't encrypted, even when you enable TDE.
 
-## <a id="scan-suspend-resume"></a> TDE and backups
+<a id="scan-suspend-resume"></a>
+
+## TDE and backups
 
 Certificates are commonly used in Transparent Data Encryption to protect the DEK. The certificate must be created in the `master` database. Backup files of databases that have TDE enabled, are also encrypted by using the DEK. As a result, when you restore from these backups, the certificate protecting the DEK must be available. This means that in addition to backing up the database, you must maintain backups of the server certificates to prevent data loss. Data loss occurs if the certificate is no longer available.
 
@@ -287,6 +295,9 @@ ALTER DATABASE <db_name> SET ENCRYPTION OFF;
 ```
 
 To view the state of the database, use the [sys.dm_database_encryption_keys](../../system-dynamic-management-views/sys-dm-database-encryption-keys-transact-sql.md) dynamic management view.
+
+> [!NOTE]  
+> While the encryption process is in progress, `ALTER DATABASE` statements aren't allowed on the database. Until the encryption process is finished, you can't start decrypting the database.
 
 Wait for decryption to finish before removing the DEK by using [DROP DATABASE ENCRYPTION KEY](../../../t-sql/statements/drop-database-encryption-key-transact-sql.md).
 
@@ -309,18 +320,18 @@ The certificate used to protect the DEK should never be dropped from the `master
 
 A message like the following one (error 33091) is raised after executing `CREATE DATABASE ENCRYPTION KEY` if the certificate used in the command hasn't been backed up already.
 
-> [!Warning]
-> The certificate used for encrypting the database encryption key has not been backed up. You should immediately back up the certificate and the private key associated with the certificate. If the certificate ever becomes unavailable or if you must restore or attach the database on another server, you must have backups of both the certificate and the private key or you will not be able to open the database.
+> [!WARNING]  
+> The certificate used for encrypting the database encryption key hasn't been backed up. You should immediately back up the certificate and the private key associated with the certificate. If the certificate ever becomes unavailable or if you must restore or attach the database on another server, you must have backups of both the certificate and the private key or you'll not be able to open the database.
 
 The following query can be used to identify the certificates used in TDE that haven't been backed up from the time it was created.
 
 ```sql
 SELECT pvt_key_last_backup_date,
-    Db_name(dek.database_id) AS encrypteddatabase,
-    c.name AS Certificate_Name
-FROM sys.certificates c
-INNER JOIN sys.dm_database_encryption_keys dek
-    ON c.thumbprint = dek.encryptor_thumbprint;
+       Db_name(dek.database_id) AS encrypteddatabase,
+       c.name AS Certificate_Name
+FROM sys.certificates AS c
+     INNER JOIN sys.dm_database_encryption_keys AS dek
+         ON c.thumbprint = dek.encryptor_thumbprint;
 ```
 
 If the column `pvt_key_last_backup_date` is `NULL`, the database corresponding to that row has been enabled for TDE, but the certificate used to protect its DEK hasn't been backed up. For more information on backing up a certificate, see [BACKUP CERTIFICATE](../../../t-sql/statements/backup-certificate-transact-sql.md).
