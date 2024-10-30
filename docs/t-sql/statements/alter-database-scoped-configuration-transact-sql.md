@@ -502,7 +502,7 @@ Causes SQL Server to generate a Showplan XML fragment with the ParameterRuntimeV
 
 #### OPTIMIZED_SP_EXECUTESQL
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)], and [!INCLUDE [ssazuremi](../../includes/ssazuremi-md.md)]
+**Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
 Enables or disables the compilation serialization behavior of sp_executesql when a batch is compiled. The first execution of sp_executesql will compile and insert its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available. This allows sp_executesql to behave like objects such as stored procedures and triggers from a compilation perspective.
 
