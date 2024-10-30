@@ -504,7 +504,7 @@ Causes SQL Server to generate a Showplan XML fragment with the ParameterRuntimeV
 
 **Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
-Enables or disables the compilation serialization behavior of sp_executesql when a batch is compiled. The first execution of sp_executesql will compile and insert its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available. This allows sp_executesql to behave like objects such as stored procedures and triggers from a compilation perspective.
+Enables or disables the compilation serialization behavior of sp_executesql when a batch is compiled. The default is OFF. The first execution of sp_executesql will compile and insert its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available. This allows sp_executesql to behave like objects such as stored procedures and triggers from a compilation perspective.
 
 ## <a id="Permissions"></a> Permissions
 
