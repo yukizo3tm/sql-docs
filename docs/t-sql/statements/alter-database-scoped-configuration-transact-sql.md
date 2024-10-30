@@ -110,6 +110,7 @@ ALTER DATABASE SCOPED CONFIGURATION
     | CE_FEEDBACK = { ON | OFF }
     | PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = { ON | OFF }
     | LEDGER_DIGEST_STORAGE_ENDPOINT = { <endpoint URL string> | OFF }
+    | OPTIMIZED_SP_EXECUTESQL = { ON | OFF }
 }
 ```
 
@@ -340,7 +341,7 @@ Allows you to disable memory grant feedback percentile for all query executions 
 
 #### MEMORY_GRANT_FEEDBACK_PERSISTENCE = { ON | OFF }
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
+**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)], and [!INCLUDE [ssazuremi](../../includes/ssazuremi-md.md)]
 
 Allows you to disable memory grant feedback persistence for all query executions originating from the database. Default is **ON**. For complete information, see [Percentile and persistence mode memory grant feedback](../../relational-databases/performance/intelligent-query-processing-memory-grant-feedback.md#percentile-and-persistence-mode-memory-grant-feedback).
 
@@ -462,25 +463,25 @@ If asynchronous statistics update is enabled, enabling this configuration causes
 
 #### OPTIMIZED_PLAN_FORCING = { ON | OFF }
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]) <!--, [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)] (Preview) and [!INCLUDE [ssazuremi](../../includes/ssazuremi-md.md)] (Preview)-->
+**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
 Optimized plan forcing reduces compilation overhead for repeating forced queries. The default is **ON**. Once the query execution plan is generated, specific compilation steps are stored for reuse as an optimization replay script. An optimization replay script is stored as part of the compressed showplan XML in [Query Store](../../relational-databases/performance/monitoring-performance-by-using-the-query-store.md), in a hidden `OptimizationReplay` attribute. Learn more in [Optimized plan forcing with Query Store](../../relational-databases/performance/optimized-plan-forcing-query-store.md).
 
 #### DOP_FEEDBACK = { ON | OFF }
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)])
+**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
 Identifies parallelism inefficiencies for repeating queries, based on elapsed time and waits. If parallelism usage is deemed inefficient, DOP feedback lowers the DOP for the next execution of the query, from whatever is the configured DOP, and verifies if it helps. Requires Query Store enabled and in READ_WRITE mode. For more information, see [Degrees of Parallelism (DOP) feedback](../../relational-databases/performance/intelligent-query-processing-degree-parallelism-feedback.md). The default is **OFF**. 
 
 #### CE_FEEDBACK = { ON | OFF }
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)])
+**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)], and [!INCLUDE [ssazuremi](../../includes/ssazuremi-md.md)]
 
 CE feedback addresses perceived regression issues resulting from incorrect CE model assumptions when using the default CE (CE120 or higher) and can selectively use different model assumptions. Requires Query Store enabled and in READ_WRITE mode. For more information, see [Cardinality estimation (CE) feedback](../../relational-databases/performance/intelligent-query-processing-cardinality-estimation-feedback.md). The default is **ON** in database compatibility level 160 and higher. 
 
 #### PARAMETER_SENSITIVE_PLAN_OPTIMIZATION = { ON | OFF }
 
-**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)])
+**Applies to:** [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)] (Starting with [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]), [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)], and [!INCLUDE [ssazuremi](../../includes/ssazuremi-md.md)]
 
 Parameter sensitivity plan (PSP) optimization addresses the scenario where a single cached plan for a parameterized query is not optimal for all possible incoming parameter values. This is the case with nonuniform data distributions. The default is **ON** starting in database compatibility level 160. For more information, see [Parameter Sensitive Plan optimization](../../relational-databases/performance/parameter-sensitive-plan-optimization.md).
 
@@ -498,6 +499,12 @@ Causes SQL Server to generate a Showplan XML fragment with the ParameterRuntimeV
 
 > [!IMPORTANT]  
 > The `FORCE_SHOWPLAN_RUNTIME_PARAMETER_COLLECTION` database scoped configuration option isn't meant to be enabled continuously in a production environment, but only for time-limited troubleshooting purposes. Using this database scoped configuration option will introduce additional and possibly significant CPU and memory overhead as we will create a Showplan XML fragment with runtime parameter information, whether the `sys.dm_exec_query_statistics_xml` DMV or lightweight query execution statistics profile infrastructure is enabled or not.
+
+#### OPTIMIZED_SP_EXECUTESQL
+
+**Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
+
+Enables or disables the compilation serialization behavior of sp_executesql when a batch is compiled. The default is OFF. Allowing batches which use sp_executesql to serialize the compilation process is very effective in reducing the impact of compilation storms when there are frequent and simultaneous compilations of adhoc queries that leverage the sp_executesql system stored procedure. The first execution of sp_executesql will compile and insert its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available. This allows sp_executesql to behave like objects such as stored procedures and triggers from a compilation perspective.
 
 ## <a id="Permissions"></a> Permissions
 
