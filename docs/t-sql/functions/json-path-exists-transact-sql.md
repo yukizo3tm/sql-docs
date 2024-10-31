@@ -39,7 +39,7 @@ A valid SQL/JSON path to test in the input.
 
 ## Return value
 
-Returns a bit value of `1` or `0` or `NULL`. Returns `NULL` if the *value_expression* or input is a SQL `NULL` value. Returns `1` if the given SQL/JSON path exists in the input or returns a non-empty sequence. Returns `0` otherwise.
+Returns a int value of `1` or `0` or `NULL`. Returns `NULL` if the *value_expression* or input is a SQL `NULL` value. Returns `1` if the given SQL/JSON path exists in the input or returns a non-empty sequence. Returns `0` otherwise.
 
 The `JSON_PATH_EXISTS` function doesn't return errors.
 
