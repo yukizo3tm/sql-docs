@@ -331,7 +331,7 @@ Different methods are available to obtain deadlock information for the ring buff
 
 # [Ring buffer target](#tab/ring-buffer)
 
-If you set up an XEvents session writing to the ring buffer, you can query deadlock information with the following Transact-SQL. Before running the query, replace the value of `@tracename` with the name of your xEvents session.
+If you set up an XEvents session writing to the ring buffer, you can query deadlock information with the following Transact-SQL. Before running the query, replace the value of `@tracename` with the name of your XEvents session.
 
 ```sql
 DECLARE @tracename sysname = N'deadlocks';
@@ -371,7 +371,7 @@ Downloading files from the Azure portal is recommended because this method does 
 
 If an Extended Events session is currently running and writing to an event file target, the blob container being written to will have a **Lease state** of *Leased* in the Azure portal. The size will be the maximum size of the file. To download a smaller file, you may wish to stop and restart the Extended Events session before downloading files. This will cause the file to change its **Lease state** to *Available*, and the file size will be the space used by events in the file.
 
-To stop and restart an XEvents session, connect to your database and run the following Transact-SQL. Before running the code, replace the name of the xEvents session with the appropriate value.
+To stop and restart an XEvents session, connect to your database and run the following Transact-SQL. Before running the code, replace the name of the XEvents session with the appropriate value.
 
 ```sql
 ALTER EVENT SESSION [deadlocks_eventfile] ON DATABASE

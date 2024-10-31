@@ -101,7 +101,7 @@ You can see usage attributes in the actual query execution plan:
 
 You can also track interleaved execution occurrences via the following extended events:
 
-| xEvent | Description |
+| XEvent | Description |
 | ---- | --- |
 | `interleaved_exec_status` | This event fires when interleaved execution is occurring. |
 | `interleaved_exec_stats_update` | This event describes the cardinality estimates updated by interleaved execution. |
