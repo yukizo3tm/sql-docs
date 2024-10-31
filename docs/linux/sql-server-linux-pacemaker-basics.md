@@ -116,7 +116,7 @@ When it comes to AGs and FCIs under virtualization, ensure that anti-affinity is
 For more specifics, consult:
 
 - Hyper-V Documentation - [Using Guest Clustering for High Availability](/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/dn440540(v=ws.11))
-- Whitepaper (written for Windows-based deployments, but most of the concepts still apply) - [Planning Highly Available, Mission Critical SQL Server Deployments with VMware vSphere](https://www.vmware.com/content/dam/digitalmarketing/vmware/en/pdf/solutions/vmware-vsphere-highly-available-mission-critical-sql-server-deployments.pdf)
+- Whitepaper (written for Windows-based deployments, but most of the concepts still apply) - [Planning Highly Available, Mission Critical SQL Server Deployments with VMware vSphere](https://blogs.vmware.com/vsphere/2017/01/planning-highly-available-mission-critical-sql-server-deployments-vmware-vsphere.html)
 
 ### Network
 
