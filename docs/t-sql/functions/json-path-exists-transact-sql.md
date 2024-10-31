@@ -4,7 +4,7 @@ description: JSON_PATH_EXISTS tests whether a specified SQL/JSON path exists in 
 author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: randolphwest, umajay
-ms.date: 05/02/2024
+ms.date: 10/31/2024
 ms.service: sql
 ms.subservice: t-sql
 ms.topic: reference
@@ -39,7 +39,7 @@ A valid SQL/JSON path to test in the input.
 
 ## Return value
 
-Returns a bit value of `1` or `0` or `NULL`. Returns `NULL` if the *value_expression* or input is a SQL `NULL` value. Returns `1` if the given SQL/JSON path exists in the input or returns a non-empty sequence. Returns `0` otherwise.
+Returns a int value of `1` or `0` or `NULL`. Returns `NULL` if the *value_expression* or input is a SQL `NULL` value. Returns `1` if the given SQL/JSON path exists in the input or returns a non-empty sequence. Returns `0` otherwise.
 
 The `JSON_PATH_EXISTS` function doesn't return errors.
 
