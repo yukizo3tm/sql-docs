@@ -4,7 +4,7 @@ description: JSON_PATH_EXISTS tests whether a specified SQL/JSON path exists in 
 author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: randolphwest, umajay
-ms.date: 05/02/2024
+ms.date: 10/31/2024
 ms.service: sql
 ms.subservice: t-sql
 ms.topic: reference
