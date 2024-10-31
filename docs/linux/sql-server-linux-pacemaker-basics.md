@@ -43,7 +43,7 @@ For full documentation on Pacemaker, including a more in-depth explanation of wh
 
 Ubuntu doesn't have a guide for availability.
 
-For more information about the whole stack, also see the official [Pacemaker documentation page](https://clusterlabs.org/doc/) on the ClusterLabs site.
+For more information about the whole stack, also see the official [Pacemaker documentation page](https://clusterlabs.org/projects/pacemaker/) on the ClusterLabs site.
 
 ## Pacemaker concepts and terminology
 
