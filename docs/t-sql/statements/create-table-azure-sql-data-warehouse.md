@@ -4,7 +4,7 @@ description: "CREATE TABLE creates a new table in Azure Synapse Analytics, Analy
 author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: vanto, xiaoyul, mariyaali, maghan
-ms.date: 10/23/2024
+ms.date: 10/31/2024
 ms.service: sql
 ms.topic: reference
 dev_langs:
@@ -92,9 +92,9 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
     | bit  
     | nvarchar [ ( n | max ) ]  -- max applies only to Azure Synapse Analytics 
     | nchar [ ( n ) ]  
-    | varchar [ ( n | max )  ] -- max applies only to Azure Synapse Analytics  
+    | varchar [ ( n | max )  ] -- max applies only to Azure Synapse Analytics 
     | char [ ( n ) ]  
-    | varbinary [ ( n | max ) ] -- max applies only to Azure Synapse Analytics  
+    | varbinary [ ( n | max ) ] -- max applies only to Azure Synapse Analytics 
     | binary [ ( n ) ]  
     | uniqueidentifier  
 ```  
@@ -118,7 +118,7 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
 ### Column options
 
  `COLLATE` *Windows_collation_name*  
- Specifies the collation for the expression. The collation must be one of the Windows collations supported by [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)]. For a list of Windows collations supported by [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)], see [Windows collation name (Transact-SQL)](windows-collation-name-transact-sql.md)/).  
+ Specifies the collation for the expression. The collation must be one of the Windows collations supported by [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)]. For a list of Windows collations supported by [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)], see [Windows collation name (Transact-SQL)](windows-collation-name-transact-sql.md)).  
   
  `NULL` | `NOT NULL`  
  Specifies whether `NULL` values are allowed in the column. The default is `NULL`.  
@@ -128,8 +128,8 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
   
  | Argument | Explanation |
  | -------- | ----------- |
- | *constraint_name* | The optional name for the constraint. The constraint name is unique within the database. The name can be reused in other databases. |
- | *constant_expression* | The default value for the column. The expression must be a literal value or a constant. For example, these constant expressions are allowed: `'CA'`, `4`. These constant expressions aren't allowed: `2+3`, `CURRENT_TIMESTAMP`. |
+ | `constraint_name` | The optional name for the constraint. The constraint name is unique within the database. The name can be reused in other databases. |
+ | `constant_expression` | The default value for the column. The expression must be a literal value or a constant. For example, these constant expressions are allowed: `'CA'`, `4`. These constant expressions aren't allowed: `2+3`, `CURRENT_TIMESTAMP`. |
   
 <a id="TableOptions"></a>
 
@@ -225,14 +225,14 @@ Same as `datetime`, except that you can specify the number of fractional seconds
   
 |*n* value|Precision|Scale|  
 |--:|--:|-:|  
-|`0`|19|0|  
-|`1`|21|1|  
-|`2`|22|2|  
-|`3`|23|3|  
-|`4`|24|4|  
-|`5`|25|5|  
-|`6`|26|6|  
-|`7`|27|7|  
+| `0` |19|0|  
+| `1` |21|1|  
+| `2` |22|2|  
+| `3` |23|3|  
+| `4` |24|4|  
+| `5` |25|5|  
+| `6` |26|6|  
+| `7` |27|7|  
   
  `datetime`  
  Stores date and time of day with 19 to 23 characters according to the Gregorian calendar. The date can contain year, month, and day. The time contains hour, minutes, seconds. As an option, you can display three digits for fractional seconds. The storage size is 8 bytes.  
@@ -282,7 +282,7 @@ Same as `datetime`, except that you can specify the number of fractional seconds
   
 | Data Type | Storage bytes |  
 | --------- | ------------: |  
-| `money`|8|  
+| `money` |8|  
 | `smallmoney` |4|  
   
  `bigint` \| `int` \| `smallint` \| `tinyint`  
@@ -290,7 +290,7 @@ Same as `datetime`, except that you can specify the number of fractional seconds
   
 | Data Type | Storage bytes |  
 | --------- | ------------: |  
-| `bigint`|8|  
+| `bigint` |8|  
 | `int` |4|  
 | `smallint` |2|  
 | `tinyint` |1|  
@@ -358,12 +358,12 @@ To change a rowstore table to a columnstore table, drop all existing indexes on 
 
 For more information, see these articles:
 - [What's new in columnstore indexes](../../relational-databases/indexes/columnstore-indexes-what-s-new.md)
-- [Indexing tables in [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)]](/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-tables-index)
+- [Indexing tables in [!INCLUDE[ssazuresynapse-md](../../includes/ssazuresynapse-md.md)]](/azure/synapse-analytics/sql-data-warehouse/sql-data-warehouse-tables-index)
 - [Columnstore indexes: Overview](../../relational-databases/indexes/columnstore-indexes-overview.md) 
 
-<a id="LimitationsRestrictions"></a>
+<a id="LimitationsRestrictions"></a><a id="LimitationsandRestrictions"></a>
 
-## Limitations and Restrictions
+## Limitations
 
 - You can't define a DEFAULT constraint on a distribution column.  
 - Table Name cannot be greater than 128 characters.
@@ -462,7 +462,6 @@ WITH
 <a id="ClusteredColumnstoreIndex"></a>
 
 ### D. Create a table with a clustered columnstore index
-
  The following example creates a distributed table with a clustered columnstore index. Each distribution is stored as a columnstore.  
   
  The clustered columnstore index doesn't affect how the data is distributed; data is always distributed by row. The clustered columnstore index affects how the data is stored within each distribution.  
@@ -501,7 +500,6 @@ SELECT * FROM ext_Lineitem
 <a id="RoundRobin"></a>
 
 ### F. Create a ROUND_ROBIN table
-
  The following example creates a ROUND_ROBIN table with three columns and without partitions. The data is spread across all distributions. The table is created with a CLUSTERED COLUMNSTORE INDEX, which gives better performance and data compression than a heap or rowstore clustered index.  
   
 ```sql
@@ -537,8 +535,7 @@ WITH
 <a id="Replicated"></a>
 
 ### H. Create a replicated table
-
- The following example creates a replicated table similar to the previous examples. Replicated tables are copied in full to each Compute node. With this copy on each Compute node, data movement is reduced for queries. This example is created with a clustered index, which gives better data compression than a heap. A heap might not contain enough rows to achieve good CLUSTERED COLUMNSTORE INDEX compression.  
+ The following example creates a replicated table similar to the previous examples. Replicated tables are copied in full to each Compute node. With this copy on each Compute node, data movement is reduced for queries. This example is created with a CLUSTERED INDEX, which gives better data compression than a heap. A heap might not contain enough rows to achieve good CLUSTERED COLUMNSTORE INDEX compression.  
   
 ```sql
 CREATE TABLE myTable
@@ -672,7 +669,7 @@ WITH
  For more information, see [Create tables on [!INCLUDE [fabric-data-warehouse](../../includes/fabric-dw.md)] in [!INCLUDE [microsoft-fabric](../../includes/fabric.md)]](/fabric/data-warehouse/create-table).
 
 > [!NOTE]
-> For [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)] and [!INCLUDE [ssPDW](../../includes/sspdw-md.md)], visit [CREATE TABLE (Azure Synapse Analytics)](create-table-azure-sql-data-warehouse.md?view=azure-sqldw-latest&preserve-view=true).
+> For reference to [!INCLUDE[ssazuresynapse-md](../../includes/ssazuresynapse-md.md)] and [!INCLUDE[ssPDW](../../includes/sspdw-md.md)], visit [CREATE TABLE (Azure Synapse Analytics)](create-table-azure-sql-data-warehouse.md?view=azure-sqldw-latest&preserve-view=true).
 > For SQL Server and Azure SQL platforms, visit [CREATE TABLE](create-table-transact-sql.md?view=azuresqldb-current&preserve-view=true) and select your desired product version from the version dropdown list.
 
 :::image type="icon" source="../../includes/media/topic-link-icon.svg" border="false"::: [Transact-SQL syntax conventions](../../t-sql/language-elements/transact-sql-syntax-conventions-transact-sql.md)  
@@ -704,9 +701,9 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
     | int   
     | smallint  
     | bit  
-    | varchar [ ( n ) ] 
+    | varchar [ ( n | MAX ) ] 
     | char [ ( n ) ]  
-    | varbinary [ ( n ) ] 
+    | varbinary [ ( n | MAX ) ] 
     | uniqueidentifier  
 ```
 
@@ -735,7 +732,7 @@ CREATE TABLE { database_name.schema_name.table_name | schema_name.table_name | t
 
 ### Data type
 
-[!INCLUDE [fabric](../../includes/fabric.md)] supports the most commonly used data types. 
+[!INCLUDE [fabric](../../includes/fabric.md)] supports the most commonly used data types. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
 
 > [!NOTE]
 > Similar to SQL Server, there is an 8060 byte per row limit. This might become a blocking issue for tables that have many columns, or columns with large data types, such as `varchar(8000)` or `varbinary(8000)`. Inserts or updates that violate the 8060 byte limit will result in error codes 511 or 611. For more information, see [Pages and Extents Architecture Guide](../../relational-databases/pages-and-extents-architecture-guide.md?view=azure-sqldw-latest&preserve-view=true#row-overflow-considerations).
@@ -753,13 +750,13 @@ Stores date and time of day with 19 to 26 characters according to the Gregorian 
   
 |*n* value|Precision|Scale|  
 |--:|--:|-:|  
-|`0`|19|0|  
-|`1`|21|1|  
-|`2`|22|2|  
-|`3`|23|3|  
-|`4`|24|4|  
-|`5`|25|5|  
-|`6`|26|6|  
+| `0` |19|0|  
+| `1` |21|1|  
+| `2` |22|2|  
+| `3` |23|3|  
+| `4` |24|4|  
+| `5` |25|5|  
+| `6` |26|6|  
   
  `date`  
  Stores a date using a maximum of 10 characters for year, month, and day according to the Gregorian calendar. The storage size is 3 bytes. Date is stored as an integer.  
@@ -807,24 +804,31 @@ Stores date and time of day with 19 to 26 characters according to the Gregorian 
   
 | Data Type | Storage bytes |  
 | --------- | ------------: |  
-| `bigint`|8|  
+| `bigint` |8|  
 | `int` |4|  
 | `smallint` |2|  
   
  `bit`  
  An integer data type that can take the value of `1`, `0`, or `NULL. [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)] optimizes storage of bit columns. If there are 8 or fewer bit columns in a table, the columns are stored as 1 byte. If there are from 9-16 bit columns, the columns are stored as 2 bytes, and so on.  
   
- `varchar` [ ( *n* ) ]
- Variable-length, Unicode character data with a length of *n* bytes. *n* must be a value from `1` to `8000`. The storage size is the actual length of data entered + 2 bytes. The default for *n* is `1`.   
-  
+ `varchar` [ ( *n* | `MAX` ) ]
+ Variable-length, Unicode character data with a length of *n* bytes. *n* must be a value from `1` to `8000`. The storage size is the actual length of data entered + 2 bytes. The default for *n* is `1`. The `varchar(MAX)` column can store up to 1 MB of text in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)].
+
+> [!NOTE]
+> `varchar(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
+
  `char` [ ( *n* ) ]  
  Fixed-length, Unicode character data with a length of *n* bytes. *n* must be a value from `1` to `8000`. The storage size is *n* bytes. The default for *n* is `1`.  
   
- `varbinary` [ ( *n* ) ] 
+ `varbinary` [ ( *n*  | `MAX` ) ] 
  Variable-length binary data. *n* can be a value from `1` to `8000`. The storage size is the actual length of data entered + 2 bytes. The default value for *n* is 7.  
+ The `varbinary(MAX)` column can store up to 1 MB of data in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)].
+
+> [!NOTE]
+> `varbinary(MAX)` is in preview in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)]. For more information, see [Data types in Microsoft Fabric](/fabric/data-warehouse/data-types).
   
  `uniqueidentifier`  
- Is a 16-byte GUID. 
+ Is a 16-byte GUID.
 
 ## Permissions
 
@@ -832,15 +836,15 @@ Permissions in [!INCLUDE [fabric](../../includes/fabric.md)] are different from 
 
 The user needs to be a member of the Admin, Member, or Contributor roles in the Fabric workspace.
 
-<a id="LimitationsRestrictions"></a>
+<a id="LimitationsRestrictions"></a><a id="LimitationsandRestrictions"></a>
 
-## Limitations and restrictions
+## Limitations
 
 - Table names can't be greater than 128 characters.
 - Table names in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)] in [!INCLUDE [fabric](../../includes/fabric.md)] cannot include the characters `/` or `\` or end with a `.`.
 - Column names can't be greater than 128 characters.
 - Tables have a maximum of 1,024 columns per table.
-- The default collation supported in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)] is Latin1_General_100_BIN2_UTF8.  You can also [create warehouses with case-insensitive (CI) collation - Latin1_General_100_CI_AS_KS_WS_SC_UTF8](/fabric/data-warehouse/collation).
+- The default collation supported in [!INCLUDE [fabricdw](../../includes/fabric-dw.md)] is `Latin1_General_100_BIN2_UTF8`.  You can also [create warehouses with case-insensitive (CI) collation - Latin1_General_100_CI_AS_KS_WS_SC_UTF8](/fabric/data-warehouse/collation).
 
 ## Remarks
 
@@ -850,6 +854,9 @@ There is limited Transact-SQL functionality in [!INCLUDE [fabricdw](../../includ
 
 ## Locking behavior
 
+<a id="LockingBehavior"></a>
+
+## Locking behavior
  Takes a Schema-Modification lock on the table, a shared lock on the DATABASE, and a Schema-Stability lock on the SCHEMA.  
 
 ## Related content

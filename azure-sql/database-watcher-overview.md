@@ -5,7 +5,7 @@ description: An overview of database watcher for Azure SQL, a managed monitoring
 author: dimitri-furman
 ms.author: dfurman
 ms.reviewer: wiassaf
-ms.date: 10/23/2024
+ms.date: 10/29/2024
 ms.service: azure-sql
 ms.subservice: monitoring
 ms.topic: conceptual
@@ -199,7 +199,7 @@ This section describes recent database watcher fixes, changes, and improvements.
 
 | Time period | Changes |
 |:--|:--|
-| October 2024 | - Add support for user assigned identity. For more information, see [Modify watcher identity](database-watcher-manage.md#modify-watcher-identity).</br> - Automatically grant the watcher access to key vault secrets when adding a SQL target that uses SQL authentication.</br> - Automatically grant the watcher access to an Azure Data Explorer database when adding a data store to an existing watcher.</br> - Add the feedback button on the **Overview** page and other pages. |
+| October 2024 | - Fix a bug where the **Table metadata** dataset was not collected if there are any views with invalid table references, or any tables with multiple column check constraints.</br> - Add support for user assigned identity. For more information, see [Modify watcher identity](database-watcher-manage.md#modify-watcher-identity).</br> - Automatically grant the watcher access to key vault secrets when adding a SQL target that uses SQL authentication.</br> - Automatically grant the watcher access to an Azure Data Explorer database when adding a data store to an existing watcher.</br> - Add the feedback button on the **Overview** page and other pages. |
 | September 2024 | - Fix a bug where the number of user logical sessions in the **Session statistics** dataset was always the same as the number of user sessions, even if [MARS](/sql/relational-databases/native-client/features/using-multiple-active-result-sets-mars) logical sessions were used.</br> - Fix a bug where elastic pool storage utilization wasn't reported correctly for Hyperscale elastic pools.</br> - Resolve an issue where for certain datasets, the first sample collected after a watcher restart might contain data that has already been collected before restart. </br> - Improve collection query performance to avoid timeouts for the **Table metadata** dataset.</br> - Improve collection reliability for the **Query runtime statistics** and **Query wait statistics** datasets on SQL Managed Instance. </br> - Add failover-related columns to the **Database replicas** dataset for SQL Managed Instance.</br> - Add index operational statistics columns to the **Index metadata** datasets.</br> - Add support for selecting multiple Azure SQL databases in the **Add SQL target** blade.|
 | August 2024 | - Enable database watcher in the **Central US**, **East US 2**, **North Europe**, and **Sweden Central** Azure regions.</br> - Add subscription and resource group filters in estate [dashboards](#dashboards). |
 | July 2024 | - Fix a bug where the **Performance counters** datasets were not collected from databases with a case-sensitive catalog collation, or managed instances with a case-sensitive database collation.</br> - Fix a bug where data was not collected if the database name in the SQL metadata had a different case than the database name in the Azure Resource Manager (ARM) metadata.</br> - Fix a bug where the **Query runtime statistics** and **Query wait statistics** datasets were not collected in databases with a large volume of new queries and query plans inserted into Query Store tables.</br> - Resolve an issue where the **Geo-replicas** and **Replicas** datasets were not collected from Hyperscale databases.</br> - Add the `subscription_id` and `resource_group_name` [common columns](database-watcher-data.md#common-columns) to all datasets. Requires a one-time [restart](database-watcher-manage.md#start-and-stop-a-watcher) of a watcher.</br> - Add the `resource_id` [common column](database-watcher-data.md#common-columns) to all datasets. The data appears for SQL targets added in July 2024 or later. To make data appear for an existing SQL target, [remove](database-watcher-manage.md#remove-sql-targets-from-a-watcher) and [re-add](database-watcher-manage.md#add-sql-targets-to-a-watcher) the target, and [restart](database-watcher-manage.md#start-and-stop-a-watcher) the watcher. |
@@ -229,6 +229,7 @@ During preview, database watcher has the following known issues.
 | If you create a managed private endpoint for a watcher to connect to a SQL managed instance that is stopped, the provisioning state of the private endpoint is reported as **Failed**, and the watcher cannot connect to the instance. | Delete the managed private endpoint with the **Failed** provisioning state and [start](./managed-instance/instance-stop-start-how-to.md) the SQL managed instance. Once the failed private endpoint is deleted and the instance is running, [re-create](database-watcher-manage.md#create-a-managed-private-endpoint) the managed private endpoint. |
 | Data is not collected if you use a database in Real-Time Analytics as the data store, and the **OneLake availability** option is enabled. | Disable the **OneLake availability** option and restart the watcher to resume data collection. |
 | Database watcher deployments via Bicep or ARM templates aren't idempotent. If a watcher, SQL target, or a managed private endpoint already exists, deployment fails. | Use conditional deployment to skip deploying existing resources. For more information, see [Conditional deployments in Bicep with the if expression](/azure/azure-resource-manager/bicep/conditional-resource-deployment) and [Conditional deployment in ARM templates](/azure/azure-resource-manager/templates/conditional-resource-deployment). |
+| Because of a known issue in Azure SQL Database, data in the **Backup history** dataset for Azure SQL databases is not collected if the database catalog collation is other than the default `SQL_Latin1_General_CP1_CI_AS`. | None at this time. |
 
 ## Troubleshoot
 
@@ -239,12 +240,21 @@ This section describes the steps you can take to solve common problems. If the s
 If you create a new watcher and do not see monitoring data on dashboards and in the data store, or if you only see older data, review this section.
 
 - On the watcher **Overview** page, check the **Status** field to see if the watcher is running. If not, use the **Start** button on the same page to start data collection. A new watcher is not [started](database-watcher-manage.md#start-and-stop-a-watcher) automatically.
+
 - Check that the watcher has [access to the data store](database-watcher-manage.md#grant-access-to-data-store).
+
 - If you use an Azure Data Explorer database as the data store, check that the Azure Data Explorer cluster is started. For more information, see [Stopped Azure Data Explorer clusters](database-watcher-manage.md#stopped-azure-data-explorer-clusters).
+
 - Check that the watcher has the specific, limited [access to SQL targets](database-watcher-manage.md#grant-access-to-sql-targets). Additionally, if using SQL authentication for any targets, check watcher [access to key vault](database-watcher-manage.md#additional-configuration-to-use-sql-authentication), or use the recommended Microsoft Entra authentication instead.
+
 - If you want the watcher to use Microsoft Entra authentication to connect to SQL targets, make sure that [Microsoft Entra authentication is enabled](database/authentication-aad-configure.md) on the logical servers hosting the database and elastic pool targets, and on the managed instance targets.
+
 - If you created any private endpoints for the watcher, make sure that they are approved by the resource owner.
+
 - If you are using public connectivity, make sure that the [requirements](database-watcher-overview.md#public-connectivity) to allow the watcher to connect to targets, data store, and key vault are met.
+
+- The Azure Data Explorer cluster or database, or the Real-Time Analytics database might have been deleted after it was selected as the data store for your watcher. Navigate to the cluster and the database, and confirm that they exist.
+
 - If you are using the free Azure Data Explorer cluster, make sure that you haven't reached the [storage capacity](/azure/data-explorer/start-for-free#specifications) of the cluster. For more information, see [Free Azure Data Explorer cluster](database-watcher-manage.md#free-azure-data-explorer-cluster).
 
 If you make changes to watcher access or connectivity as part of troubleshooting, you might need to stop and restart the watcher for the changes to take effect.
@@ -257,9 +267,6 @@ If you select the **Dashboards** page of a watcher, but do not see a summary of 
 - You might not have network connectivity to the data store. For example, this happens if connections from your browser to the Azure Data Explorer cluster use public connectivity, but you [disable public access](/azure/data-explorer/security-network-restrict-public-access) to the cluster. In that case, you also cannot connect to the cluster from [Kusto Explorer](/azure/data-explorer/kusto/tools/kusto-explorer) or the Azure Data Explorer [web UI](/azure/data-explorer/web-ui-query-overview).
 
   To resolve this, establish private connectivity from your machine to the Azure Data Explorer cluster as described in [Private connectivity to the data store](database-watcher-manage.md#private-connectivity-to-the-data-store).
-
-- The Azure Data Explorer cluster might be stopped. For more information, see [Stopped Azure Data Explorer clusters](database-watcher-manage.md#stopped-azure-data-explorer-clusters).
-- The Azure Data Explorer cluster or database, or the Real-Time Analytics database might have been deleted after it was selected as the data store for your watcher. Navigate to the cluster and the database, and confirm that they exist.
 
 To validate that you have access and can connect to the data store, and that the data store database exists, follow these steps:
 

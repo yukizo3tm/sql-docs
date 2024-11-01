@@ -4,7 +4,7 @@ description: sp_executesql executes a Transact-SQL statement or batch that can b
 author: markingmyname
 ms.author: maghan
 ms.reviewer: randolphwest
-ms.date: 09/16/2024
+ms.date: 10/31/2024
 ms.service: sql
 ms.subservice: system-objects
 ms.topic: "reference"
@@ -57,7 +57,7 @@ N'SELECT * FROM HumanResources.Employee WHERE EmployeeID = @IDParameter';
 
 Each parameter included in *@stmt* must have a corresponding entry in both the *@params* parameter definition list and the parameter values list.
 
-#### [ @params = ] N'*@parameter_name* *data_type* [ ,... *n* ]'
+#### [ @params = ] N'*@parameter_name* *data_type* [ , ...*n* ]'
 
 A string that contains the definitions of all parameters that are embedded in *@stmt*. The string must be either a Unicode constant or a Unicode variable. Each parameter definition consists of a parameter name and a data type. *n* is a placeholder that indicates more parameter definitions. Every parameter specified in *@stmt* must be defined in *@params*. If the [!INCLUDE [tsql](../../includes/tsql-md.md)] statement or batch in *@stmt* doesn't contain parameters, *@params* isn't required. The default value for this parameter is `NULL`.
 
@@ -95,26 +95,30 @@ Returns the result sets from all the SQL statements built into the SQL string.
 `sp_executesql` supports the setting of parameter values separately from the [!INCLUDE [tsql](../../includes/tsql-md.md)] string, as shown in the following example.
 
 ```sql
-DECLARE @IntVariable INT;
-DECLARE @SQLString NVARCHAR(500);
-DECLARE @ParmDefinition NVARCHAR(500);
+DECLARE @IntVariable AS INT;
+DECLARE @SQLString AS NVARCHAR (500);
+DECLARE @ParmDefinition AS NVARCHAR (500);
 
 /* Build the SQL string once */
 SET @SQLString = N'SELECT BusinessEntityID, NationalIDNumber, JobTitle, LoginID
        FROM AdventureWorks2022.HumanResources.Employee
        WHERE BusinessEntityID = @BusinessEntityID';
+
 SET @ParmDefinition = N'@BusinessEntityID tinyint';
+
 /* Execute the string with the first parameter value. */
 SET @IntVariable = 197;
 
-EXECUTE sp_executesql @SQLString,
+EXECUTE sp_executesql
+    @SQLString,
     @ParmDefinition,
     @BusinessEntityID = @IntVariable;
 
 /* Execute the same string with the second parameter value. */
 SET @IntVariable = 109;
 
-EXECUTE sp_executesql @SQLString,
+EXECUTE sp_executesql
+    @SQLString,
     @ParmDefinition,
     @BusinessEntityID = @IntVariable;
 ```
@@ -122,18 +126,24 @@ EXECUTE sp_executesql @SQLString,
 Output parameters can also be used with `sp_executesql`. The following example retrieves a job title from the `HumanResources.Employee` table in the [!INCLUDE [sssampledbobject-md](../../includes/sssampledbobject-md.md)] sample database, and returns it in the output parameter `@max_title`.
 
 ```sql
-DECLARE @IntVariable INT;
-DECLARE @SQLString NVARCHAR(500);
-DECLARE @ParmDefinition NVARCHAR(500);
-DECLARE @max_title VARCHAR(30);
+DECLARE @IntVariable AS INT;
+
+DECLARE @SQLString AS NVARCHAR (500);
+
+DECLARE @ParmDefinition AS NVARCHAR (500);
+
+DECLARE @max_title AS VARCHAR (30);
 
 SET @IntVariable = 197;
+
 SET @SQLString = N'SELECT @max_titleOUT = max(JobTitle)
    FROM AdventureWorks2022.HumanResources.Employee
    WHERE BusinessEntityID = @level';
+
 SET @ParmDefinition = N'@level TINYINT, @max_titleOUT VARCHAR(30) OUTPUT';
 
-EXECUTE sp_executesql @SQLString,
+EXECUTE sp_executesql
+    @SQLString,
     @ParmDefinition,
     @level = @IntVariable,
     @max_titleOUT = @max_title OUTPUT;
@@ -148,6 +158,26 @@ Being able to substitute parameters in `sp_executesql` offers the following adva
 - The [!INCLUDE [tsql](../../includes/tsql-md.md)] string is built only once.
 
 - The integer parameter is specified in its native format. Casting to Unicode isn't required.
+
+### OPTIMIZED_SP_EXECUTESQL
+
+**Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
+
+When the [OPTIMIZED_SP_EXECUTESQL database scoped configuration](../../t-sql/statements/alter-database-scoped-configuration-transact-sql.md#optimized_sp_executesql) is enabled, the compilation behavior of batches submitted using `sp_executesql` becomes identical to the serialized compilation behavior that objects such as stored procedures and triggers currently employ.
+
+When batches are identical (excluding any parameter differences), the `OPTIMIZED_SP_EXECUTESQL` option tries to obtain a compile lock as an enforcement mechanism to guarantee that the compilation process is serialized. This lock ensures that if multiple sessions invoke `sp_executesql` simultaneously, those sessions will wait while trying to obtain an exclusive compile lock after the first session starts the compilation process. The first execution of `sp_executesql` compiles and inserts its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available.
+
+Without the `OPTIMIZED_SP_EXECUTESQL` option, multiple invocations of identical batches executed via `sp_executesql` compile in parallel and place their own copies of a compiled plan into the plan cache, which replace or duplicate plan cache entries in some cases.
+
+> [!NOTE]  
+> Before you enable the `OPTIMIZED_SP_EXECUTESQL` database scoped configuration, if automatic update statistics is enabled, you should also enable the [auto update statistics asynchronous option](../statistics/statistics.md#auto_update_statistics_async) with the [ASYNC_STATS_UPDATE_WAIT_AT_LOW_PRIORITY](../../t-sql/statements/alter-database-scoped-configuration-transact-sql.md#async_stats_update_wait_at_low_priority---on--off-) database scoped configuration option. Enabling these two options can significantly reduce the probability that performance issues related to long compilation times along with excessive, lock manager exclusive locks (LCK_M_X) and `WAIT_ON_SYNC_STATISTICS_REFRESH` waits.
+
+`OPTIMIZED_SP_EXECUTESQL` is off by default. To enable `OPTIMIZED_SP_EXECUTESQL` at the database level, use the following Transact-SQL statement:
+
+```sql
+ALTER DATABASE SCOPED CONFIGURATION
+SET OPTIMIZED_SP_EXECUTESQL = ON;
+```
 
 ## Permissions
 
@@ -172,7 +202,8 @@ EXECUTE sp_executesql
 The following example shows using `sp_executesql` to execute a dynamically built string. The example stored procedure is used to insert data into a set of tables that are used to partition sales data for a year. There's one table for each month of the year that has the following format:
 
 ```sql
-CREATE TABLE May1998Sales (
+CREATE TABLE May1998Sales
+(
     OrderID INT PRIMARY KEY,
     CustomerID INT NOT NULL,
     OrderDate DATETIME NULL CHECK (DATEPART(yy, OrderDate) = 1998),
@@ -193,9 +224,8 @@ CREATE PROCEDURE InsertSales @PrmOrderID INT,
     @PrmOrderDate DATETIME,
     @PrmDeliveryDate DATETIME
 AS
-DECLARE @InsertString NVARCHAR(500);
-DECLARE @OrderMonth INT;
-
+DECLARE @InsertString AS NVARCHAR (500);
+DECLARE @OrderMonth AS INT;
 -- Build the INSERT statement.
 SET @InsertString = 'INSERT INTO ' +
     /* Build the name of the table. */
@@ -231,19 +261,22 @@ The following example uses an `OUTPUT` parameter to store the result set generat
 USE AdventureWorks2022;
 GO
 
-DECLARE @SQLString NVARCHAR(500);
-DECLARE @ParmDefinition NVARCHAR(500);
-DECLARE @SalesOrderNumber NVARCHAR(25);
-DECLARE @IntVariable INT;
+DECLARE @SQLString AS NVARCHAR (500);
+DECLARE @ParmDefinition AS NVARCHAR (500);
+DECLARE @SalesOrderNumber AS NVARCHAR (25);
+DECLARE @IntVariable AS INT;
 
 SET @SQLString = N'SELECT @SalesOrderOUT = MAX(SalesOrderNumber)
     FROM Sales.SalesOrderHeader
     WHERE CustomerID = @CustomerID';
+
 SET @ParmDefinition = N'@CustomerID INT,
     @SalesOrderOUT NVARCHAR(25) OUTPUT';
+
 SET @IntVariable = 22276;
 
-EXECUTE sp_executesql @SQLString,
+EXECUTE sp_executesql
+    @SQLString,
     @ParmDefinition,
     @CustomerID = @IntVariable,
     @SalesOrderOUT = @SalesOrderNumber OUTPUT;
@@ -254,7 +287,7 @@ SELECT @SalesOrderNumber;
 -- This SELECT statement uses the value of the OUTPUT parameter in
 -- the WHERE clause.
 SELECT OrderDate,
-    TotalDue
+       TotalDue
 FROM Sales.SalesOrderHeader
 WHERE SalesOrderNumber = @SalesOrderNumber;
 ```

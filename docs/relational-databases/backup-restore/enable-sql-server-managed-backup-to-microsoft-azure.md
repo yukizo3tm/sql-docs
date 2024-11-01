@@ -111,7 +111,7 @@ Record the container URL and SAS for use in creating a SQL CREDENTIAL. For more 
   
 2.  **Ensure SQL Server Agent service is Started and Running:** Start SQL Server Agent if it is not currently running.  [!INCLUDE[ss-managed-backup](../../includes/ss-managed-backup-md.md)] requires SQL Server Agent to be running on the instance to perform backup operations.  You may want to set SQL Server Agent to run automatically to make sure that backup operations can occur regularly.  
   
-3.  **Determine the retention period:** Determine the retention period for the backup files. The retention period is specified in days and can range from 1 to 30.  
+3.  **Determine the retention period:** Determine the retention period for the backup files. The retention period is specified in days and can range from 1 to 90.  
   
 4.  **Enable and configure [!INCLUDE[ss-managed-backup](../../includes/ss-managed-backup-md.md)] :** Start SQL Server Management Studio and connect to the target SQL Server instance. From the query window run the following statement after you modify the values for the database name, container url, and retention period per your requirements:  
   

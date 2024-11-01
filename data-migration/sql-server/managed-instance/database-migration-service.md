@@ -16,7 +16,7 @@ ms.custom:
 
 # Tutorial: Migrate SQL Server to Azure SQL Managed Instance with DMS
 
-You can use Azure Database Migration Service (DMS) and the Azure SQL migration extension in Azure Data Studio to migrate databases from a SQL Server instance to [Azure SQL Managed Instance](/azure/azure-sql/managed-instance/sql-managed-instance-paas-overview) with minimal downtime.
+You can use Azure Database Migration Service (DMS) and the Azure SQL migration extension in Azure Data Studio to migrate databases from a SQL Server instance to [Azure SQL Managed Instance](/azure/azure-sql/managed-instance/sql-managed-instance-paas-overview) with minimum downtime.
 
 For database migration methods that might require some manual configuration, see [Migration guide: SQL Server to Azure SQL Managed Instance](guide.md).
 
@@ -380,11 +380,14 @@ During the cutover process, the migration status changes from *in progress* to *
 
 After all database backups are restored on the instance of Azure SQL Managed Instance, an automatic migration cutover is initiated by Database Migration Service to ensure that the migrated database is ready to use. The migration status changes from **In progress** to **Succeeded**.
 
-After the migration, the availability of SQL Managed Instance with Business Critical service tier might take significantly longer than the General Purpose tier because three secondary replicas have to be seeded for an Always On High Availability group. The duration of this operation depends on the size of the data. For more information, see [Management operations duration](/azure/azure-sql/managed-instance/management-operations-overview#duration).
+After the migration, the availability of SQL Managed Instance with Business Critical service tier might take significantly longer than the General Purpose tier because three secondary replicas have to be seeded for an Always On High Availability group. The duration of this operation depends on the size of the data. .
 
 ---
 
 ## Limitations
+
+> [!IMPORTANT]
+> Online migrations with the Azure SQL extension use the same technology as the Log Replay Service (LRS), and have the same limitations. Before you migrate databases to the **Business Critical** service tier, consider [these limitations](/azure/azure-sql/managed-instance/log-replay-service-migrate#limitations-when-migrating-to-the-business-critical-service-tier), which don't apply to the **General Purpose** service tier.
 
 Migrating to Azure SQL Managed Instance by using the Azure SQL extension for Azure Data Studio has the following limitations:
 

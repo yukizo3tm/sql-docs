@@ -41,7 +41,7 @@ The Performance dashboard is divided into the following sections and sub-reports
    -  Expensive Queries
 - Miscellaneous Information
   -  Active Traces
-  -  Active xEvent Sessions
+  -  Active XEvent Sessions
   -  Databases
   -  Missing Indexes
 

@@ -17,6 +17,8 @@ monikerRange: ">=sql-server-ver15||>= sql-server-linux-ver16"
 
 [!INCLUDE [sssql22-md](../../../includes/sssql22-md.md)] introduces support for [authentication](/azure/active-directory/authentication/overview-authentication) with Microsoft Entra ID ([formerly Azure Active Directory](/entra/fundamentals/new-name)), on both Windows and Linux on-premises, and [SQL Server on Azure Windows VMs](/azure/azure-sql/virtual-machines/windows/configure-azure-ad-authentication-for-sql-vm).
 
+Use Microsoft Entra ID with standalone SQL Server instances or Always On availability groups. SQL Server failover cluster instances do not currently support Microsoft Entra authentication.
+
 ## Overview
 
 You can now connect to SQL Server using the following Microsoft Entra authentication methods:
@@ -99,6 +101,7 @@ Some non-GUI clients such as [Invoke-sqlcmd](/powershell/module/sqlserver/invoke
   - Member of the *Azure Connected Machine Onboarding* group or *Contributor* role in the resource group.
   - Member of the *Azure Connected Machine Resource Administrator* role in the resource group.
   - Member of the *Reader* role in the resource group.
+- Microsoft Entra authentication is not supported for SQL Server failover cluster instances
 
 ## Related content
 
