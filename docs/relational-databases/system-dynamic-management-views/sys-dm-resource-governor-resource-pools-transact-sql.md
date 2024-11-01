@@ -3,7 +3,7 @@ title: "sys.dm_resource_governor_resource_pools (Transact-SQL)"
 description: Returns information about the current resource pool state, the current configuration of resource pools, and resource pool statistics.
 author: rwestMSFT
 ms.author: randolphwest
-ms.date: 01/24/2024
+ms.date: 11/01/2024
 ms.service: sql
 ms.subservice: system-objects
 ms.topic: "reference"
@@ -76,7 +76,7 @@ Returns information about the current resource pool state, the current configura
 | `total_cpu_violation_delay_ms` | **bigint** | Total CPU violation delays (in milliseconds). That is, total CPU time delay that was lower than the minimum guaranteed delay between a runnable worker yields, and the operating system gives back control to another runnable worker in the [!INCLUDE [ssDE-md](../../includes/ssde-md.md)].<br /><br />**Applies to:** [!INCLUDE [sssql16-md](../../includes/sssql16-md.md)] and later versions |
 | `total_cpu_violation_sec` | **bigint** | Total CPU violations (in seconds). That is, total time accrued when a CPU time violation was in-flight.<br /><br />**Applies to:** [!INCLUDE [sssql16-md](../../includes/sssql16-md.md)] and later versions |
 | `total_cpu_usage_preemptive_ms` | **bigint** | Total CPU time used while in preemptive mode scheduling for the workload group (in milliseconds). Not nullable.<br /><br />To execute code that is outside the [!INCLUDE [ssDE-md](../../includes/ssde-md.md)] (for example, extended stored procedures and distributed queries), a thread has to execute outside the control of the non-preemptive scheduler. To do this, a worker switches to preemptive mode.<br /><br />**Applies to:** [!INCLUDE [sssql16-md](../../includes/sssql16-md.md)] and later versions |
-| `max_vcores` | **decimal(5,2)** | The current configuration for the maximum average CPU bandwidth allowed for all requests in the resource pool when there's CPU contention. In unit of vCores.<br /><br />**Applies to**: [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)] and [!INCLUDE [ssazuremi-md](../../includes/ssazuremi-md.md)] |
+| `max_vcores` | **decimal(5,2)** | The current configuration for the maximum average CPU bandwidth allowed for all requests in the resource pool when there's CPU contention. Expressed in the unit of vCores and might not reflect the total number of vCores or logical CPUs available to a database, elastic pool, or SQL managed instance.<br /><br />**Applies to**: [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)] and [!INCLUDE [ssazuremi-md](../../includes/ssazuremi-md.md)] |
 | `total_cpu_usage_actual_ms` | **bigint** | [!INCLUDE [ssinternalonly-md](../../includes/ssinternalonly-md.md)] |
 | `pdw_node_id` | **int**` | The identifier for the node that this distribution is on.<br /><br />**Applies to**: [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)], [!INCLUDE [ssPDW](../../includes/sspdw-md.md)] |
 
