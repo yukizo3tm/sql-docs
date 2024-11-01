@@ -47,7 +47,7 @@ This article provides a list of the rules used to assess the feasibility of migr
 | `ServerCredentials` | Instance | Warning | [Server scoped credential isn't supported in Azure SQL Database.](#ServerCredentials) |
 | `ServerScopedTriggers` | Instance | Warning | [Server-scoped trigger isn't supported in Azure SQL Database.](#ServerScopedTriggers) |
 | `ServiceBroker` | Database | Issue | [Service Broker feature isn't supported in Azure SQL Database.](#ServiceBroker) |
-| `SQLDBDatabaseSize` | Database | Issue | [Azure SQL Database doesn't support database size greater than 128 TB.](#SQLDBDatabaseSize) |
+| `SQLDBDatabaseSize` | Database | Issue | [Azure SQL Database doesn't support database size greater than 100 TB.](#SQLDBDatabaseSize) |
 | `SqlMail` | Database | Warning | [SQL Mail has been discontinued.](#SqlMail) |
 | `SystemProcedures110` | Database | Warning | [Detected statements that reference removed system stored procedures that aren't available in Azure SQL Database.](#SystemProcedures110) |
 | `TraceFlags` | Instance | Warning | [Azure SQL Database doesn't support trace flags.](#TraceFlags) |
@@ -385,11 +385,11 @@ Use elastic jobs, which are the replacement for SQL Server Agent jobs in Azure S
 
 ## <a id="SQLDBDatabaseSize"></a> SQL Database size
 
-**Title: Azure SQL Database doesn't support database size greater than 128 TB.**  
+**Title: Azure SQL Database doesn't support database size greater than 100 TB.**  
 **Category**: Issue
 
 **Description**  
-The size of the database is greater than the maximum supported size of 128 TB.
+The size of the database is greater than the maximum supported size of 100 TB.
 
 **Recommendation**  
 Evaluate if the data can be archived or compressed or sharded into multiple databases. Alternatively, migrate to SQL Server on Azure VMs.
