@@ -4,7 +4,7 @@ description: "This article explains features by version and the latest new featu
 author: MikeRayMSFT
 ms.author: mikeray
 ms.reviewer: wiassaf
-ms.date: 09/18/2024
+ms.date: 10/23/2024
 ms.service: sql
 ms.subservice: table-view-index
 ms.topic: conceptual
@@ -57,11 +57,13 @@ monikerRange: ">=aps-pdw-2016||=azuresqldb-current||=azure-sqldw-latest||>=sql-s
 
 ## SQL Server 2022 (16.x)
 
-[!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)] adds these new features. For more information, see [What's new in [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]](../../sql-server/what-s-new-in-sql-server-2022.md).
+[!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)] added these features.
 
-- Ordered clustered columnstore indexes improve performance for queries based on ordered column predicates. Ordered columnstore indexes can improve performance by skipping segments of data altogether. This can drastically reduce IO needed to complete queries on columnstore data. For more information, see [segment elimination](columnstore-indexes-query-performance.md#segment-elimination). Ordered cluster columnstore indexes are available in [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]. For more information, see [CREATE COLUMNSTORE INDEX](../../t-sql/statements/create-columnstore-index-transact-sql.md#order-for-clustered-columnstore) and [Performance tuning with ordered clustered columnstore index](/azure/synapse-analytics/sql-data-warehouse/performance-tuning-ordered-cci).
+- Ordered clustered columnstore indexes improve performance for queries based on ordered column predicates. Ordered columnstore indexes can improve performance by skipping segments of data altogether. This can drastically reduce IO needed to complete queries on columnstore data. For more information, see [segment elimination](columnstore-indexes-query-performance.md#segment-elimination). Ordered cluster columnstore indexes are available in [!INCLUDE [sql-server-2022](../../includes/sssql22-md.md)]. For more information, see [CREATE COLUMNSTORE INDEX](../../t-sql/statements/create-columnstore-index-transact-sql.md#order-for-clustered-columnstore) and [Performance tuning with ordered clustered columnstore indexes](ordered-columnstore-indexes.md).
 
 - Predicate pushdown with clustered columnstore rowgroup elimination of strings uses boundary values to optimize string searches. All columnstore indexes benefit from enhanced segment elimination by data type. Starting with [!INCLUDE [sssql22-md](../../includes/sssql22-md.md)], these segment elimination capabilities extend to string, binary, and guid data types, and the datetimeoffset data type for scale greater than two. Previously, columnstore segment elimination applied only to numeric, date, and time data types, and the datetimeoffset data type with scale less than or equal to two. After upgrading to a version of SQL Server that supports string min/max segment elimination ([!INCLUDE [sssql22-md](../../includes/sssql22-md.md)] and later versions), the columnstore index will not benefit this feature until it is rebuilt using a REBUILD or DROP/CREATE.
+
+- For more information on added features, see [What's new in SQL Server 2022](../../sql-server/what-s-new-in-sql-server-2022.md).
 
 ## SQL Server 2019 (15.x)
 
@@ -95,7 +97,7 @@ Starting with [!INCLUDE [sql-server-2019](../../includes/sssql19-md.md)], the tu
 
 - Support for primary keys and foreign keys by using a B-tree index to enforce these constraints on a clustered columnstore index.
 
-- Columnstore indexes have a compression delay option that minimizes the impact of the transactional workload on real-time operational analytics.  This option allows for frequently changing rows to stabilize before compressing them into the columnstore. For details, see [CREATE COLUMNSTORE INDEX (Transact-SQL)](../../t-sql/statements/create-columnstore-index-transact-sql.md) and [Get started with Columnstore for real-time operational analytics](../../relational-databases/indexes/get-started-with-columnstore-for-real-time-operational-analytics.md).
+- Columnstore indexes have a compression delay option that minimizes the impact of the transactional workload on real-time operational analytics.  This option allows for frequently changing rows to stabilize before compressing them into the columnstore. For details, see [CREATE COLUMNSTORE INDEX (Transact-SQL)](../../t-sql/statements/create-columnstore-index-transact-sql.md) and [Get started with Columnstore for real-time operational analytics](get-started-with-columnstore-for-real-time-operational-analytics.md).
 
 ### Performance for database compatibility level 120 or 130
 
@@ -130,31 +132,31 @@ These system views are new for columnstore:
 
 :::row:::
     :::column:::
-        [sys.column_store_row_groups (Transact-SQL)](../../relational-databases/system-catalog-views/sys-column-store-row-groups-transact-sql.md)
+        [sys.column_store_row_groups (Transact-SQL)](../system-catalog-views/sys-column-store-row-groups-transact-sql.md)
     :::column-end:::
     :::column:::
-        [sys.dm_column_store_object_pool (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-column-store-object-pool-transact-sql.md)
-    :::column-end:::
-:::row-end:::
-:::row:::
-    :::column:::
-        [sys.dm_db_column_store_row_group_operational_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-column-store-row-group-operational-stats-transact-sql.md)
-    :::column-end:::
-    :::column:::
-        [sys.dm_db_column_store_row_group_physical_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-column-store-row-group-physical-stats-transact-sql.md)
+        [sys.dm_column_store_object_pool (Transact-SQL)](../system-dynamic-management-views/sys-dm-column-store-object-pool-transact-sql.md)
     :::column-end:::
 :::row-end:::
 :::row:::
     :::column:::
-        [sys.dm_db_index_operational_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-index-operational-stats-transact-sql.md)
+        [sys.dm_db_column_store_row_group_operational_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-column-store-row-group-operational-stats-transact-sql.md)
     :::column-end:::
     :::column:::
-        [sys.dm_db_index_physical_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-index-physical-stats-transact-sql.md)
+        [sys.dm_db_column_store_row_group_physical_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-column-store-row-group-physical-stats-transact-sql.md)
     :::column-end:::
 :::row-end:::
 :::row:::
     :::column:::
-        [sys.internal_partitions (Transact-SQL)](../../relational-databases/system-catalog-views/sys-internal-partitions-transact-sql.md)
+        [sys.dm_db_index_operational_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-index-operational-stats-transact-sql.md)
+    :::column-end:::
+    :::column:::
+        [sys.dm_db_index_physical_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-index-physical-stats-transact-sql.md)
+    :::column-end:::
+:::row-end:::
+:::row:::
+    :::column:::
+        [sys.internal_partitions (Transact-SQL)](../system-catalog-views/sys-internal-partitions-transact-sql.md)
     :::column-end:::
     :::column:::
     :::column-end:::
@@ -170,26 +172,26 @@ These in-memory OLTP-based DMVs contain updates for columnstore:
 
 :::row:::
     :::column:::
-        [sys.dm_db_xtp_hash_index_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-hash-index-stats-transact-sql.md)
+        [sys.dm_db_xtp_hash_index_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-hash-index-stats-transact-sql.md)
     :::column-end:::
     :::column:::
-        [sys.dm_db_xtp_index_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-index-stats-transact-sql.md)
-    :::column-end:::
-:::row-end:::
-:::row:::
-    :::column:::
-        [sys.dm_db_xtp_memory_consumers (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-memory-consumers-transact-sql.md)
-    :::column-end:::
-    :::column:::
-        [sys.dm_db_xtp_nonclustered_index_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-nonclustered-index-stats-transact-sql.md)
+        [sys.dm_db_xtp_index_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-index-stats-transact-sql.md)
     :::column-end:::
 :::row-end:::
 :::row:::
     :::column:::
-        [sys.dm_db_xtp_object_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-object-stats-transact-sql.md)
+        [sys.dm_db_xtp_memory_consumers (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-memory-consumers-transact-sql.md)
     :::column-end:::
     :::column:::
-        [sys.dm_db_xtp_table_memory_stats (Transact-SQL)](../../relational-databases/system-dynamic-management-views/sys-dm-db-xtp-table-memory-stats-transact-sql.md)
+        [sys.dm_db_xtp_nonclustered_index_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-nonclustered-index-stats-transact-sql.md)
+    :::column-end:::
+:::row-end:::
+:::row:::
+    :::column:::
+        [sys.dm_db_xtp_object_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-object-stats-transact-sql.md)
+    :::column-end:::
+    :::column:::
+        [sys.dm_db_xtp_table_memory_stats (Transact-SQL)](../system-dynamic-management-views/sys-dm-db-xtp-table-memory-stats-transact-sql.md)
     :::column-end:::
 :::row-end:::
 
@@ -200,7 +202,7 @@ These in-memory OLTP-based DMVs contain updates for columnstore:
 
 ### Known issues
 
-**Applies to:** [!INCLUDE [sql-server](../../includes/ssnoversion-md.md)], [!INCLUDE[ssazure-sqldb](../../includes/ssazure-sqldb.md)], [!INCLUDE[ssazuremi-md](../../includes/ssazuremi-md.md)], [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)] dedicated SQL pool
+**Applies to:** [!INCLUDE [sql-server](../../includes/ssnoversion-md.md)], [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)], [!INCLUDE [ssazuremi-md](../../includes/ssazuremi-md.md)], [!INCLUDE [ssazuresynapse-md](../../includes/ssazuresynapse-md.md)] dedicated SQL pool
 
 - Currently, LOB columns (varbinary(max), varchar(max), and nvarchar(max)) in compressed columnstore segments are not affected by DBCC SHRINKDATABASE and DBCC SHRINKFILE.
 
@@ -229,5 +231,5 @@ These in-memory OLTP-based DMVs contain updates for columnstore:
 - [Columnstore indexes - Data loading guidance](columnstore-indexes-data-loading-guidance.md)
 - [Columnstore indexes - Query performance](columnstore-indexes-query-performance.md)
 - [Get started with Columnstore for real-time operational analytics](get-started-with-columnstore-for-real-time-operational-analytics.md)
-- [Columnstore indexes - Data Warehouse](columnstore-indexes-data-warehouse.md)
+- [Columnstore indexes in data warehousing](columnstore-indexes-data-warehouse.md)
 - [Optimize index maintenance to improve query performance and reduce resource consumption](reorganize-and-rebuild-indexes.md)
