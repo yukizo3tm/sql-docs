@@ -853,10 +853,6 @@ There is limited Transact-SQL functionality in [!INCLUDE [fabricdw](../../includ
 <a id="LockingBehavior"></a>
 
 ## Locking behavior
-
-<a id="LockingBehavior"></a>
-
-## Locking behavior
  Takes a Schema-Modification lock on the table, a shared lock on the DATABASE, and a Schema-Stability lock on the SCHEMA.  
 
 ## Related content
