@@ -1,10 +1,10 @@
 ---
 title: "sys.dm_resource_governor_resource_pools_history_ex (Transact-SQL)"
-description: Each row in sys.dm_resource_governor_resource_pools_history_ex represents a periodic snapshot of resource pool statistics in Azure SQL Database.
+description: Each row in sys.dm_resource_governor_resource_pools_history_ex represents a periodic snapshot of resource pool statistics.
 author: MikeRayMSFT
 ms.author: mikeray
 ms.reviewer: wiassaf, randolphwest
-ms.date: 01/24/2024
+ms.date: 11/01/2024
 ms.service: sql
 ms.subservice: system-objects
 ms.topic: "reference"
@@ -76,7 +76,7 @@ Each row represents a periodic snapshot of resource pool statistics in [!INCLUDE
 | `max_cpu_percent` | **int** | The current configuration for the maximum average CPU bandwidth allowed for all requests in the resource pool when there's CPU contention. Not nullable. |
 | `cap_cpu_percent` | **int** | Hard cap on the CPU bandwidth that all requests in the resource pool receive. Limits the maximum CPU bandwidth level to the specified level. The allowed range for value is from 1 through 100. Not nullable. |
 | `min_vcores` | **decimal(5,2)** | The current configuration for the guaranteed average CPU bandwidth for all requests in the resource pool when there's CPU contention. In units of vCores. |
-| `max_vcores` | **decimal(5,2)** | The current configuration for the maximum average CPU bandwidth allowed for all requests in the resource pool when there's CPU contention. In unit of vCores. |
+| `max_vcores` | **decimal(5,2)** | The current configuration for the maximum average CPU bandwidth allowed for all requests in the resource pool when there's CPU contention. Expressed in the unit of vCores and might not reflect the total number of vCores or logical CPUs available to a database, elastic pool, or SQL managed instance. |
 | `cap_vcores` | **decimal(5,2)** | Hard cap on the CPU bandwidth that all requests in the resource pool receive. In unit of vCores. |
 | `instance_cpu_count` | **int** | Number of CPU configured for the instance. |
 | `instance_cpu_percent` | **decimal(5,2)** | CPU percent configured for the instance. |
