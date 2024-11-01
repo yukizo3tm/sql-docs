@@ -5,7 +5,7 @@ description: Learn about the local development experience for Azure SQL Database
 author: croblesm
 ms.author: roblescarlos
 ms.reviewer: wiassaf, randolphwest
-ms.date: 08/14/2024
+ms.date: 10/24/2024
 ms.service: azure-sql-database
 ms.topic: overview
 ---
@@ -26,6 +26,12 @@ The local development environment mimics Azure SQL Database, allowing you to man
 
 > [!TIP]  
 > A GitHub Action and an Azure DevOps Task are available in [devcontainers/ci](https://github.com/devcontainers/ci) for running a repository's dev container in continuous integration (CI) builds. This allows you to reuse the same setup that you use for local development to also build and test your code in CI.
+
+The following video provides an exclusive overview of the latest Dev Container templates for Azure SQL Database, showcasing the benefits and features that enhance the local development experience:
+
+<br />
+
+> [!VIDEO https://learn-video.azurefd.net/vod/player?show=open-at-microsoft&ep=boost-your-local-development-with-dev-container-templates-for-azure-sql]
 
 ## How dev containers work
 

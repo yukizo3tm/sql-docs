@@ -3,7 +3,6 @@ title: Download ODBC Driver for SQL Server
 description: Download the Microsoft ODBC Driver for SQL Server to develop native-code applications that connect to SQL Server and Azure SQL Database.
 author: David-Engel
 ms.author: davidengel
-ms.reviewer: v-chojas
 ms.date: 07/31/2024
 ms.service: sql
 ms.subservice: connectivity
@@ -121,6 +120,7 @@ If you need to download the packages for offline installation, all versions are 
 
 ### Red Hat
 
+- [Red Hat 9 .rpm packages](https://packages.microsoft.com/rhel/9/prod/)
 - [Red Hat 8 .rpm packages](https://packages.microsoft.com/rhel/8/prod/)
 - [Red Hat 7 .rpm packages](https://packages.microsoft.com/rhel/7/prod/)
 - [Red Hat 6 .rpm packages](https://packages.microsoft.com/rhel/6/prod/)

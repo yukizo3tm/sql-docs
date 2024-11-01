@@ -1,7 +1,7 @@
 ---
 author: rwestMSFT
 ms.author: randolphwest
-ms.date: 01/11/2024
+ms.date: 10/10/2024
 ms.topic: include
 ---
 | Error | Severity | Event logged | Description |
@@ -255,6 +255,8 @@ ms.topic: include
 | 19521 | 16 | No | The attempt to create the distributed network name for the listener failed. The WSFC service may not be running or may be inaccessible in its current state, or the listener port number may be in conflict. Check the state of the WSFC cluster and validate the listener port number with the network administrator. Otherwise, contact your primary support provider. |
 | 19522 | 16 | No | The attempt to retrieve local physical addresses from WSFC failed. Check the state of the WSFC cluster with the network administrator. Otherwise, contact your primary support provider. |
 | 19523 | 16 | No | The specified '%.\*ls' of Availability Group must be less than 256 characters long. |
+| 19533 | 16 | No | Cannot create distributed availability group '%.\*ls' as it requires two Availaiblity Group Replicas, however %d were specified. |
+| 19536 | 10 | No | The default startup routine of database '%.\*ls' that belongs to an availability group (Group ID: %d) cannot be skipped because SQL Server did not initialize the Availability Replica Manager. This is an informational message only. No user action is required. |
 | 20001 | 10 | No | There is no nickname for article '%s' in publication '%s'. |
 | 20002 | 10 | No | The filter '%s' already exists for article '%s' in publication '%s'. |
 | 20003 | 10 | No | Could not generate nickname for '%s'. |

@@ -15,4 +15,4 @@ ms.topic: include
 - [Reddit - general discussion about SQL Server](https://www.reddit.com/r/SQLServer/)
 - [Microsoft SQL Server License Terms and Information](https://www.microsoft.com/download/details.aspx?id=39299)
 - [Support options for business users](https://support.microsoft.com/gp/support-options-for-business)
-- [Contact Microsoft](https://support.microsoft.com/gp/contactus81?Audience=Commercial)
+- [Contact Microsoft](https://support.microsoft.com/contactus/)

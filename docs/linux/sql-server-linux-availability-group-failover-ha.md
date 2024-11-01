@@ -117,7 +117,7 @@ During a manual failover, the `pcs` command `move` or `crm` command `migrate` ad
 For more information:
 
 - [Red Hat - Managing cluster resources](https://docs.redhat.com/documentation/red_hat_enterprise_linux/9/html/configuring_and_managing_high_availability_clusters/assembly_managing-cluster-resources-configuring-and-managing-high-availability-clusters#proc_display-configured-resources-managing-cluster-resources)
-- [Pacemaker - Move Resources manually](https://clusterlabs.org/pacemaker/doc/deprecated/en-US/Pacemaker/1.1/html/Clusters_from_Scratch/_move_resources_manually.html)
+- [Pacemaker - Move Resources manually](https://clusterlabs.org/projects/pacemaker/doc/2.1/Clusters_from_Scratch/html/apache.html#move-resources-manually)
 - [SLES Administration Guide - Managing cluster resources](https://documentation.suse.com/sle-ha/15-SP4/html/SLE-HA-all/cha-ha-manage-resources.html)
 
 ## <a id="forceFailover"></a> Force failover
