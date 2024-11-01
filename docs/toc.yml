@@ -1320,6 +1320,8 @@ items:
           href: relational-databases/indexes/columnstore-indexes-design-guidance.md
         - name: Data loading Guidance
           href: relational-databases/indexes/columnstore-indexes-data-loading-guidance.md
+        - name: Ordered clustered columnstore index performance
+          href: relational-databases/indexes/ordered-columnstore-indexes.md
         - name: Query performance
           href: relational-databases/indexes/columnstore-indexes-query-performance.md
         - name: Real-time operational analytics
