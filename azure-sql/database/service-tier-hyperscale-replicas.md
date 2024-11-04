@@ -3,8 +3,8 @@ title: Hyperscale secondary replicas
 description: This article describes the different types of secondary replicas available in the Hyperscale service tier.
 author: WilliamDAssafMSFT
 ms.author: wiassaf
-ms.reviewer: atsingh
-ms.date: 02/23/2024
+ms.reviewer: atsingh, arvindsh
+ms.date: 11/04/2024
 ms.service: azure-sql-database
 ms.subservice: service-overview
 ms.topic: overview
