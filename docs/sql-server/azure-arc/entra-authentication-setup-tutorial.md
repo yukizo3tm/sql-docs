@@ -1,6 +1,6 @@
 ---
 title: "Set up Microsoft Entra authentication for SQL Server enabled by Azure Arc"
-description: Tutorial on how to set up Microsoft Entra authentication for SQL Server enabled by Azure Arc
+description: Tutorial on how to set up Microsoft Entra authentication for SQL Server enabled by Azure Arc.
 author: MikeRayMSFT
 ms.author: mikeray
 ms.reviewer: vanto, randolphwest
