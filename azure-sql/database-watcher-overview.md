@@ -5,7 +5,7 @@ description: An overview of database watcher for Azure SQL, a managed monitoring
 author: dimitri-furman
 ms.author: dfurman
 ms.reviewer: wiassaf
-ms.date: 10/29/2024
+ms.date: 11/04/2024
 ms.service: azure-sql
 ms.subservice: monitoring
 ms.topic: conceptual
@@ -94,7 +94,7 @@ There is a limit on the number of SQL targets per watcher, and the number of wat
 
 | Parameter | Limit |
 |:--|:--|
-| SQL targets per watcher<sup>1</sup> | 50 |
+| SQL targets per watcher<sup>1</sup> | 100 |
 | Watchers per subscription | 20 |
 
 <sup>1</sup>A high availability replica of a database, elastic pool, or SQL managed instance is monitored independently of its parent replica, and is considered a separate target.
@@ -199,6 +199,7 @@ This section describes recent database watcher fixes, changes, and improvements.
 
 | Time period | Changes |
 |:--|:--|
+| November 2024 | - Increase the limit on the number of SQL targets per watcher from 50 to 100. |
 | October 2024 | - Fix a bug where the **Table metadata** dataset was not collected if there are any views with invalid table references, or any tables with multiple column check constraints.</br> - Add support for user assigned identity. For more information, see [Modify watcher identity](database-watcher-manage.md#modify-watcher-identity).</br> - Automatically grant the watcher access to key vault secrets when adding a SQL target that uses SQL authentication.</br> - Automatically grant the watcher access to an Azure Data Explorer database when adding a data store to an existing watcher.</br> - Add the feedback button on the **Overview** page and other pages. |
 | September 2024 | - Fix a bug where the number of user logical sessions in the **Session statistics** dataset was always the same as the number of user sessions, even if [MARS](/sql/relational-databases/native-client/features/using-multiple-active-result-sets-mars) logical sessions were used.</br> - Fix a bug where elastic pool storage utilization wasn't reported correctly for Hyperscale elastic pools.</br> - Resolve an issue where for certain datasets, the first sample collected after a watcher restart might contain data that has already been collected before restart. </br> - Improve collection query performance to avoid timeouts for the **Table metadata** dataset.</br> - Improve collection reliability for the **Query runtime statistics** and **Query wait statistics** datasets on SQL Managed Instance. </br> - Add failover-related columns to the **Database replicas** dataset for SQL Managed Instance.</br> - Add index operational statistics columns to the **Index metadata** datasets.</br> - Add support for selecting multiple Azure SQL databases in the **Add SQL target** blade.|
 | August 2024 | - Enable database watcher in the **Central US**, **East US 2**, **North Europe**, and **Sweden Central** Azure regions.</br> - Add subscription and resource group filters in estate [dashboards](#dashboards). |
