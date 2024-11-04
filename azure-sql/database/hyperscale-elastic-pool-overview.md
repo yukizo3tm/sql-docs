@@ -111,8 +111,8 @@ The following lists the supported limits for working with Hyperscale databases w
 - vCore maximum per pool: 80 or 128 vCores, depending on the service level objective.
 - Maximum supported data size per single Hyperscale database: 100 TB.
 - Maximum supported total data size across databases in the pool: 100 TB.
-- Maximum supported transaction log throughput per database: 100 MiB/s.
-    - Log generation rate of 150 MiB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MiB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
+- Maximum supported transaction log throughput per database: 100 MB/s.
+    - Log generation rate of 150 MB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 - Maximum supported total transaction log throughput across databases in the pool: 131.25 MB/second.
 - Each Hyperscale elastic pool can have up to 25 databases.
 
