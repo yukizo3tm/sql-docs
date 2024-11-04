@@ -163,7 +163,7 @@ Being able to substitute parameters in `sp_executesql` offers the following adva
 
 **Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
-When the OPTIMIZED_SP_EXECUTESQL [database scoped configuration](../../t-sql/statements/alter-database-scoped-configuration-transact-sql.md#optimized_sp_executesql---on--off-) is enabled, the compilation behavior of batches submitted using `sp_executesql` becomes identical to the serialized compilation behavior that objects such as stored procedures and triggers currently employ.
+When the OPTIMIZED_SP_EXECUTESQL [database scoped configuration](../../t-sql/statements/alter-database-scoped-configuration-transact-sql.md) is enabled, the compilation behavior of batches submitted using `sp_executesql` becomes identical to the serialized compilation behavior that objects such as stored procedures and triggers currently employ.
 
 When batches are identical (excluding any parameter differences), the `OPTIMIZED_SP_EXECUTESQL` option tries to obtain a compile lock as an enforcement mechanism to guarantee that the compilation process is serialized. This lock ensures that if multiple sessions invoke `sp_executesql` simultaneously, those sessions will wait while trying to obtain an exclusive compile lock after the first session starts the compilation process. The first execution of `sp_executesql` compiles and inserts its compiled plan into the plan cache. Other sessions abort waiting on the compile lock and reuse the plan once it becomes available.
 
