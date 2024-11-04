@@ -34,7 +34,10 @@ Contains a row for each trusted assembly for the server.
 |created_by |nvarchar(128) |Login name of the principal who added the assembly to the list. |
 
 ### Permissions  
- Requires VIEW SERVER STATE permission on the server.  
+
+In [!INCLUDE [sssql19-md](../../includes/sssql19-md.md)] and previous versions, requires `VIEW SERVER STATE` permission on the server.
+
+In [!INCLUDE [sssql22-md](../../includes/sssql22-md.md)] and later versions, requires `VIEW SERVER SECURITY STATE` permission on the server.
  
 ## Remarks  
 Use **[sys.sp_add_trusted_assembly](../../relational-databases/system-stored-procedures/sys-sp-add-trusted-assembly-transact-sql.md)** to add and **[sys.sp_drop_trusted_assembly](../../relational-databases/system-stored-procedures/sys-sp-drop-trusted-assembly-transact-sql.md)** to remove assemblies from `sys.trusted_assemblies`.
