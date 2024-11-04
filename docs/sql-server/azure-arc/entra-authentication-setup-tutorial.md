@@ -15,6 +15,4 @@ monikerRange: ">=sql-server-ver16||>= sql-server-linux-ver16"
 
 [!INCLUDE [SQL Server 2022](../../includes/applies-to-version/sqlserver2022.md)]
 
-The information in this article is identical to [Tutorial: Set up Microsoft Entra authentication for SQL Server](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-setup-tutorial.md).
-
 [!INCLUDE [entra-id-tutorial](../../includes/entra-id-tutorial.md)]
