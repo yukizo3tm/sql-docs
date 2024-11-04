@@ -10422,6 +10422,8 @@ items:
           href: sql-server/azure-arc/security-overview.md
         - name: Configure least privilege
           href: sql-server/azure-arc/configure-least-privilege.md
+        - name: Set up Entra authentication
+          href: sql-server/azure-arc/entra-authentication-setup-tutorial.md
         - name: Configure advanced data Security
           href: sql-server/azure-arc/configure-advanced-data-security.md
         - name: Certificate rotation

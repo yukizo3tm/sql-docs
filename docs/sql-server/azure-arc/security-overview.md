@@ -232,9 +232,9 @@ SQL Server enabled by Azure Arc stores the certificate for Microsoft Entra ID in
 
 * [Rotate certificates](rotate-certificates.md)
 * [Microsoft Entra authentication for SQL Server](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-overview.md).
-* [Tutorial: Set up Microsoft Entra authentication for SQL Server](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-setup-tutorial.md)
+* [Tutorial: Set up Microsoft Entra authentication for SQL Server](entra-authentication-setup-tutorial.md)
 
-To set up Microsoft Entra ID, follow the instructions at [Tutorial: Set up Microsoft Entra authentication for SQL Server](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-setup-tutorial.md).
+To set up Microsoft Entra ID, follow the instructions at [Tutorial: Set up Microsoft Entra authentication for SQL Server](entra-authentication-setup-tutorial.md).
 
 ### Microsoft Purview
 
