@@ -39,7 +39,7 @@ A High Availability (HA) replica uses the same page servers as the primary repli
 
 HA replicas use the same server and database name as the primary replica. Their Service Level Objective (SLO) also always the same as for the primary replica. HA replicas aren't visible or manageable as stand-alone resources, from the portal or from any API. They're billed at the same compute rate as the primary replica, but storage costs don't apply to secondary replicas.
 
-There can be zero to four HA replicas. Their number can be changed during the creation of a new database, or updated for an existing database. You can use the common management endpoints and tools (for example: Azure PowerShell, Azure CLI, Portal, REST API) to specify the number of HA replicas. Creating or removing HA replicas doesn't affect active connections on the primary replica.
+There can be zero to four HA replicas. You can specify the number replicas during the creation of a new database, or update the number of replicas for an existing database. You can use the common management endpoints and tools (for example: Azure PowerShell, Azure CLI, Azure portal, REST API) to specify the number of HA replicas. Creating or removing HA replicas doesn't affect active connections on the primary replica.
 
 ### Connect to an HA replica
 
