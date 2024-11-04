@@ -4,7 +4,7 @@ description: The FORMAT function returns a value formatted with the specified fo
 author: markingmyname
 ms.author: maghan
 ms.reviewer: randolphwest
-ms.date: 08/09/2024
+ms.date: 11/04/2024
 ms.service: sql
 ms.subservice: t-sql
 ms.topic: reference
@@ -97,17 +97,17 @@ The following table lists the acceptable data types for the *value* argument tog
 The following example returns a simple date formatted for different cultures.
 
 ```sql
-DECLARE @d DATE = '11/22/2020';
+DECLARE @d AS DATE = '11/22/2020';
 
-SELECT FORMAT(@d, 'd', 'en-US') 'US English',
-    FORMAT(@d, 'd', 'en-gb') 'British English',
-    FORMAT(@d, 'd', 'de-de') 'German',
-    FORMAT(@d, 'd', 'zh-cn') 'Chinese Simplified (PRC)';
+SELECT FORMAT(@d, 'd', 'en-US') AS 'US English',
+       FORMAT(@d, 'd', 'en-gb') AS 'British English',
+       FORMAT(@d, 'd', 'de-de') AS 'German',
+       FORMAT(@d, 'd', 'zh-cn') AS 'Chinese Simplified (PRC)';
 
-SELECT FORMAT(@d, 'D', 'en-US') 'US English',
-    FORMAT(@d, 'D', 'en-gb') 'British English',
-    FORMAT(@d, 'D', 'de-de') 'German',
-    FORMAT(@d, 'D', 'zh-cn') 'Chinese Simplified (PRC)';
+SELECT FORMAT(@d, 'D', 'en-US') AS 'US English',
+       FORMAT(@d, 'D', 'en-gb') AS 'British English',
+       FORMAT(@d, 'D', 'de-de') AS 'German',
+       FORMAT(@d, 'D', 'zh-cn') AS 'Chinese Simplified (PRC)';
 ```
 
 [!INCLUDE [ssResult](../../includes/ssresult-md.md)]
@@ -127,10 +127,10 @@ Friday, August 9, 2024  09 August 2024   Freitag, 9. August 2024   2024年8月9�
 The following example shows formatting numeric values by specifying a custom format. The example assumes that the current date is August 9, 2024. For more information about these and other custom formats, see [Custom Numeric Format Strings](/dotnet/standard/base-types/custom-numeric-format-strings).
 
 ```sql
-DECLARE @d DATE = GETDATE();
+DECLARE @d AS DATE = GETDATE();
 
 SELECT FORMAT(@d, 'dd/MM/yyyy', 'en-US') AS 'Date',
-    FORMAT(123456789, '###-##-####') AS 'Custom Number';
+       FORMAT(123456789, '###-##-####') AS 'Custom Number';
 ```
 
 [!INCLUDE [ssResult](../../includes/ssresult-md.md)]
@@ -147,10 +147,10 @@ The following example returns five rows from the `Sales.CurrencyRate` table in t
 
 ```sql
 SELECT TOP (5) CurrencyRateID,
-    EndOfDayRate,
-    FORMAT(EndOfDayRate, 'N', 'en-us') AS 'Numeric Format',
-    FORMAT(EndOfDayRate, 'G', 'en-us') AS 'General Format',
-    FORMAT(EndOfDayRate, 'C', 'en-us') AS 'Currency Format'
+               EndOfDayRate,
+               FORMAT(EndOfDayRate, 'N', 'en-us') AS 'Numeric Format',
+               FORMAT(EndOfDayRate, 'G', 'en-us') AS 'General Format',
+               FORMAT(EndOfDayRate, 'C', 'en-us') AS 'Currency Format'
 FROM Sales.CurrencyRate
 ORDER BY CurrencyRateID;
 ```
@@ -171,10 +171,10 @@ This example specifies the German culture (`de-de`).
 
 ```sql
 SELECT TOP (5) CurrencyRateID,
-    EndOfDayRate,
-    FORMAT(EndOfDayRate, 'N', 'de-de') AS 'Numeric Format',
-    FORMAT(EndOfDayRate, 'G', 'de-de') AS 'General Format',
-    FORMAT(EndOfDayRate, 'C', 'de-de') AS 'Currency Format'
+               EndOfDayRate,
+               FORMAT(EndOfDayRate, 'N', 'de-de') AS 'Numeric Format',
+               FORMAT(EndOfDayRate, 'G', 'de-de') AS 'General Format',
+               FORMAT(EndOfDayRate, 'C', 'de-de') AS 'Currency Format'
 FROM Sales.CurrencyRate
 ORDER BY CurrencyRateID;
 ```
@@ -194,42 +194,42 @@ CurrencyRateID EndOfDayRate  Numeric Format  General Format  Currency Format
 `FORMAT` returns `NULL` in these cases because `.` and `:` aren't escaped.
 
 ```sql
-SELECT FORMAT(cast('07:35' AS TIME), N'hh.mm');  --> returns NULL
-SELECT FORMAT(cast('07:35' AS TIME), N'hh:mm');  --> returns NULL
+SELECT FORMAT(CAST('07:35' AS TIME), N'hh.mm'); --> returns NULL
+SELECT FORMAT(CAST('07:35' AS TIME), N'hh:mm'); --> returns NULL
 ```
 
 Format returns a formatted string because the `.` and `:` are escaped.
 
 ```sql
-SELECT FORMAT(cast('07:35' AS TIME), N'hh\.mm');  --> returns 07.35
-SELECT FORMAT(cast('07:35' AS TIME), N'hh\:mm');  --> returns 07:35
+SELECT FORMAT(CAST('07:35' AS TIME), N'hh\.mm'); --> returns 07.35
+SELECT FORMAT(CAST('07:35' AS TIME), N'hh\:mm'); --> returns 07:35
 ```
 
 Format returns a formatted current time with AM or PM specified.
 
 ```sql
-SELECT FORMAT(SYSDATETIME(), N'hh:mm tt');  --> returns 03:46 PM
-SELECT FORMAT(SYSDATETIME(), N'hh:mm t');   --> returns 03:46 P
+SELECT FORMAT(SYSDATETIME(), N'hh:mm tt'); --> returns 03:46 PM
+SELECT FORMAT(SYSDATETIME(), N'hh:mm t');  --> returns 03:46 P
 ```
 
 Format returns the specified time, displaying AM.
 
 ```sql
-select FORMAT(CAST('2018-01-01 01:00' AS DATETIME2), N'hh:mm tt');  --> returns 01:00 AM
-select FORMAT(CAST('2018-01-01 01:00' AS DATETIME2), N'hh:mm t');   --> returns 01:00 A
+SELECT FORMAT(CAST('2018-01-01 01:00' AS DATETIME2), N'hh:mm tt'); --> returns 01:00 AM
+SELECT FORMAT(CAST('2018-01-01 01:00' AS DATETIME2), N'hh:mm t');  --> returns 01:00 A
 ```
 
 Format returns the specified time, displaying PM.
 
 ```sql
-select FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'hh:mm tt');  --> returns 02:00 PM
-select FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'hh:mm t');   --> returns 02:00 P
+SELECT FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'hh:mm tt'); --> returns 02:00 PM
+SELECT FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'hh:mm t');  --> returns 02:00 P
 ```
 
 Format returns the specified time in 24-hour format.
 
 ```sql
-select FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'HH:mm');  --> returns 14:00
+SELECT FORMAT(CAST('2018-01-01 14:00' AS DATETIME2), N'HH:mm'); --> returns 14:00
 ```
 
 ## Related content
