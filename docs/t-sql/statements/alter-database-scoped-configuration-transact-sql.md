@@ -500,7 +500,7 @@ Causes SQL Server to generate a Showplan XML fragment with the ParameterRuntimeV
 > [!IMPORTANT]  
 > The `FORCE_SHOWPLAN_RUNTIME_PARAMETER_COLLECTION` database scoped configuration option isn't meant to be enabled continuously in a production environment, but only for time-limited troubleshooting purposes. Using this database scoped configuration option will introduce additional and possibly significant CPU and memory overhead as we will create a Showplan XML fragment with runtime parameter information, whether the `sys.dm_exec_query_statistics_xml` DMV or lightweight query execution statistics profile infrastructure is enabled or not.
 
-#### OPTIMIZED_SP_EXECUTESQL
+#### OPTIMIZED_SP_EXECUTESQL = { ON | OFF }
 
 **Applies to:** [!INCLUDE [ssazure-sqldb](../../includes/ssazure-sqldb.md)]
 
