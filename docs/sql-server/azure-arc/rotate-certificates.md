@@ -43,7 +43,7 @@ To allow the service to manage the certificate, add an access policy for the ser
 > [!IMPORTANT]
 > To enable service managed certificate rotation you must assign key permission **Sign** to the Arc server managed identity. If this permission is not assigned, then service managed certificate rotation is not enabled..
 
-For instructions, see [Create and assign a certificate](../../relational-databases/security/authentication-access/azure-ad-authentication-sql-server-setup-tutorial.md#create-and-assign-a-certificate).
+For instructions, see [Create and assign a certificate](entra-authentication-setup-tutorial.md#create-and-assign-a-certificate).
 
 > [!NOTE]
 > There are no specific permissions required for an application to roll its own keys. See [Application: addKey](/graph/api/application-addkey).
