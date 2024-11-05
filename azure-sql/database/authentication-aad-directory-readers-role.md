@@ -2,8 +2,8 @@
 title: Directory Readers role in Microsoft Entra ID for Azure SQL
 titleSuffix: Azure SQL Database & Azure SQL Managed Instance
 description: Learn about the directory reader's role in Microsoft Entra for Azure SQL.
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: wiassaf, vanto, mathoma
 ms.date: 09/27/2023
 ms.service: azure-sql

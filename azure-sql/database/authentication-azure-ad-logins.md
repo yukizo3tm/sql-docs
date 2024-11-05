@@ -2,8 +2,8 @@
 title: Microsoft Entra server principals
 titleSuffix: Azure SQL Database & Azure SQL Managed Instance & Azure Synapse Analytics
 description: Using Microsoft Entra server principals (logins) in Azure SQL
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: vanto, mathoma
 ms.date: 02/15/2024
 ms.service: azure-sql

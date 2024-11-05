@@ -2,8 +2,8 @@
 title: Enable Microsoft Entra-only authentication
 titleSuffix: Azure SQL Database & Azure SQL Managed Instance
 description: This article guides you through enabling the Microsoft Entra-only authentication feature with Azure SQL Database and Azure SQL Managed Instance
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: wiassaf, vanto, mathoma
 ms.date: 09/27/2023
 ms.service: azure-sql
