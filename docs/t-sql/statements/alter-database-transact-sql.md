@@ -450,7 +450,7 @@ To enforce data residency when you're creating a database by using T-SQL, use `L
 Specifies the maximum size of the database. The maximum size must comply with the valid set of values for the EDITION property of the database. Changing the maximum size of the database can cause the database EDITION to be changed.
 
 > [!NOTE]
-> The **MAXSIZE** argument does not apply to single databases in the Hyperscale service tier. Hyperscale service tier databases grow as needed, up to 100 TB. The SQL Database service adds storage automatically - you do not need to set a maximum size.
+> The **MAXSIZE** argument does not apply to single databases in the Hyperscale service tier. Single Hyperscale service tier databases grow as needed, up to 128 TB. The SQL Database service adds storage automatically - you do not need to set a maximum size.
 
 **DTU model**
 
