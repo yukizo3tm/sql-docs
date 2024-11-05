@@ -27,7 +27,7 @@ The [Hyperscale service tier](service-tier-hyperscale.md) utilizes an architectu
 
 Traditional database engines centralize data management functions in a single process: even so-called distributed databases in production today have multiple copies of a monolithic data engine.
 
-Hyperscale databases follow a different approach. Hyperscale separates the query processing engine, where the semantics of various data engines diverge, from the components that provide long-term storage and durability for the data. In this way, storage capacity can be smoothly scaled out as far as needed. The initially supported storage limit is 100 TB.
+Hyperscale databases follow a different approach. Hyperscale separates the query processing engine, where the semantics of various data engines diverge, from the components that provide long-term storage and durability for the data. In this way, storage capacity can be smoothly scaled out as far as needed, up to 128 TB for a single Hyperscale database.
 
 All network communication among Hyperscale components uses Azure network infrastructure with built-in redundancy.
 

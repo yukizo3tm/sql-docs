@@ -77,7 +77,7 @@ The following factors affect the amount of storage used for data and log files, 
 
 The following storage considerations apply to Hyperscale:
 
-- Maximum data storage size is set to 100 TB and isn't configurable.
+- Maximum data storage size is set to 128 TB and isn't configurable.
 - You're charged only for the allocated data storage, not for maximum data storage.
 - You aren't charged for log storage.
 - `tempdb` uses local SSD storage, and its cost is included in the vCore price.
@@ -106,7 +106,7 @@ Service tier options in the vCore purchasing model include General Purpose, Busi
 |**Best for**|Most business workloads. Offers budget-oriented, balanced, and scalable compute and storage options. |Offers business applications the highest resilience to failures by using several high availability secondary replicas, and provides the highest I/O performance. | The widest variety of workloads, including those workloads with highly scalable storage and read-scale requirements.  Offers higher resilience to failures by allowing configuration of more than one high availability secondary replica. |
 | **Compute size** | 2 to 128 vCores | 2 to 128 vCores  |2 to 128 vCores  |
 | **Storage type** | Premium remote storage (per instance) |Super-fast local SSD storage (per instance)  | Decoupled storage with local SSD cache (per compute replica) |
-| **Storage size**| 1 GB – 4 TB | 1 GB – 4 TB  | 10 GB – 100 TB |
+| **Storage size**| 1 GB – 4 TB | 1 GB – 4 TB  | 10 GB – 128 TB |
 | **IOPS** | 320 IOPS per vCore with 16,000 maximum IOPS | 4,000 IOPS per vCore with 327,680 maximum IOPS | 327,680 IOPS with max local SSD <br/>Hyperscale is a multi-tiered architecture with caching at multiple levels. Effective IOPS depend on the workload. |
 | **Memory/vCore** | 5.1 GB | 5.1 GB | 5.1 GB or 10.2 GB | 
 | **Backups** | A choice of geo-redundant, zone-redundant, or locally redundant backup storage, 1-35 day retention (default 7 days) <br/> Long term retention available up to 10 years | A choice of geo-redundant, zone-redundant, or locally redundant backup storage, 1-35 day retention (default 7 days) <br/> Long term retention available up to 10 years  | A choice of locally redundant (LRS), zone-redundant (ZRS), or geo-redundant (GRS) storage <br/> 1-35 days (7 days by default) retention, with up to 10 years of long-term retention available |

@@ -28,7 +28,7 @@ sections:
       - question: |
           What is a Hyperscale database?
         answer: |
-          A Hyperscale database is a database in SQL Database that is backed by the Hyperscale [scale-out storage technology](hyperscale-architecture.md). A Hyperscale database supports up to 100 TB of data and provides high throughput and performance, as well as rapid scaling to adapt to the workload requirements. Connectivity, query processing, database engine features, and so on, work like any other database in Azure SQL Database.
+          A Hyperscale database is a database in SQL Database that is backed by the Hyperscale [scale-out storage technology](hyperscale-architecture.md). A Hyperscale database supports up to 128 TB of data and provides high throughput and performance, as well as rapid scaling to adapt to the workload requirements. Connectivity, query processing, database engine features, and so on, work like any other database in Azure SQL Database.
 
       - question: |
           What resource types and purchasing models support Hyperscale?
@@ -45,7 +45,7 @@ sections:
         answer: |
           The Hyperscale service tier is for all customers looking for higher performance and availability, fast backup and restores, fast storage, and compute scalability. This includes customers who are starting out small and growing, those running large mission-critical databases, those who are moving to the cloud to modernize their applications and customers who are already using other service tiers in Azure SQL Database. With Hyperscale, you get:
           
-          - Database size that can grow from 10 GB up to 100 TB.
+          - Database size that can grow from 10 GB up to 128 TB.
           - Compute vCore resources from 2 vCores up to 128 vCores          
           - Fast database backups regardless of database size (backups are based on storage snapshots).
           - Fast database restores regardless of database size (restores are from storage snapshots).
@@ -118,9 +118,11 @@ sections:
       - question: |
           How can I choose between Azure Synapse Analytics and Azure SQL Database Hyperscale?
         answer: |
-          If you're currently running interactive analytics queries using SQL Server as a data warehouse, Hyperscale is a great option because you can host small and mid-size data warehouses (such as a few TB up to 100 TB) at a lower cost, and you can migrate your SQL Server data warehouse workloads to Hyperscale with minimal T-SQL code changes.
+          If you're currently running interactive analytics queries using SQL Server as a data warehouse, Hyperscale is a great option because you can host small and mid-size data warehouses (such as a few TB up to 128 TB) at a lower cost, and you can migrate your SQL Server data warehouse workloads to Hyperscale with minimal T-SQL code changes.
           
-          If you're running data analytics on a large scale with complex queries and sustained ingestion rates higher than 100 MB/s or using Parallel Data Warehouse (PDW), Teradata, or other Massively Parallel Processing (MPP) data warehouses, Azure Synapse Analytics or Microsoft Fabric could be the best choice.
+          If you're running data analytics on a large scale with complex queries and sustained ingestion rates higher than 100 MB/s or using Parallel Data Warehouse (PDW), Teradata, or other Massively Parallel Processing (MPP) data warehouses such as Azure Synapse Analytics, then Microsoft Fabric could be the best choice.
+
+          Ingestion or log generation rate of 150 MB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 
   - name: Hyperscale compute questions
     questions:
@@ -157,12 +159,14 @@ sections:
     questions:
       - question: |
           What is the maximum database size supported with Hyperscale?
-        answer: 100 TB.
+        answer: The maximum size of a single Hyperscale database is currently 128 TB. The maximum size of a database in a Hyperscale elastic pool is currently 100 TB.
 
       - question: |
           What is the size of the transaction log with Hyperscale?
         answer: |
-          In Hyperscale, the transaction log is practically infinite, with a restriction that the active portion of the log cannot exceed 1 TB. The active portion of the log can grow because of long-running transactions, or because of [Change Data Capture](change-data-capture-overview.md?view=azuresql-db&preserve-view=true) processing not keeping up with the rate of data change. Avoid unnecessarily long and large transactions to stay below this limit. Other than this restriction, you don't need to worry about running out of log space on a system that has high log throughput. However, log generation rate might be throttled for continuous aggressively writing workloads. The peak sustained log generation rate is 100 MB/s.
+          In Hyperscale, the transaction log is practically infinite, with a restriction that the active portion of the log cannot exceed 1 TB. The active portion of the log can grow because of long-running transactions, or because of [Change Data Capture](change-data-capture-overview.md?view=azuresql-db&preserve-view=true) processing not keeping up with the rate of data change. Avoid unnecessarily long and large transactions to stay below this limit. Other than this restriction, you don't need to worry about running out of log space on a system that has high log throughput. However, log generation rate might be throttled for continuous aggressively writing workloads. The peak sustained log generation rate is 100 MB/s. 
+          
+          Log generation rate of 150 MB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 
       - question: |
           Does my tempdb scale as my database grows?
@@ -253,7 +257,7 @@ sections:
       - question: |
           How much time would it take to bring in X amount of data to Hyperscale?
         answer: |
-          Hyperscale is capable of consuming 100 MB/s of new/changed data, but the time needed to move data into databases in Azure SQL Database is also affected by available network throughput, source read speed and the target database service level objective.
+          Hyperscale is capable of consuming 100 MB/s of new/changed data, but the time needed to move data into databases in Azure SQL Database is also affected by available network throughput, source read speed and the target database service level objective. Log generation rate of 150 MB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 
       - question: |
           Can I read data from blob storage and do a fast load (like Polybase in Azure Synapse Analytics)?
@@ -361,7 +365,7 @@ sections:
       - question: |
           How much write throughput can I push in a Hyperscale database?
         answer: |
-          Transaction log throughput cap is set to 100 MB/s for any Hyperscale compute size. The ability to achieve this rate depends on multiple factors, including but not limited to workload type, client configuration and performance, and having sufficient compute capacity on the primary compute replica to produce log records at this rate.
+          Transaction log throughput cap is set to 100 MB/s for any Hyperscale compute size. The ability to achieve this rate depends on multiple factors, including but not limited to workload type, client configuration and performance, and having sufficient compute capacity on the primary compute replica to produce log records at this rate. Log generation rate of 150 MB/s is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).
 
       - question: |
           How many IOPS do I get on the largest compute?

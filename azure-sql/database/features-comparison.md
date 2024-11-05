@@ -173,7 +173,7 @@ The following table compares the maximum resource limits available for Azure SQL
 | **Category** | **Azure SQL Database** | **Azure SQL Managed Instance** |
 |:--|:--|:--|
 | **Compute size**| Up to 128 vCores  | Up to 128 vCores| 
-| **Storage size** | 1 GB - 100 TB | 16 TB | 
+| **Storage size** | 1 GB - 128 TB | 16 TB | 
 | **Tempdb size** | [32 GB per vCore](resource-limits-vcore-single-databases.md?view=azuresql-db&preserve-view=true), up to 2,560 GB |Up to 4 TB - [limited by reserved storage size](../managed-instance/resource-limits.md?view=azuresql-mi&preserve-view=true#service-tier-characteristics) |
 | **Log write throughput** | Up to 100mb/sec | [4.5 MB/s per vCore (max 192 MB/s)](../managed-instance/resource-limits.md?view=azuresql-mi&preserve-view=true#service-tier-characteristics) |
 | **Availability** | [Default SLA](https://azure.microsoft.com/support/legal/sla/azure-sql-database/) <br> 99.995% SLA with [zone redundancy](high-availability-sla-local-zone-redundancy.md?view=azuresql-db&preserve-view=true#zone-redundant-availability) | [Default SLA](https://azure.microsoft.com/support/legal/sla/azure-sql-sql-managed-instance/)|
