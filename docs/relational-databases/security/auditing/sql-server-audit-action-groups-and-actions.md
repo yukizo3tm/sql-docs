@@ -4,7 +4,7 @@ description: Learn about server-level, database-level, and audit-level groups of
 author: sravanisaluru
 ms.author: srsaluru
 ms.reviewer: vanto
-ms.date: 05/15/2024
+ms.date: 11/05/2024
 ms.service: sql
 ms.subservice: security
 ms.topic: conceptual
@@ -154,8 +154,6 @@ The following table describes the database-level audit action groups and provide
 | SCHEMA_OBJECT_CHANGE_GROUP | This event is raised when a CREATE, ALTER, or DROP operation is performed on a schema. Equivalent to the [Audit Schema Object Management Event Class](../../../relational-databases/event-classes/audit-schema-object-management-event-class.md).<br /><br />This event is raised on schema objects. Equivalent to the [Audit Object Derived Permission Event Class](../../../relational-databases/event-classes/audit-object-derived-permission-event-class.md). Also equivalent to the [Audit Statement Permission Event Class](../../../relational-databases/event-classes/audit-statement-permission-event-class.md). |
 | SCHEMA_OBJECT_OWNERSHIP_CHANGE_GROUP | This event is raised when the permissions to change the owner of schema object such as a table, procedure, or function is checked. This occurs when the ALTER AUTHORIZATION statement is used to assign an owner to an object. Equivalent to the [Audit Schema Object Take Ownership Event Class](../../../relational-databases/event-classes/audit-schema-object-take-ownership-event-class.md). |
 | SCHEMA_OBJECT_PERMISSION_CHANGE_GROUP | This event is raised whenever a grant, deny, or revoke is issued for a schema object. Equivalent to the [Audit Schema Object GDR Event Class](../../../relational-databases/event-classes/audit-schema-object-gdr-event-class.md). |
-| SENSITIVE_BATCH_COMPLETED_GROUP | This event is raised whenever any batch text, stored procedure, or transaction management operation completes executing on sensitive data classified using [SQL Data Discovery & Classification](../sql-data-discovery-and-classification.md). It's raised after the batch completes and will audit the entire batch or stored procedure text, as sent from the client, including the result. **Added in SQL Server 2019.** |
-| SENSITIVE_BATCH_STARTED_GROUP | This event is raised whenever any batch text, stored procedure, or transaction management operation starts to execute on sensitive data classified using [SQL Data Discovery & Classification](../sql-data-discovery-and-classification.md). It's raised before execution and will audit the entire batch or stored procedure text, as sent from the client. **Added in SQL Server 2019.** |
 | SUCCESSFUL_DATABASE_AUTHENTICATION_GROUP | Indicates that a principal successfully logged in to a contained database. |
 | USER_CHANGE_PASSWORD_GROUP | This event is raised whenever the password of a contained database user is changed by using the ALTER USER statement. |
 | USER_DEFINED_AUDIT_GROUP | This group monitors events raised by using [sp_audit_write (Transact-SQL)](../../../relational-databases/system-stored-procedures/sp-audit-write-transact-sql.md). |
