@@ -26,6 +26,9 @@ Azure SQL Managed Instance's VNet-local endpoint supports the following two conn
 
 Note that redirect option only has effect on the VNet-local endpoint. Public endpoints and private endpoints to Azure SQL Managed Instance always operate in proxy mode.
 
+> [!IMPORTANT]
+> It is **highly recommended** to configure all managed instances to **use the redirect connection policy**, except when SQL clients do not support TDS redirects.
+
 ## Redirect connection type
 
 In the redirect connection type, after the TCP session is established to the SQL engine, the client session obtains the destination virtual IP of the virtual cluster node from the load balancer. Subsequent packets flow directly to the virtual cluster node, bypassing the gateway. The following diagram illustrates this traffic flow.
