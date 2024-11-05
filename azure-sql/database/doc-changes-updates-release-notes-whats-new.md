@@ -119,7 +119,7 @@ Learn about significant changes to the Azure SQL Database documentation. For pre
 | Changes | Details |
 | --- | --- |
 | **Hyperscale support for database and file shrink** | Database and file shrink commands are supported in preview for Azure SQL Database Hyperscale. For more information, see [Shrink for Azure SQL Database Hyperscale](https://aka.ms/hs-shrink-preview). |
-| **TLS 1.0 and 1.1 retirement** | Azure has announced that support for older TLS versions (TLS 1.0, and 1.1) ends on October 31, 2024. To learn more about the impact to Azure SQL Database, review [connectivity settings](connectivity-settings.md#upcoming-retirement-changes). | 
+| **TLS 1.0 and 1.1 retirement** | Azure has announced that support for older TLS versions (TLS 1.0, and 1.1) ends on August 31, 2025. To learn more about the impact to Azure SQL Database, review [connectivity settings](connectivity-settings.md#upcoming-retirement-changes). | 
 
 ### June 2024
 
