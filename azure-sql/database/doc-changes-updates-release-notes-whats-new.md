@@ -6,7 +6,7 @@ author: WilliamDAssafMSFT
 ms.author: wiassaf
 ms.reviewer: mathoma, randolphwest
 ms.service: azure-sql-database
-ms.date: 10/16/2024
+ms.date: 10/22/2024
 ms.subservice: service-overview
 ms.topic: whats-new
 ms.custom:
@@ -59,6 +59,7 @@ The following table lists the features of Azure SQL Database that are currently 
 | [Query editor in the Azure portal](query-editor.md) | The query editor in the portal allows you to run queries against your Azure SQL Database directly from the [Azure portal](https://portal.azure.com). |
 | [SQL Analytics](/azure/azure-monitor/insights/azure-sql) | Azure SQL Analytics is an advanced cloud monitoring solution for monitoring performance of all of your Azure SQL databases at scale and across multiple subscriptions in a single view. Azure SQL Analytics collects and visualizes key performance metrics with built-in intelligence for performance troubleshooting. |
 | [UNISTR (Transact-SQL)](/sql/t-sql/functions/unistr-transact-sql) | Azure SQL Database now supports the `UNISTR` T-SQL syntax for Unicode string literals. For more information, see [UNISTR (Transact-SQL)](/sql/t-sql/functions/unistr-transact-sql).|
+| [Vector data type (preview)](/sql/relational-databases/vectors/vectors-sql-server) | Working with vector data is now easier in Azure SQL Database with the introduction of a new [vector data type](/sql/t-sql/data-types/vector-data-type) and [functions](/sql/t-sql/functions/vector-functions-transact-sql). For more information, see [Intelligent applications with Azure SQL Database](ai-artificial-intelligence-intelligent-applications.md#vectors).|
 | [\|\|](/sql/t-sql/language-elements/string-concatenation-pipes-transact-sql) and [\|\|=](/sql/t-sql/language-elements/compound-assignment-pipes-transact-sql) syntax support | Azure SQL Database now supports [\|\| (String concatenation)](/sql/t-sql/language-elements/string-concatenation-pipes-transact-sql) and [\|\|= (Compound assignment)](/sql/t-sql/language-elements/compound-assignment-pipes-transact-sql) Transact-SQL syntax.|
 
 ## General availability (GA)
@@ -76,7 +77,7 @@ The following table lists features of Azure SQL Database that have been made gen
 | [Automatic backups on secondary replicas](automated-backups-overview.md#automatic-backups-on-secondary-replicas) | August 2024 | Mitigate the performance impact on your workload by taking automated backups from the non-readable secondary replica in the Business Critical service tier. |
 | [Database compatibility level 160 is now default](/sql/t-sql/statements/alter-database-transact-sql-compatibility-level?view=azuresqldb-current&preserve-view=true) | June 2024 | Database compatibility level 160 is now the default for new databases created in Azure SQL Database. For more information on this announcement, see [General availability: Database compatibility level 160 in Azure SQL Database](https://techcommunity.microsoft.com/t5/azure-sql-blog/general-availability-database-compatibility-level-160-in-azure/ba-p/4172039). |
 | [Hyperscale named replica zone redundant support](service-tier-hyperscale-replicas.md) | June 2024 | [Zone redundancy support for Hyperscale named replicas](https://aka.ms/ZRSupportForNRPreview) is now generally available. |
-| [License-free standby replica](standby-replica-how-to-configure.md) | May 2024 | Save on licensing costs by configuring your secondary database replica for disaster recovery standby. | 
+| [License-free standby replica](standby-replica-how-to-configure.md) | May 2024 | Save on licensing costs by configuring your secondary database replica for disaster recovery standby. |
 | [Elastic jobs](elastic-jobs-overview.md) | April 2024 | [Elastic jobs, now generally available](https://techcommunity.microsoft.com/t5/azure-sql-blog/general-availability-elastic-jobs-in-azure-sql-database/ba-p/4087140), are the SQL Server Agent replacement for Azure SQL Database. Elastic jobs  support Microsoft Entra ID authentication, private endpoints, management via REST APIs, Azure Alerts, and more new features since public preview began. |
 | [Maintenance window advance notifications](advance-notifications.md) | March 2024 | Advance notifications are now generally available for databases configured to use a nondefault [maintenance window](maintenance-window.md). |
 | [Azure SQL triggers for Azure Functions](/azure/azure-functions/functions-bindings-azure-sql-trigger) | March 2024 | Azure Functions supports function triggers for Azure SQL Database. |
@@ -93,6 +94,7 @@ Learn about significant changes to the Azure SQL Database documentation. For pre
 
 | Changes | Details |
 | --- | --- |
+| **Vector data type (preview)** | Working with vector data is now easier in Azure SQL Database with the introduction of a new [vector data type](/sql/t-sql/data-types/vector-data-type) and [functions](/sql/t-sql/functions/vector-functions-transact-sql). For more information, see [Intelligent applications with Azure SQL Database](ai-artificial-intelligence-intelligent-applications.md#vectors).|
 | **Hyperscale single database increased maximum size** | The maximum single database size in Azure SQL Database Hyperscale has been increased from 100 TB to 128 TB. For more information, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
 | **Hyperscale increased log generation rate (preview)**| The transaction log generation rate in Azure SQL Database Hyperscale single databases is set to increase from 100 MB/s to 150 MB/s. The increased log generation rate is available as an opt-in preview feature. For more information and to opt-in to 150 MB/s, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
 | **Hyperscale continuous priming (preview)**| [Continuous priming](service-tier-hyperscale.md#buffer-pool-resilient-buffer-pool-extension-and-continuous-priming) is an innovative new feature is designed to optimize Hyperscale performance during failovers by priming secondary compute replicas. Continuous priming is currently in a gated preview. For more information and to opt-in to continuous priming, see [Blog: November 2024 Hyperscale enhancements](https://aka.ms/AAslnql).|
@@ -101,7 +103,7 @@ Learn about significant changes to the Azure SQL Database documentation. For pre
 
 | Changes | Details |
 | --- | --- |
-| **Lower auto-pause delay for serverless** | Reduce costs by lowering the [auto-pause delay for serverless compute in Azure SQL Database](https://aka.ms/AAs7lpz). |
+| **Lower auto-pause delay for serverless** | Reduce costs by lowering the [auto-pause delay for serverless compute in Azure SQL Database](https://aka.ms/AAs7lpz). For more information, see [serverless compute tier](serverless-tier-overview.md).|
 
 ### September 2024
 
