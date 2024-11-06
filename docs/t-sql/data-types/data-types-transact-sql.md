@@ -115,6 +115,7 @@ In [!INCLUDE [ssNoVersion](../../includes/ssnoversion-md.md)], based on their st
 - [geometry](../spatial-geometry/spatial-types-geometry-transact-sql.md) <sup>1</sup>
 - [hierarchyid](hierarchyid-data-type-method-reference.md)
 - [json](json-data-type.md)
+- [vector](vector-data-type.md)
 - [rowversion](rowversion-transact-sql.md)
 - [sql_variant](sql-variant-transact-sql.md)
 - [table](table-transact-sql.md)

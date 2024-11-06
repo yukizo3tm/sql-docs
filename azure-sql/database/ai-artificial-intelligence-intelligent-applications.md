@@ -4,7 +4,7 @@ description: "Use AI options such as OpenAI and vectors to build intelligent app
 author: damauri
 ms.author: damauri
 ms.reviewer: damauri, josephsack, randolphwest, mathoma
-ms.date: 08/01/2024
+ms.date: 10/15/2024
 ms.service: azure-sql-database
 ms.topic: conceptual
 ms.collection: ce-skilling-ai-copilot
@@ -75,7 +75,7 @@ In Azure OpenAI, input text provided to the API is turned into tokens (tokenized
 
 ### Vectors
 
-Vectors are ordered arrays of numbers (typically floats) that can represent information about some data. For example, an image can be represented as a vector of pixel values, or a string of text can be represented as a vector or ASCII values. The process to turn data into a vector is called *vectorization*.
+Vectors are ordered arrays of numbers (typically floats) that can represent information about some data. For example, an image can be represented as a vector of pixel values, or a string of text can be represented as a vector or ASCII values. The process to turn data into a vector is called *vectorization*. For more information, see [Vectors](#vectors-1).
 
 ### Embeddings
 
@@ -89,7 +89,7 @@ Vector search refers to the process of finding all vectors in a dataset that are
 
 Consider a scenario where you run a query over millions of document to find the most similar documents in your data. You can create embeddings for your data and query documents using Azure OpenAI. Then, you can perform a vector search to find the most similar documents from your dataset. However, performing a vector search across a few examples is trivial. Performing this same search across thousands, or millions, of data points becomes challenging. There are also trade-offs between exhaustive search and approximate nearest neighbor (ANN) search methods including latency, throughput, accuracy, and cost, all of which depends on the requirements of your application.
 
-Since Azure SQL Database embeddings can be efficiently stored and queried using to columnstore index support, allowing exact nearest neighbor search with great performance, you don't have to decide between accuracy and speed: you can have both. Storing vector embeddings alongside the data in an integrated solution minimizes the need to manage data synchronization and accelerates your time-to-market for AI application development.
+Vectors in Azure SQL Database can be efficiently stored and queried, as described in the next sections, allowing exact nearest neighbor search with great performance. You don't have to decide between accuracy and speed: you can have both. Storing vector embeddings alongside the data in an integrated solution minimizes the need to manage data synchronization and accelerates your time-to-market for AI application development.
 
 ## Azure OpenAI
 
@@ -123,7 +123,33 @@ For additional examples on using SQL Database and OpenAI, see the following arti
 
 ## Vectors
 
-Although Azure SQL Database doesn't have a native **vector** type, a vector is nothing more than an ordered tuple, and relational databases are great at managing tuples. You can think of a tuple as the formal term for a row in a table.
+### Vector data type
+
+In November 2024, the new **vector** data type was introduced in Azure SQL Database.
+
+The dedicated **vector** type allows for efficient and optimized storing of vector data, and comes with a set of functions to help developers streamline vector and similarity search implementation. Calculating distance between two vectors can be done in one line of code using the new `VECTOR_DISTANCE` function. For more information on the [**vector** data type](/sql/t-sql/data-types/vector-data-type) and related functions, see [Overview of vectors in the SQL Database Engine](/sql/relational-databases/vectors/vectors-sql-server).
+
+For example:
+
+```sql
+CREATE TABLE [dbo].[wikipedia_articles_embeddings_titles_vector]
+(
+    [article_id] [int] NOT NULL,
+    [embedding] [vector](1536) NOT NULL,    
+)
+GO
+
+SELECT TOP(10) 
+    * 
+FROM 
+    [dbo].[wikipedia_articles_embeddings_titles_vector]
+ORDER BY
+    VECTOR_DISTANCE('cosine', @my_reference_vector, embedding)
+```
+
+### Vectors in older versions of SQL Server
+
+While older versions of SQL Server engine, up to and including SQL Server 2022, doesn't have a native **vector** type, a vector is nothing more than an ordered tuple, and relational databases are great at managing tuples. You can think of a tuple as the formal term for a row in a table.
 
 Azure SQL Database also supports columnstore indexes and [batch mode execution](/sql/relational-databases/query-processing-architecture-guide#batch-mode-execution). A vector-based approach is used for batch mode processing, which means that each column in a batch has its own memory location where it's stored as a vector. This allows for faster and more efficient processing of data in batches.
 
@@ -169,16 +195,18 @@ For an end-to-end sample to build a AI-enabled application using sessions abstra
 
 ### LangChain integration
 
-LangChain is a well-known framework for developing applications powered by language models.
+LangChain is a well-known framework for developing applications powered by language models. For examples that show how LangChain can be used to create a Chatbot on your own data, see:
 
-For an example that shows how LangChain can be used to create a Chatbot on your own data, see [Building your own DB Copilot for Azure SQL with Azure OpenAI GPT-4](https://devblogs.microsoft.com/azure-sql/building-your-own-db-copilot-for-azure-sql-with-azure-openai-gpt-4/).
+- [Build a chatbot on your own data in 1 hour with Azure SQL, Langchain and Chainlit](https://devblogs.microsoft.com/azure-sql/build-a-chatbot-on-your-own-data-in-1-hour-with-azure-sql-langchain-and-chainlit/): Build a chatbot using the RAG pattern on your own data using Langchain for orchestrating LLM calls and Chainlit for the UI.
+- [Building your own DB Copilot for Azure SQL with Azure OpenAI GPT-4](https://devblogs.microsoft.com/azure-sql/building-your-own-db-copilot-for-azure-sql-with-azure-openai-gpt-4/): Build a copilot-like experience to query your databases using natural language.
 
 ### Semantic Kernel integration
 
 [Semantic Kernel is an open-source SDK](/semantic-kernel/overview/) that lets you easily build agents that can call your existing code. As a highly extensible SDK, you can use Semantic Kernel with models from OpenAI, Azure OpenAI, Hugging Face, and more! By combining your existing C#, Python, and Java code with these models, you can build agents that answer questions and automate processes.
 
-- [Semantic Kernel & Kernel Memory - SQL Connector](https://github.com/kbeaugrand/SemanticKernel.Connectors.Memory.SqlServer) - Provides a connection to a SQL database for the Semantic Kernel for the memories.
+- [The ultimate chatbot?](https://devblogs.microsoft.com/azure-sql/the-ultimate-chatbot/): Build a chatbot on your own data using both NL2SQL and RAG patterns for the ultimate user experience. 
 - [OpenAI Embeddings Sample](https://github.com/marcominerva/OpenAIEmbeddingSample): An example that shows how to use Semantic Kernel and Kernel Memory to work with embeddings in a .NET application using SQL Server as Vector Database.
+- [Semantic Kernel & Kernel Memory - SQL Connector](https://github.com/kbeaugrand/SemanticKernel.Connectors.Memory.SqlServer) - Provides a connection to a SQL database for the Semantic Kernel for the memories.
 
 ## Microsoft Copilot skills in Azure SQL Database
 
