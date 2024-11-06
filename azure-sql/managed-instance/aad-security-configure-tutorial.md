@@ -1,8 +1,8 @@
 ---
 title: Secure with Microsoft Entra logins
 description: Learn about techniques and features to secure Azure SQL Managed Instance, and use Microsoft Entra server principals (logins)
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: vanto, mathoma
 ms.date: 09/27/2023
 ms.service: azure-sql-managed-instance
