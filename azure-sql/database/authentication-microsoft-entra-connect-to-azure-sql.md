@@ -2,8 +2,8 @@
 title: Connect with Microsoft Entra authentication
 titleSuffix: Azure SQL Database & SQL Managed Instance & Azure Synapse Analytics
 description: Learn how to use Microsoft Entra authentication to connect to Azure SQL Database, Azure SQL Managed Instance, and Azure Synapse Analytics.
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: wiassaf, vanto, mathoma, maghan
 ms.date: 09/27/2024
 ms.service: azure-sql

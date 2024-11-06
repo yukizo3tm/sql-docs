@@ -2,8 +2,8 @@
 title: Managed identity in Microsoft Entra for Azure SQL
 titleSuffix: Azure SQL Database & Azure SQL Managed Instance
 description: Learn about system assigned and user assigned managed identities in Microsoft Entra for Azure SQL Database and Azure SQL Managed Instance.
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: vanto, wiassaf, mathoma
 ms.date: 10/24/2023
 ms.service: azure-sql

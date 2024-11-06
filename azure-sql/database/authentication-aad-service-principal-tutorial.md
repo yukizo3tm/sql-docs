@@ -1,8 +1,8 @@
 ---
 title: Create Microsoft Entra users using service principals
 description: This tutorial walks you through creating Microsoft Entra users with a Microsoft Entra application (service principal) in Azure SQL Database.
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: wiassaf, vanto, mathoma
 ms.date: 02/16/2024
 ms.service: azure-sql-database

@@ -2,8 +2,8 @@
 title: Conditional Access
 titleSuffix: Azure SQL Database, Azure SQL Managed Instance, Azure Synapse Analytics
 description: Learn how to configure Conditional Access for Azure SQL Database, Azure SQL Managed Instance, and Azure Synapse Analytics.
-author: nofield
-ms.author: nofield
+author: VanMSFT
+ms.author: vanto
 ms.reviewer: wiassaf, vanto, mathoma
 ms.date: 02/13/2024
 ms.service: azure-sql

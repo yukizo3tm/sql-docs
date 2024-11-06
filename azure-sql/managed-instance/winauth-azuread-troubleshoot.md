@@ -54,7 +54,11 @@ When using Wireshark the following is expected:
 - AS-REQ: Client => on-premises KDC => returns on-premises TGT.
 - TGS-REQ: Client => on-premises KDC => returns referral to `kerberos.microsoftonline.com`.
 
-## Next steps
+## Connection pooling
+
+When connection pooling is enabled, the driver manages SQL connections by keeping them open in a pool for reuse, rather than closing them. This can lead to a scenario where a connection is reused after a *security cache* invalidation, causing the *Kerberos ticket* to be revalidated. If the connection has been in the pool for more than five minutes, the ticket is treated as expired, resulting in a connection failure. To prevent this, set the *connection lifetime* to less than five minutes in the connection string. This change ensures that connections older than the specified lifetime are not reused from the pool.
+
+## Related content
 
 Learn more about implementing Windows Authentication for Microsoft Entra principals on Azure SQL Managed Instance:
 

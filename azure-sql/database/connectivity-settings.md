@@ -119,7 +119,7 @@ Currently, Azure SQL Database supports TLS 1.0, 1.1, 1.2, and 1.3. Setting a min
 
 ### Upcoming retirement changes 
 
-Azure has announced that support for older TLS versions (TLS 1.0, and 1.1) ends October 31, 2024. For more information, see [TLS 1.0 and 1.1 deprecation](https://azure.microsoft.com/updates/azure-support-tls-will-end-by-31-october-2024-2/).
+Azure has announced that support for older TLS versions (TLS 1.0, and 1.1) ends August 31, 2025. For more information, see [TLS 1.0 and 1.1 deprecation](https://azure.microsoft.com/updates/azure-support-tls-will-end-by-31-october-2024-2/).
 
 Starting November 2024, you will no longer be able to set the minimal TLS version for Azure SQL Database and Azure Synapse Analytics client connections below TLS 1.2. 
 
