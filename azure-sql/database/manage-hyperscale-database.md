@@ -38,6 +38,8 @@ To move a database that is a part of a [geo-replication](active-geo-replication-
 
 Once a database has been moved to Hyperscale, you can create a new Hyperscale geo-replica for that database.
 
+Direct migration from the Basic service tier to the Hyperscale service tier is not supported. To perform this migration, first change the database to any service tier other than Basic (for example, General Purpose), and then proceed with the migration to Hyperscale.  
+
 ### How to migrate a database to the Hyperscale service tier
 
 To migrate an existing database in Azure SQL Database to the Hyperscale service tier, first identify your target service objective. Review [resource limits for single databases](resource-limits-vcore-single-databases.md) if you aren't sure which service objective is right for your database. In many cases, you can choose a service objective with the same number of vCores and the same hardware generation as the original database. If needed, you are able to [change the service objective](scale-resources.md) with minimal downtime.
