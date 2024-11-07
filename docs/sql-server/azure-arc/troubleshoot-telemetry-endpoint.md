@@ -136,7 +136,7 @@ For example, if your Arc machine resource is located in *East US 2* the short na
 
 Up to and including the [February 13, 2024](release-notes.md#february-13-2024), The specific endpoints were:
 
-- DPS: `dataprocessingservice-<region>-prod.azurewebsites.net`.
+- DPS: `san-af-<region>-prod.azurewebsites.net`.
 - Telemetry `telemetry.<region>.arcdataservices.com`.
 
 Your extension continues to use these services until it is updated.
