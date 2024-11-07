@@ -38,7 +38,7 @@ To move a database that is a part of a [geo-replication](active-geo-replication-
 
 Once a database has been moved to Hyperscale, you can create a new Hyperscale geo-replica for that database.
 
-Direct migration from the Basic service tier to the Hyperscale service tier is not supported. To perform this migration, first change the database to any service tier other than Basic (like Standard, premium etc.), and then proceed with the migration to Hyperscale.  
+Direct migration from the Basic service tier to the Hyperscale service tier is not supported. To perform this migration, first change the database to any service tier other than Basic (for example, General Purpose), and then proceed with the migration to Hyperscale.  
 
 ### How to migrate a database to the Hyperscale service tier
 
