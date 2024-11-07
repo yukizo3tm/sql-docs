@@ -91,7 +91,9 @@ Run that query on any instance that you enable.
 
 ### Service account permissions
 
-The SQL Server service account must be a member of the sysadmin fixed server role on each SQL Server instance.
+The SQL Server service account must be a member of the `sysadmin` fixed server role on each SQL Server instance. By default, the SQL Server service account is a member of the `sysadmin` fixed server role. 
+
+For more information about this requirement, review [SQL Server service account](configure-least-privilege.md#sql-server-service-account).
 
 ### Set proxy exclusions
 
