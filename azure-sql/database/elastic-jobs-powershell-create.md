@@ -268,7 +268,7 @@ $adminPassword = '<password>'
 
 $params = @{
   'database' = 'master'
-  'serverInstance' =  $targetServer.ServerName + '.database.windows.net'
+  'serverInstance' =  $targetServer + '.database.windows.net'
   'username' = $adminLogin
   'password' = $adminPassword
   'outputSqlErrors' = $true
