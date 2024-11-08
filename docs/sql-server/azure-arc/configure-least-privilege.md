@@ -50,6 +50,25 @@ The configuration with least privilege is not currently supported on Linux.
 
 Other requirements, as listed in [Prerequisites - SQL Server enabled by Azure Arc](prerequisites.md) still apply.
 
+#### SQL Server service account
+
+By default, the SQL Server service account is a member of the `sysadmin` fixed server role.
+
+As listed in prerequisites, the SQL Server service account must be a member of the `sysadmin` fixed server role on each SQL Server instance. The Azure extension for SQL Server has a process called `Deployer.exe` that temporarily runs as `NT AUTHORITY\SYSTEM` when:
+
+- Features are enabled or disabled
+- SQL Server instances are added or removed
+
+`Deployer.exe` impersonates the SQL Server service account to connect to SQL Server and add or remove permissions in server and database roles depending on which features are enabled or disabled to ensure that the Azure extension for SQL Server uses the least privileges required. To modify these permissions, the SQL Server service account must be a member of the `sysadmin` server role. 
+
+If you want to manage this process with more control, such that the SQL Server service account is not a member of the sysadmin server role all the time, follow these steps:
+
+1. Temporarily add the SQL Server service account to the sysadmin server role.
+1. Allow `Deployer.exe` to run at least once so that the permissions are set.
+1. Remove the SQL Server service account from the sysadmin role.
+
+Repeat this procedure anytime features are enabled or disabled or SQL Server instances are added to allow `Deployer.exe` to grant the least privileges required.
+
 ### Tools
 
 To complete the steps in this article, you need the following tools:
