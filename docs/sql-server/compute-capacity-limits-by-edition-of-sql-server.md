@@ -4,7 +4,7 @@ description: This article discusses compute capacity limits for SQL Server 2019 
 author: MikeRayMSFT
 ms.author: mikeray
 ms.reviewer: randolphwest, derekw
-ms.date: 07/30/2024
+ms.date: 11/08/2024
 ms.service: sql
 ms.subservice: release-landing
 ms.topic: conceptual
@@ -68,10 +68,12 @@ The following definitions apply to the terms used in this article:
 
 ## Limit number of logical cores per NUMA node to 64
 
-You can experience issues such as stack dumps on servers with more than 64 logical processors per NUMA node. A BIOS or firmware configuration can reduce the logical core count to a maximum of 64 logical processors per NUMA node, presented to the operating system.
+You can experience issues such as stack dumps on servers with more than 64 logical processors per NUMA node. A BIOS or firmware configuration can reduce the logical core count presented to the operating system to a maximum of 64 logical processors per NUMA node.
 
 > [!CAUTION]  
 > [!INCLUDE [sssql22-md](../includes/sssql22-md.md)] Cumulative Update 11 introduced a breaking change, where the [!INCLUDE [ssde-md](../includes/ssde-md.md)] doesn't start if it detects more than 64 logical cores per NUMA node.
+>
+> Starting from [!INCLUDE [sssql22-md](../includes/sssql22-md.md)] Cumulative Update 15, Setup produces a warning that this configuration is unsupported and will result in the [!INCLUDE [ssde-md](../includes/ssde-md.md)] service being stopped and disabled. The warning is also included in Setup logs.
 
 You can reduce the logical core count per NUMA node in an [Azure Virtual Machine](#disable-smt-in-an-azure-virtual-machine), by disabling SMT. For [bare-metal](#reduce-logical-core-count-on-bare-metal-instances) [!INCLUDE [ssnoversion-md](../includes/ssnoversion-md.md)] instances, you can reduce the logical core count with sub-NUMA clustering (SNC) or Nodes per Socket (NPS) options.
 
