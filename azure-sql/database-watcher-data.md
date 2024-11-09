@@ -4,7 +4,7 @@ titleSuffix: Azure SQL Database & SQL Managed Instance
 description: A detailed description of SQL monitoring data collected by database watcher
 author: dimitri-furman
 ms.author: dfurman
-ms.date: 10/07/2024
+ms.date: 11/08/2024
 ms.service: azure-sql
 ms.subservice: monitoring
 ms.topic: conceptual
@@ -42,6 +42,10 @@ To further reduce the risk of impact to application workloads, all database watc
 If there is resource contention between your application workloads and database watcher monitoring queries in Azure SQL Managed Instance, you can enable [Resource Governor](/sql/relational-databases/resource-governor/resource-governor) to limit resource consumption by the monitoring queries.
 
 The following example configures Resource Governor on a SQL managed instance. It limits CPU consumption by database watcher queries to 30% when there is no CPU contention. When there is CPU contention, this configuration reserves 5% of CPU for the monitoring queries and limits their CPU usage to 10%. It also limits the memory grant size for each monitoring query to 10% of the available memory.
+
+> [!NOTE]
+>
+> If you make Resource Governor configuration too restrictive, for example by using low `MAX_CPU_PERCENT` or `CAP_CPU_PERCENT` values, database watcher might not be able to collect data reliably or at all because of insufficient compute resources.
 
 ```sql
 USE master;
