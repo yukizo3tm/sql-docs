@@ -294,7 +294,7 @@ resources
 | extend Version = properties.version
 | extend Edition = properties.edition
 | extend containerId = tolower(tostring (properties.containerResourceId))
-| where Version in ("2012", "2014")
+| where Version in ("SQL Server 2012", "SQL Server 2014")
 | where Edition in ("Enterprise", "Standard")
 | where isnotempty(containerId)
 | project containerId, SQL_instance = name, Version, Edition
@@ -310,7 +310,11 @@ on $left.containerId == $right.machineId
     | where type == "microsoft.hybridcompute/machines/extensions"
     | where properties.type in ("WindowsAgent.SqlServer","LinuxAgent.SqlServer")
     | extend machineIdHasSQLServerExtensionInstalled = tolower(iff(id contains "/extensions/WindowsAgent.SqlServer" or id contains "/extensions/LinuxAgent.SqlServer", substring(id, 0, indexof(id, "/extensions/")), ""))
-    | project machineIdHasSQLServerExtensionInstalled, Extension_State = properties.provisioningState, License_Type = properties.settings.LicenseType, ESU = iff(notnull(properties.settings.enableExtendedSecurityUpdates), iff(properties.settings.enableExtendedSecurityUpdates == true,"enabled","disabled"), ""), Extension_Version = properties.instanceView.typeHandlerVersion
+    | project machineIdHasSQLServerExtensionInstalled,
+     Extension_State = properties.provisioningState, 
+     License_Type = properties.settings.LicenseType, 
+     ESU = iff(notnull(properties.settings.enableExtendedSecurityUpdates), iff(properties.settings.enableExtendedSecurityUpdates == 'true',"ENABLED","disabled"), "disabled"),
+     Extension_Version = properties.instanceView.typeHandlerVersion
 )
 on $left.machineId == $right.machineIdHasSQLServerExtensionInstalled
 | project-away machineId, containerId, machineIdHasSQLServerExtensionInstalled
