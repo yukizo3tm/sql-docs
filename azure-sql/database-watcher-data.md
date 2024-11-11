@@ -4,7 +4,7 @@ titleSuffix: Azure SQL Database & SQL Managed Instance
 description: A detailed description of SQL monitoring data collected by database watcher
 author: dimitri-furman
 ms.author: dfurman
-ms.date: 10/07/2024
+ms.date: 11/11/2024
 ms.service: azure-sql
 ms.subservice: monitoring
 ms.topic: conceptual
@@ -27,7 +27,7 @@ Database watcher takes advantage of [streaming ingestion](/azure/data-explorer/i
 
 ### Interaction between database watcher and application workloads
 
-Enabling database watcher is not likely to have an observable impact on the application workloads. More frequent monitoring queries typically execute in the sub-second range, whereas queries that might require more time, for example to return large datasets, run at infrequent intervals.
+Enabling database watcher is not likely to have an observable impact on the application workload performance. More frequent monitoring queries typically execute in the sub-second range, whereas queries that might require more time, for example to return large datasets, run at infrequent intervals.
 
 # [SQL database](#tab/sqldb)
 
@@ -42,6 +42,10 @@ To further reduce the risk of impact to application workloads, all database watc
 If there is resource contention between your application workloads and database watcher monitoring queries in Azure SQL Managed Instance, you can enable [Resource Governor](/sql/relational-databases/resource-governor/resource-governor) to limit resource consumption by the monitoring queries.
 
 The following example configures Resource Governor on a SQL managed instance. It limits CPU consumption by database watcher queries to 30% when there is no CPU contention. When there is CPU contention, this configuration reserves 5% of CPU for the monitoring queries and limits their CPU usage to 10%. It also limits the memory grant size for each monitoring query to 10% of the available memory.
+
+> [!NOTE]
+>
+> If you make Resource Governor configuration too restrictive, for example by using low `MAX_CPU_PERCENT` or `CAP_CPU_PERCENT` values, database watcher might not be able to collect data reliably or at all because of insufficient compute resources.
 
 ```sql
 USE master;
@@ -94,7 +98,9 @@ END CATCH;
 
 ---
 
-To avoid concurrency conflicts such as blocking and deadlocks between data collection and database workloads running on your Azure SQL resources, the monitoring queries use short [lock timeouts](/sql/relational-databases/sql-server-transaction-locking-and-row-versioning-guide#customizing-the-lock-time-out) and low [deadlock priority](/sql/t-sql/statements/set-deadlock-priority-transact-sql). If there is a concurrency conflict, priority is given to the application workload queries. Depending on the application workload patterns, this might cause occasional gaps in the collected data for some datasets.
+To avoid concurrency conflicts such as blocking and deadlocks between data collection and database workloads running on your Azure SQL resources, the monitoring queries use short [lock timeouts](/sql/relational-databases/sql-server-transaction-locking-and-row-versioning-guide#customizing-the-lock-time-out) and low [deadlock priority](/sql/t-sql/statements/set-deadlock-priority-transact-sql). If there is a concurrency conflict, priority is given to the application workload queries.
+
+You might observe gaps in the collected data if the overall resource utilization is high, or if concurrency conflicts occur. In these cases, monitoring queries might be deprioritized in favor of application workloads.
 
 ### Data collection in elastic pools
 
@@ -103,11 +109,11 @@ To monitor an elastic pool, you must designate one database in the pool as the *
 > [!TIP]
 > You can add an empty database to each elastic pool you want to monitor, and designate it as the anchor database. This way, you can move other databases in and out of the pool, or between pools, without interrupting elastic pool monitoring.
 
-Data collected from the anchor database contains pool-level metrics, and certain database-level performance metrics for every database in the pool. For example, this includes resource utilization and request rate metrics for each database. For some scenarios, monitoring an elastic pool as a whole makes it unnecessary to monitor each individual database in the pool.
+Data collected from the anchor database contains pool-level metrics, and certain database-level performance metrics for every database in the pool, such as resource utilization and request rate metrics for each database. For some scenarios, adding an elastic pool SQL target to monitor an elastic pool as a whole can make it unnecessary to monitor each individual database in the pool.
 
-Certain monitoring data such as pool-level CPU, memory, storage utilization, and wait statistics is only collected at the elastic pool level because it cannot be attributed to an individual database in a pool. Conversely, certain other data such as query runtime statistics, database properties, table and index metadata is available only at the database level.
+Certain monitoring data such as pool-level CPU, memory, storage utilization, and wait statistics is only collected at the elastic pool level because it cannot be attributed to an individual database in a pool. Conversely, certain other data such as query runtime statistics, database properties, table and index metadata is only available if you add individual databases as SQL targets.
 
-If you add individual databases from an elastic pool as database watcher targets, you should add the elastic pool as a target as well. This way, you get a more complete view of the database and pool performance.
+If you add individual databases from an elastic pool as SQL targets, you should add the elastic pool as a SQL target as well. This way, you get a more complete view of the database and pool performance.
 
 #### Monitor dense elastic pools
 
@@ -116,7 +122,7 @@ A [dense elastic pool](./database/elastic-pool-resource-management.md) contains 
 Compute resources available to database watcher queries in a dense elastic pool are further limited to avoid affecting application queries. Because of this, database watcher might not be able to collect monitoring data from every database in a dense elastic pool.
 
 > [!TIP]
-> To monitor a dense elastic pool, enable monitoring at the pool level by adding the elastic pool as a target.
+> To monitor a dense elastic pool, enable monitoring at the pool level by adding the elastic pool as a SQL target.
 >
 > It is not recommended to monitor more than a few individual databases in a dense elastic pool. You might see gaps in the collected data or larger than expected intervals between data samples due to insufficient compute resources available to database watcher queries.
 
@@ -138,11 +144,11 @@ Customers can choose to store collected SQL monitoring data in one of three data
 
 To fully control data residency for collected SQL monitoring data, customers must choose a database on an Azure Data Explorer cluster as the data store.
 
-Customers can also align the geography and region of their Azure Data Explorer cluster to the geography and region of the Azure SQL resources being monitored. When the Azure SQL resources are located in multiple regions, customers might need to create multiple watchers and multiple Azure Data Explorer clusters to satisfy their data residency requirements.
+Customers can align the geography and region of their Azure Data Explorer cluster to the geography and region of the Azure SQL resources being monitored. When the Azure SQL resources are located in multiple regions, customers might need to create multiple watchers and multiple Azure Data Explorer clusters to satisfy their data residency requirements.
 
 ## Datasets
 
-This section describes the datasets available for each target type, including collection frequencies and table names in the data store.
+This section describes the datasets available for each SQL target type, including collection frequencies and table names in the data store.
 
 > [!NOTE]
 > During preview, datasets might be added and removed. Dataset properties such as name, description, collection frequency, and available columns are subject to change.
@@ -230,7 +236,7 @@ This section describes the datasets available for each target type, including co
 
 ### Common columns
 
-For each target type, datasets have common columns, as described in the following tables.
+For each SQL target type, datasets have common columns, as described in the following tables.
 
 # [SQL database](#tab/sqldb)
 

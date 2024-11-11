@@ -5,7 +5,7 @@ metadata:
   description: Frequently asked questions about database watcher for Azure SQL
   author: dimitri-furman
   ms.author: dfurman
-  ms.date: 10/07/2024
+  ms.date: 11/11/2024
   ms.reviewer: wiassaf
   ms.service: azure-sql
   ms.subservice: monitoring
@@ -78,7 +78,7 @@ sections:
 
       - question: |
           Does a watcher have an identity I can use to grant it access to my Azure resources?
-        answer: Yes. You can use either a system assigned or a user assigned managed identity for a watcher. Grant access to this identity to allow a watcher to [collect](database-watcher-manage.md#grant-access-to-sql-targets) and [ingest](database-watcher-manage.md#grant-access-to-data-store) data. Revoke access at any time to stop collection of monitoring data.
+        answer: Yes. You can use either a system assigned or a user assigned managed identity. Grant access to this identity to allow a watcher to [collect](database-watcher-manage.md#grant-access-to-sql-targets) and [ingest](database-watcher-manage.md#grant-access-to-data-store) data. Revoke access at any time to stop collection of monitoring data.
 
       - question: |
           Are there any built-in RBAC roles or actions specific to database watcher?
@@ -86,7 +86,7 @@ sections:
 
       - question: |
           What permissions are required to access database watcher dashboards?
-        answer: To access dashboards, users require the [assignment](/azure/role-based-access-control/role-assignments-portal) of the RBAC **Reader** role on the watcher resource or on a higher scope such as resource group, subscription, or management group. They also require the [assignment](database-watcher-manage.md#grant-users-and-groups-access-to-the-data-store) of the **Viewer** RBAC role on the Azure Data Explorer or Real-Time Analytics database. These assignments can be made directly or via Microsoft Entra ID group membership.
+        answer: To access dashboards, users require the [assignment](/azure/role-based-access-control/role-assignments-portal) of the **Reader** RBAC role on the watcher resource or on a higher scope such as resource group, subscription, or management group. They also require the [assignment](database-watcher-manage.md#grant-users-and-groups-access-to-the-data-store) of the **Viewer** RBAC role on the Azure Data Explorer or Real-Time Analytics database. These assignments can be made directly or via Microsoft Entra ID group membership.
 
   - name: Data store
     questions:
@@ -130,7 +130,7 @@ sections:
 
       - question: |
           Does it monitor secondary replicas?
-        answer: Yes. All types of secondary replicas, including readable high availability replicas, geo-replicas, and Hyperscale named replicas are supported. If a Hyperscale database has more than one high availability replica, only one of these replicas can be monitored at a given point in time.
+        answer: Yes. All types of secondary replicas, including readable high availability replicas, geo-replicas, and Hyperscale named replicas are supported. If a Hyperscale database has more than one high availability replica, only one of these replicas is monitored at a given point in time.
 
       - question: |
           How does it connect to monitoring targets?

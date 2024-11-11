@@ -5,7 +5,7 @@ description: Setup and configuration details for database watcher
 author: dimitri-furman
 ms.author: dfurman
 ms.reviewer: wiassaf
-ms.date: 10/23/2024
+ms.date: 11/06/2024
 ms.service: azure-sql
 ms.subservice: monitoring
 ms.topic: how-to
@@ -93,12 +93,17 @@ To use database watcher, the following prerequisites are required.
 1. On the **Review + create** tab, review watcher configuration, and select **Create**. If you select the default option to create a new Azure Data Explorer cluster, the deployment typically takes 15-20 minutes. If you select a database on an existing Azure Data Explorer cluster, on a free Azure Data Explorer cluster, or in Real-Time Analytics, the deployment typically takes up to five minutes.
 
 1. Once the deployment completes, grant the watcher [access to SQL targets](#grant-access-to-sql-targets).
+
+1. You might also need to grant the watcher [access to the data store](#grant-access-to-data-store).
+
     - Access to a database on a new or existing Azure Data Explorer cluster is granted automatically when the watcher is created if the user creating the watcher is a member of the **Owner** RBAC role for the cluster.
     - However, you must [grant access to data store using a KQL command](#grant-access-to-data-store) if you select a database in:
-        - Real-Time Analytics in Microsoft Fabric
-        - A free Azure Data Explorer cluster
+        - Real-Time Analytics in Microsoft Fabric.
+        - A free Azure Data Explorer cluster.
 
-1. [Create managed private endpoints](#create-a-managed-private-endpoint) if you want to use [private connectivity](database-watcher-overview.md#private-connectivity).
+1. [Create](#create-a-managed-private-endpoint) and approve managed private endpoints if you want to use [private connectivity](database-watcher-overview.md#private-connectivity).
+
+    - If public access on your SQL targets, the data store, and key vault is enabled and you want to use public connectivity, make sure that all [public connectivity](database-watcher-overview.md#public-connectivity) prerequisites are satisfied.
 
 ## Start and stop a watcher
 
@@ -132,9 +137,9 @@ To enable database watcher monitoring for an Azure SQL database, elastic pool, o
 
 1. To add a target, on the **SQL targets** page, select **Add**.
 1. Find the Azure SQL resource you want to monitor. Select the resource type and subscription, and then select the SQL target from the list of resources. The SQL target can be in any subscription within the same Microsoft Entra ID tenant as the watcher.
-1. To monitor the primary replica and a high availability [secondary replica](./database/read-scale-out.md) of a database, elastic pool, or SQL managed instance, add *two separate targets* for the same resource, and check the **Read intent** box for *one of them*. 
+1. To monitor the primary replica and a high availability [secondary replica](./database/read-scale-out.md) of a database, elastic pool, or SQL managed instance, add *two separate SQL targets* for the same resource, and check the **Read intent** box for *one of them*. Similarly, create two separate SQL targets for a geo-replica and its high availability secondary replica, if any.
     - Checking the **Read intent** box configures the SQL target for the high availability secondary replica only.
-    - Do not check the **Read intent** box if you want to monitor only the primary replica, or if a high availability secondary replica does not exist for this resource, or if the [read scale-out](./database/read-scale-out.md) feature is disabled.
+    - Do not check the **Read intent** box if you want to monitor only the primary replica or only the geo-replica, or if a high availability secondary replica does not exist for this resource, or if the [read scale-out](./database/read-scale-out.md) feature is disabled.
 
 By default, database watcher uses Microsoft Entra authentication when connecting to SQL targets. If you want the watcher to use SQL authentication, check the **Use SQL authentication** box and enter the required details. For more information, see [Additional configuration to use SQL authentication](#additional-configuration-to-use-sql-authentication).
 
@@ -173,13 +178,13 @@ To create a managed private endpoint for a watcher:
     | Azure Data Explorer cluster | `Microsoft.Kusto/clusters` | `cluster` |
     | Key vault | `Microsoft.KeyVault/vaults` | `vault` |
 
-1. Select the resource for which you want to create a private endpoint. This can be an Azure SQL logical server or SQL managed instance, an Azure Data Explorer cluster, or a key vault.
+1. Select the resource for which you want to create a private endpoint. This can be an Azure SQL logical server, a SQL managed instance, an Azure Data Explorer cluster, or a key vault.
 
     - Creating a private endpoint for an Azure SQL Database logical server enables database watcher private connectivity for all database and elastic pool targets on that server.
 
 1. Optionally, enter the description for the private endpoint. This can help the resource owner approve the request.
 
-1. Select **Create**. It can take one or two minutes to create a private endpoint. A private endpoint is created once its provisioning state changes from **Accepted** or **Running** to **Succeeded**. Refresh the view to see the current provisioning state.
+1. Select **Create**. It can take a few minutes to create a private endpoint. A private endpoint is created once its provisioning state changes from **Accepted** or **Running** to **Succeeded**. Refresh the view to see the current provisioning state.
 
     > [!IMPORTANT]
     > The private endpoint is created in the **Pending** state. It must be approved by the resource owner before database watcher can use it to connect to the resource.
@@ -194,7 +199,7 @@ If a watcher is already running when a private endpoint is approved, it must be 
 
 > [!TIP]
 > 
-> You need to create an additional private endpoint for your Azure Data Explorer cluster if public connectivity to the cluster is disabled. For more information, see [Private connectivity to the data store](#private-connectivity-to-the-data-store).
+> You need to create an additional private endpoint for your Azure Data Explorer cluster if cluster public connectivity is disabled. For more information, see [Private connectivity to the data store](#private-connectivity-to-the-data-store).
 
 ### Delete a managed private endpoint
 
@@ -231,11 +236,11 @@ The following considerations help you choose the type of managed identity for a 
     - Enabled by default when you create a watcher.
     - Always associated with a single watcher.
     - Created and deleted with the watcher.
-    - If you disable a system assigned identity for a watcher, any access granted to that identity is lost. Re-enabling the system assigned identity for the same watcher creates a new identity with a different object (principal) ID. You need to grant access to [SQL targets](#grant-access-to-sql-targets), [key vault](#additional-configuration-to-use-sql-authentication), and the [data store](#grant-access-to-data-store) to this new identity.
+    - If you disable a system assigned identity for a watcher, any access granted to that identity is lost. Re-enabling the system assigned identity for the same watcher creates a new, different identity with a different object (principal) ID. You need to grant access to [SQL targets](#grant-access-to-sql-targets), [key vault](#additional-configuration-to-use-sql-authentication), and the [data store](#grant-access-to-data-store) to this new identity.
 
 - **User assigned**
     - Is in effect only if the system assigned identity is disabled for the watcher.
-    - The same user assigned identity can be assigned to multiple watchers to simplify access management when [monitoring large Azure SQL estates](#monitor-large-estates). Instead of granting access to multiple system assigned identities, access can be granted to a single user assigned identity.
+    - The same user assigned identity can be assigned to multiple watchers to simplify access management, for example when [monitoring large Azure SQL estates](#monitor-large-estates). Instead of granting access to the system assigned identities of multiple watchers, access can be granted to a single user assigned identity.
     - To support separation of duties, identity management can be separate from watcher management. A user assigned identity can be created and granted access by a different user, before or after the watcher is created.
     - Conversely, when a watcher is deleted, the user assigned identity and its access remain unchanged. The same identity can be then used for a new watcher.
     - Specifying more than one user assigned identity for a watcher is not supported.
@@ -274,7 +279,7 @@ When you delete a watcher that has its system assigned managed identity enabled,
 
 You must grant access to a recreated watcher, even if you use the same watcher name.
 
-When you delete a watcher, the Azure resources referenced as its targets and data store are not deleted. You retain collected SQL monitoring data in the data store, and you can use the same Azure Data Explorer or Real-Time Analytics database as the data store if you create a new watcher later.
+When you delete a watcher, the Azure resources referenced as its SQL targets and the data store are not deleted. You retain collected SQL monitoring data in the data store, and you can use the same Azure Data Explorer or Real-Time Analytics database as the data store if you create a new watcher later.
 
 ## Grant access to SQL targets
 
