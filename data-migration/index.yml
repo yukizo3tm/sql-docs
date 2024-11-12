@@ -7,6 +7,7 @@ metadata:
   description: Step-by-step guidance for modernizing your data assets by migrating to SQL Server, Azure SQL Database, Azure SQL Managed Instance, Azure Database, Azure Cosmos DB, SQL Server on Azure VMs and Azure Synapse Analytics.
   author: rwestMSFT
   ms.author: randolphwest
+  ms.date: 11/19/2024
   ms.service: sql
   ms.subservice: migration-guide
   ms.topic: hub-page

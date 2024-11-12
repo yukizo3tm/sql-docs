@@ -9,6 +9,7 @@ ms.service: sql
 ms.subservice: ssms
 ms.topic: whats-new
 ---
+
 # Release notes for SQL Server Management Studio 21 Preview
 
 [!INCLUDE [sql-asdb-asdbmi-asa](../../includes/applies-to-version/sql-asdb-asdbmi-asa.md)]
@@ -48,7 +49,7 @@ This article details updates, improvements, and bug fixes for the current and pr
 | Libraries | Updated Server Management Objects (SMO) to version 17.100.52. |
 | Libraries | Updated System.Text.Json to version 8.0.4. |
 | Query Editor | The scroll bar for the query editor in SSMS 21 defaults to **map mode**. To change the option, right-click the scroll bar and select **Scroll Bar Options...**. Within the **Options** dialog, you can change the display to **Use bar mode for vertical scroll bar**. |
-| Query Store | Query Store reports now have a **Replica** dropdown list to support viewing Query Store data for different replicas. |
+| Query Store | The Query Store reports feature a **Replica** dropdown list, allowing users to view Query Store data across various replica sets or roles. For additional details, refer to [sys.query_store_replicas](../../relational-databases/system-catalog-views/sys-query-store-replicas.md) to understand the current association between a replica and its role. When the [Query Store for readable secondaries](../../relational-databases/performance/query-store-for-secondary-replicas.md) feature is enabled, data populates exclusively for roles that have been deployed and designated as replicas. |
 | Sign in | Users can now access their Azure and GitHub accounts from SSMS 21. Sign-in isn't required to install or use SSMS 21. For more information, see [Access multiple accounts in SQL Server Management Studio 21 Preview](sign-in-access-multiple-accounts.md). |
 | Terminal | Introduced integrated terminal access from the **View** menu to support writing and executing command line and PowerShell commands. |
 | User Interface | The updated SSMS interface has a refreshed, modernized design optimized for a streamlined experience that integrates with high-DPI displays. The new design includes updated icons, a modern dark theme, and customizable layouts to suit your preferences. |

@@ -8658,6 +8658,8 @@ items:
         href: ssms/ssms-21/release-notes-21.md
       - name: System requirements for SQL Server Managemement Studio 21 Preview
         href: ssms/ssms-21/system-requirements.md
+      - name: Known issues for SQL Server Managemement Studio 21 Preview
+        href: ssms/ssms-21/known-issues.md
       - name: Installation
         items:
         - name: Download and install SQL Server Managemement Studio 21 Preview
