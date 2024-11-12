@@ -87,7 +87,6 @@ At this time, you can create database watchers in the following Azure regions:
 | United States | Central US |
 | United States | East US |
 | United States | East US 2 |
-| United States | Central US |
 | United States | North Central US |
 | United States | West US |
 
