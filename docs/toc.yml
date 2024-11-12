@@ -7837,6 +7837,8 @@ items:
           items:
           - name: Wizard
             href: relational-databases/security/encryption/always-encrypted-wizard.md
+          - name: Wizard (SSMS 21)
+            href: relational-databases/security/encryption/always-encrypted-wizard-ssms-21.md
           - name: PowerShell
             href: relational-databases/security/encryption/configure-column-encryption-using-powershell.md
           - name: DAC package
@@ -8648,6 +8650,50 @@ items:
       href: ssdt/ssis-vs2022-troubleshooting-guide.md
   - name: SQL Server Management Studio (SSMS)
     items:
+    - name: SQL Server Management Studio 21 Preview
+      items:
+      - name: Frequently asked questions
+        href: ssms/ssms-21/faq.yml
+      - name: Release notes for SQL Server Managemement Studio 21 Preview
+        href: ssms/ssms-21/release-notes-21.md
+      - name: System requirements for SQL Server Managemement Studio 21 Preview
+        href: ssms/ssms-21/system-requirements.md
+      - name: Installation
+        items:
+        - name: Download and install SQL Server Managemement Studio 21 Preview
+          href: ssms/install/install.md
+        - name: Select installation location
+          href: ssms/install/select-install-location.md
+        - name: Install with command-line parameters
+          href: ssms/install/command-line-parameters.md
+        - name: Create an offline installation
+          href: ssms/install/create-offline.md
+        - name: Install local help documentation
+          href: ssms/install/local-help-content.md
+        - name: Install versions side-by-side
+          href: ssms/install/side-by-side.md
+        - name: Update SQL Server Managemement Studio 21 Preview
+          href: ssms/install/update.md
+        - name: Modify SQL Server Managemement Studio 21 Preview
+          href: ssms/install/modify.md
+        - name: Repair SQL Server Managemement Studio 21 Preview
+          href: ssms/install/repair.md
+        - name: Troubleshoot installation
+          href: ssms/install/troubleshoot.md
+        - name: Uninstall SQL Server Managemement Studio 21 Preview
+          href: ssms/install/uninstall.md
+        - name: Channels for SQL Server Managemement Studio 21 Preview
+          href: ssms/install/channels-release.md
+      - name: User permissions
+        href: ssms/ssms-21/user-permissions.md
+      - name: Sign in or switch user accounts
+        href: ssms/ssms-21/sign-in.md
+      - name: Access multiple accounts
+        href: ssms/ssms-21/sign-in-access-multiple-accounts.md
+      - name: Release history
+        href: ssms/ssms-21/release-history.md
+      - name: Product roadmap
+        href: ssms/ssms-21/roadmap.md
     - name: Download SSMS
       href: ssms/download-sql-server-management-studio-ssms.md
     - name: Release notes

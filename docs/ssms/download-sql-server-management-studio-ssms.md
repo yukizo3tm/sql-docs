@@ -35,6 +35,8 @@ For customers needing a cross-platform companion to SSMS for managing SQL and ot
 
 For details and more information about what's new in this release, see [Release notes for SQL Server Management Studio (SSMS) 20.2](release-notes-ssms.md).
 
+For details and download information for SQL Server Management Studio 21 Preview 1, see [Install SQL Server Management Studio 21 Preview](../ssms/install/install.md)
+
 ## Download SSMS
 
 :::image type="icon" source="../includes/media/download.svg" border="false"::: **[Download SQL Server Management Studio (SSMS) 20.2](https://aka.ms/ssmsfullsetup)**
