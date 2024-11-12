@@ -71,16 +71,23 @@ At this time, you can create database watchers in the following Azure regions:
 
 | Azure geography | Azure region |
 |:--|:--|
+| Asia Pacific | Australia Central |
 | Asia Pacific | Australia East |
+| Asia Pacific | Australia Southeast |
+| Asia Pacific | Japan West |
+| Asia Pacific | Korea Central |
 | Asia Pacific | Southeast Asia |
 | Canada | Canada Central |
+| Canada | Canada East |
+| Europe | Germany West Central |
 | Europe | North Europe |
 | Europe | UK South |
 | Europe | Sweden Central |
 | Europe | West Europe |
+| United States | Central US |
 | United States | East US |
 | United States | East US 2 |
-| United States | Central US |
+| United States | North Central US |
 | United States | West US |
 
 > [!TIP]
@@ -199,7 +206,7 @@ This section describes recent database watcher fixes, changes, and improvements.
 
 | Time period | Changes |
 |:--|:--|
-| November 2024 | - Increase the limit on the number of SQL targets per watcher from 50 to 100. |
+| November 2024 | - Enable database watcher in the **Australia Central**, **Australia Southeast**, **Canada East**, **Central US**, **Germany West Central**, **Japan West**, **Korea Central**, and **North Central US** Azure regions.</br> - Increase the limit on the number of SQL targets per watcher from 50 to 100. |
 | October 2024 | - Fix bugs where the **Table metadata** dataset was not collected if there were any views with invalid table references, or any tables with multiple column check constraints.</br> - Add support for using a user assigned identity as the watcher identity. For more information, see [Modify watcher identity](database-watcher-manage.md#modify-watcher-identity).</br> - Automatically grant the watcher access to key vault secrets when adding a SQL target that uses SQL authentication.</br> - Automatically grant the watcher access to an Azure Data Explorer database when adding a data store to an existing watcher.</br> - Add the feedback button on the **Overview** page and other pages. |
 | September 2024 | - Fix a bug where the number of user logical sessions in the **Session statistics** dataset was always the same as the number of user sessions, even if [MARS](/sql/relational-databases/native-client/features/using-multiple-active-result-sets-mars) logical sessions were used.</br> - Fix a bug where elastic pool storage utilization wasn't reported correctly for Hyperscale elastic pools.</br> - Resolve an issue where for certain datasets, the first sample collected after a watcher restart might contain data that has already been collected before restart. </br> - Improve collection query performance to avoid timeouts for the **Table metadata** dataset.</br> - Improve collection reliability for the **Query runtime statistics** and **Query wait statistics** datasets on SQL Managed Instance. </br> - Add failover-related columns to the **Database replicas** dataset for SQL Managed Instance.</br> - Add index operational statistics columns to the **Index metadata** datasets.</br> - Add support for selecting multiple Azure SQL databases in the **Add SQL target** blade.|
 | August 2024 | - Enable database watcher in the **Central US**, **East US 2**, **North Europe**, and **Sweden Central** Azure regions.</br> - Add subscription and resource group filters in estate [dashboards](#dashboards). |
