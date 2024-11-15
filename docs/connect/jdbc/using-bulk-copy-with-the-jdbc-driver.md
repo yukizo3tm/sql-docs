@@ -779,7 +779,7 @@ The `SQLServerBulkCopy` class can be used to write data only to SQL Server table
 | `boolean isTableLock()` | Indicates whether `SQLServerBulkCopy` should obtain a bulk update lock for the duration of the bulk copy operation. |
 | `void setTableLock(boolean tableLock)` | Sets whether `SQLServerBulkCopy` should obtain a bulk update lock for the duration of the bulk copy operation. |
 | `boolean isUseInternalTransaction()` | Indicates whether each batch of the bulk-copy operation will occur within a transaction. |
-| `void setUseInternalTranscation(boolean useInternalTransaction)` | Sets whether each batch of the bulk-copy operations will occur within a transaction or not. |
+| `void setUseInternalTransaction(boolean useInternalTransaction)` | Sets whether each batch of the bulk-copy operations will occur within a transaction or not. |
 | `int getBatchSize()` | Gets the number of rows in each batch. At the end of each batch, the rows in the batch are sent to the server. |
 | `void setBatchSize(int batchSize)` | Sets the number of rows in each batch. At the end of each batch, the rows in the batch are sent to the server. |
 | `int getBulkCopyTimeout()` | Gets the number of seconds for the operation to complete before it times out. |
